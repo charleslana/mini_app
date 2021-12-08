@@ -12,7 +12,6 @@ class LandingController extends GetxController {
   RxBool isError = false.obs;
   RxString textError = ''.obs;
   RxBool isNewVersion = false.obs;
-  String version = TextConstants.version;
 
   @override
   void onInit() {
@@ -29,7 +28,7 @@ class LandingController extends GetxController {
     try {
       await MiniService(client).getMini().then((miniService) {
         if (miniService != null) {
-          if (miniService.version != version) {
+          if (miniService.version != TextConstants.version) {
             isNewVersion.value = true;
             throw Exception('Please update your app.');
           }

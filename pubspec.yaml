@@ -1,0 +1,38 @@
+name: mini_app
+description: A new Flutter project.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get: ^4.5.1
+  get_storage: ^2.0.3
+  http: ^0.13.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/heroes/portrait/
+    - assets/images/heroes/thumbnail/
+    - assets/images/minis/portrait/
+    - assets/images/minis/thumbnail/
+    - assets/images/icons/
+
+  fonts:
+    - family: ClashTitle
+      fonts:
+        - asset: assets/fonts/clash_title_vi.ttf
+    - family: SuperCellMagic
+      fonts:
+        - asset: assets/fonts/supercell-magic_0.ttf

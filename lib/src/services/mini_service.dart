@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:mini_app/src/constants/text_constants.dart';
+import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/models/mini_model.dart';
 
 class MiniService {
@@ -11,7 +11,7 @@ class MiniService {
 
   Future<MiniModel?> getMini() async {
     try {
-      final response = await client.get(Uri.parse(TextConstants.baseURL));
+      final response = await client.get(Uri.parse(ConfigConstants.baseURL));
       if (response.statusCode == 200) {
         final dynamic decodeJson = jsonDecode(response.body);
         return MiniModel.fromJson(decodeJson);

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:mini_app/src/constants/text_constants.dart';
+import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/models/mini_model.dart';
 import 'package:mini_app/src/services/mini_service.dart';
 
@@ -28,7 +28,7 @@ class LandingController extends GetxController {
     try {
       await MiniService(client).getMini().then((miniService) {
         if (miniService != null) {
-          if (miniService.version != TextConstants.version) {
+          if (miniService.version != ConfigConstants.version) {
             isNewVersion.value = true;
             throw Exception('Please update your app.');
           }

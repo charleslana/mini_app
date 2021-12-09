@@ -368,6 +368,7 @@ class Maps {
   Maps({
     required this.id,
     required this.name,
+    required this.description,
     required this.image,
     required this.trophiesRequired,
   });
@@ -375,12 +376,15 @@ class Maps {
   Maps.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = Name.fromJson(json['name']);
+    description =
+        json['description'] != null ? Name.fromJson(json['description']) : null;
     image = json['image'];
     trophiesRequired = json['trophiesRequired'];
   }
 
   late int id;
   late Name name;
+  late Name? description;
   late String image;
   late int trophiesRequired;
 
@@ -388,6 +392,9 @@ class Maps {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name.toJson();
+    if (description != null) {
+      data['description'] = description!.toJson();
+    }
     data['image'] = image;
     data['trophiesRequired'] = trophiesRequired;
     return data;
@@ -416,6 +423,32 @@ class Patch {
     data['id'] = id;
     data['date'] = date;
     data['description'] = description.toJson();
+    return data;
+  }
+}
+
+class Rank {
+  Rank({
+    required this.id,
+    required this.name,
+    required this.trophies,
+  });
+
+  Rank.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = Name.fromJson(json['name']);
+    trophies = json['trophies'];
+  }
+
+  late int id;
+  late Name name;
+  late int trophies;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name.toJson();
+    data['trophies'] = trophies;
     return data;
   }
 }

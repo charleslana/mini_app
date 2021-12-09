@@ -2,7 +2,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/services/box_service.dart';
 import 'package:mini_app/src/services/mini_service.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class LandingController extends GetxController {
   Client client = Client();
@@ -12,40 +15,77 @@ class LandingController extends GetxController {
   RxBool isError = false.obs;
   RxString textError = ''.obs;
   bool isNewVersion = false;
+  final RxString _name = ''.obs;
+  BoxService boxService = BoxService();
+  RxBool isOk = false.obs;
 
   @override
   void onInit() {
+    fecthBoxName();
     fetchMinis();
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  String get name => _name.value;
+
+  set name(String newName) {
+    _name.value = newName;
+    boxService.saveNameToBox(newName);
+  }
+
+  void checkAppVersion(MiniModel miniModel) {
+    if (miniModel.version != ConfigConstants.version) {
+      isNewVersion = true;
+      throw Exception('Please update your app.');
+    }
+  }
+
+  void checkError(Object error) {
+    if (isNewVersion) {
+      textError.value = 'landingUpdate'.tr;
+    } else {
+      textError.value = 'landingError'.tr;
+    }
+    isError.value = true;
+    throw Exception(error);
+  }
+
+  void checkName() {
+    if (!isError.value) {
+      if (name.isEmpty) {
+        Utils().dialogName();
+        isOk.value = true;
+        return;
+      }
+      Get.toNamed<dynamic>(AppRoutes.home);
+    }
+  }
+
+  void fecthBoxName() {
+    final String? boxName = boxService.loadNameFromBox();
+    if (boxName != null) {
+      name = boxName;
+    }
   }
 
   Future<void> fetchMinis() async {
     try {
-      await MiniService(client).getMini().then((miniService) {
-        if (miniService != null) {
-          if (miniService.version != ConfigConstants.version) {
-            isNewVersion = true;
-            throw Exception('Please update your app.');
-          }
-          miniList.value = miniService.minis;
-          filterMiniList.addAll(miniList);
+      await MiniService(client).getMini().then((miniModel) {
+        if (miniModel != null) {
+          checkAppVersion(miniModel);
+          setMinis(miniModel);
+          checkName();
         }
       });
     } catch (error) {
-      if (isNewVersion) {
-        textError.value = 'landingUpdate'.tr;
-      } else {
-        textError.value = 'landingError'.tr;
-      }
-      isError.value = true;
-      throw Exception(error);
+      checkError(error);
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void setMinis(MiniModel miniModel) {
+    miniList.value = miniModel.minis;
+    filterMiniList.addAll(miniList);
   }
 }

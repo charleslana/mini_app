@@ -28,18 +28,28 @@ class LandingPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Visibility(
-                          visible: landingController.isLoading.value,
-                          child: const Loading()),
-                      Container(
-                        width: Get.width * 0.75,
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: landingController.isError.value
-                              ? Text(landingController.textError.value)
-                              : Text('landingInfo'.tr),
+                        visible: landingController.isLoading.value,
+                        child: const Loading(),
+                      ),
+                      Visibility(
+                        visible: !landingController.isOk.value,
+                        child: Container(
+                          width: Get.width * 0.75,
+                          decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: landingController.isError.value
+                                ? Text(
+                                    landingController.textError.value,
+                                    style: const TextStyle(color: Colors.white),
+                                  )
+                                : Text(
+                                    'landingInfo'.tr,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                          ),
                         ),
                       ),
                     ],
@@ -47,18 +57,25 @@ class LandingPage extends StatelessWidget {
                 ),
                 Visibility(
                   visible: landingController.isLoading.value,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: Get.width * 0.75,
-                      decoration: BoxDecoration(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: Get.width * 0.75,
+                        decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'landingConnection'.tr,
-                          style: const TextStyle(fontSize: 12),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            'landingConnection'.tr,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),

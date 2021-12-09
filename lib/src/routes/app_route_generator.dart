@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/pages/home_page.dart';
 import 'package:mini_app/src/pages/landing_page.dart';
 import 'package:mini_app/src/pages/splashscreen_page.dart';
 
@@ -17,6 +18,12 @@ class AppRouteGenerator {
         return GetPageRoute(
           page: () => const LandingPage(),
           settings: settings,
+        );
+      case AppRoutes.home:
+        return GetPageRoute(
+          page: () => const HomePage(),
+          settings: settings,
+          transition: Transition.rightToLeft,
         );
       default:
         return GetPageRoute(

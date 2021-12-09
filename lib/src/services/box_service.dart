@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
-class LandingService {
+class BoxService {
   final GetStorage _box = GetStorage();
   final String _key = 'name';
 

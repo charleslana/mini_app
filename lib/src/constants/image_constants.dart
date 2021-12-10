@@ -1,6 +1,13 @@
 class ImageConstants {
   static const String logo = 'assets/images/logo_mini_app.png';
-  static const String bgLanding = 'assets/images/bg_landing.jpg';
-  static const String bowlerLoading = 'assets/images/icons/bowler.png';
-  static const String minerLoading = 'assets/images/icons/miner.png';
+  static const String landing = 'assets/images/landing.jpg';
+  static const String iconBowler = 'assets/images/icons/bowler.png';
+  static const String iconMiner = 'assets/images/icons/miner.png';
+  static const String iconArcher = 'assets/images/icons/archer.png';
+  static const String iconLumberjack = 'assets/images/icons/lumberjack.png';
+  static const String iconPekka = 'assets/images/icons/p_e_k_k_a.png';
+  static const String iconSkeletonGuard =
+      'assets/images/icons/skeleton_guard.png';
+  static const String iconValkyrie = 'assets/images/icons/valkyrie.png';
+  static const String background = 'assets/images/background.png';
 }

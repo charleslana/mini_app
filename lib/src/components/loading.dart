@@ -16,14 +16,14 @@ class Loading extends StatelessWidget {
         SlideTransition(
           position: loadingController.offsetAnimation,
           child: Image.asset(
-            ImageConstants.bowlerLoading,
+            ImageConstants.iconBowler,
             height: 80,
           ),
         ),
         SlideTransition(
           position: loadingController.offsetAnimation,
           child: Image.asset(
-            ImageConstants.minerLoading,
+            ImageConstants.iconMiner,
             height: 80,
           ),
         ),

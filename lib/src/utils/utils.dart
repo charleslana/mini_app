@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
@@ -38,7 +39,8 @@ class Utils {
           const SizedBox(
             height: 30,
           ),
-          ElevatedButton(
+          AppButton(
+            text: 'Continuar',
             onPressed: () {
               if (utilsController.dialogNameTextEditingController.text
                   .trim()
@@ -57,13 +59,6 @@ class Utils {
                   utilsController.dialogNameTextEditingController.text.trim();
               Get.toNamed<dynamic>(AppRoutes.home);
             },
-            child: Text(
-              'Continuar'.toUpperCase(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
           ),
         ],
       ),

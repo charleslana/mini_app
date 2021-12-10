@@ -20,6 +20,7 @@ final Map<String, String> enUS = {
   'utilsDialogNameInputEmpty': 'Please enter your name.',
   'utilsDialogNameInputMaxCharacters':
       'Your name must contain a maximum of 20 characters.',
+  'utilsDialogNameButton': 'Continue',
 };
 
 final Map<String, String> ptBR = {
@@ -38,4 +39,5 @@ final Map<String, String> ptBR = {
   'utilsDialogNameInputEmpty': 'Por favor insira seu nome.',
   'utilsDialogNameInputMaxCharacters':
       'O seu nome deve conter no máximo 20 caracteres.',
+  'utilsDialogNameButton': 'Continuar',
 };

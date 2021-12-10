@@ -40,7 +40,7 @@ class Utils {
             height: 30,
           ),
           AppButton(
-            text: 'Continuar',
+            text: 'utilsDialogNameButton'.tr,
             onPressed: () {
               if (utilsController.dialogNameTextEditingController.text
                   .trim()

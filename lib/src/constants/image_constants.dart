@@ -2,6 +2,8 @@ class ImageConstants {
   static const String logo = 'assets/images/logo_mini_app.png';
   static const String landing = 'assets/images/landing.jpg';
   static const String iconBowler = 'assets/images/icons/bowler.png';
+  static const String iconElectroWizard =
+      'assets/images/icons/electro_wizard.png';
   static const String iconMiner = 'assets/images/icons/miner.png';
   static const String iconArcher = 'assets/images/icons/archer.png';
   static const String iconLumberjack = 'assets/images/icons/lumberjack.png';

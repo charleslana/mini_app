@@ -21,6 +21,13 @@ final Map<String, String> enUS = {
   'utilsDialogNameInputMaxCharacters':
       'Your name must contain a maximum of 20 characters.',
   'utilsDialogNameButton': 'Continue',
+  'utilsDialogEditNameButton': 'Edit',
+  'homePageCollection': 'Collection',
+  'homePageUnits': 'Units',
+  'homePageFavorites': 'Favorites',
+  'homePageRank': 'Rank',
+  'homePagePatch': 'Patch',
+  'favoritesNotFound': 'No favorites found.',
 };
 
 final Map<String, String> ptBR = {
@@ -40,4 +47,11 @@ final Map<String, String> ptBR = {
   'utilsDialogNameInputMaxCharacters':
       'O seu nome deve conter no máximo 20 caracteres.',
   'utilsDialogNameButton': 'Continuar',
+  'utilsDialogEditNameButton': 'Editar',
+  'homePageCollection': 'Coleção',
+  'homePageUnits': 'Unidades',
+  'homePageFavorites': 'Favoritos',
+  'homePageRank': 'Classificação',
+  'homePagePatch': 'Correção',
+  'favoritesNotFound': 'Nenhum favorito encontrado.',
 };

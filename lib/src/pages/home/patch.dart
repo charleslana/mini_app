@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mini_app/src/components/custom_bar.dart';
 
 class Patch extends StatelessWidget {
   const Patch({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Patch'),
+    return Column(
+      children: const [
+        CustomBar(),
+        SizedBox(height: 20),
+        Center(
+          child: Text('Patch'),
+        ),
+      ],
     );
   }
 }

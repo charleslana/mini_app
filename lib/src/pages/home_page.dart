@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:mini_app/src/components/app_bottom_navigation_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/pages/home/collection.dart';
@@ -30,12 +31,15 @@ class HomePage extends StatelessWidget {
           ],
           bottomNavigationBarItem: [
             appBottomNavigationBarItem(
-                ImageConstants.iconSkeletonGuard, 'Collection'),
-            appBottomNavigationBarItem(ImageConstants.iconPekka, 'Units'),
+                ImageConstants.iconSkeletonGuard, 'homePageCollection'.tr),
             appBottomNavigationBarItem(
-                ImageConstants.iconLumberjack, 'Favorites'),
-            appBottomNavigationBarItem(ImageConstants.iconValkyrie, 'Rank'),
-            appBottomNavigationBarItem(ImageConstants.iconArcher, 'Patch'),
+                ImageConstants.iconPekka, 'homePageUnits'.tr),
+            appBottomNavigationBarItem(
+                ImageConstants.iconLumberjack, 'homePageFavorites'.tr),
+            appBottomNavigationBarItem(
+                ImageConstants.iconValkyrie, 'homePageRank'.tr),
+            appBottomNavigationBarItem(
+                ImageConstants.iconArcher, 'homePagePatch'.tr),
           ],
         ),
       ),

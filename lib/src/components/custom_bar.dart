@@ -54,7 +54,7 @@ class CustomBar extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(50)),
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => Utils().dialogLanguage(),
               icon: const Icon(
                 Icons.settings,
                 color: Colors.white,

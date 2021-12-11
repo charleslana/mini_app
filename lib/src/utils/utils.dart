@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
+import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
+import 'package:mini_app/src/controllers/language_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
   UtilsController utilsController = Get.put(UtilsController());
   LandingController landingController = Get.put(LandingController());
+  LanguageController languageController = Get.put(LanguageController());
 
   void dialogEditName() {
     Get.defaultDialog<dynamic>(
@@ -60,6 +63,58 @@ class Utils {
           ),
         ],
       ),
+    );
+  }
+
+  void dialogLanguage() {
+    final List<Widget> chips = [];
+    Widget widget;
+
+    for (int index = 0; index < languageController.languages.length; index++) {
+      widget = Obx(() {
+        return ChoiceChip(
+          selected: languageController.selectedIndex.value == index,
+          label: Text(
+            index == 0 ? 'languageEnglish'.tr : 'languagePortuguese'.tr,
+            style: const TextStyle(color: Colors.white),
+          ),
+          elevation: 0,
+          visualDensity: const VisualDensity(vertical: 2),
+          pressElevation: 5,
+          backgroundColor: Colors.black54,
+          selectedColor: ColorConstants.background,
+          onSelected: (_) => languageController.changeLanguage(
+              languageController.languages[index].locale, index),
+        );
+      });
+      chips.add(widget);
+    }
+
+    Get.defaultDialog<dynamic>(
+      title: '',
+      titleStyle: const TextStyle(fontSize: 0),
+      radius: 10,
+      content: Obx(() {
+        languageController.selectedIndex.value;
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'utilsDialogLanguage'.tr,
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 5),
+            Center(
+              child: Wrap(
+                runSpacing: 10,
+                spacing: 10,
+                children: chips,
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 

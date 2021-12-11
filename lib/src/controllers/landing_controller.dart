@@ -3,8 +3,8 @@ import 'package:http/http.dart';
 import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/models/mini_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
-import 'package:mini_app/src/services/box_service.dart';
 import 'package:mini_app/src/services/mini_service.dart';
+import 'package:mini_app/src/services/name_service.dart';
 import 'package:mini_app/src/utils/utils.dart';
 
 class LandingController extends GetxController {
@@ -16,7 +16,7 @@ class LandingController extends GetxController {
   RxString textError = ''.obs;
   bool isNewVersion = false;
   final RxString _name = ''.obs;
-  BoxService boxService = BoxService();
+  NameService nameService = NameService();
   RxBool isOk = false.obs;
 
   @override
@@ -30,7 +30,7 @@ class LandingController extends GetxController {
 
   set name(String newName) {
     _name.value = newName;
-    boxService.saveNameToBox(newName);
+    nameService.saveNameToBox(newName);
   }
 
   void checkAppVersion(MiniModel miniModel) {
@@ -62,7 +62,7 @@ class LandingController extends GetxController {
   }
 
   void fecthBoxName() {
-    final String? boxName = boxService.loadNameFromBox();
+    final String? boxName = nameService.loadNameFromBox();
     if (boxName != null) {
       name = boxName;
     }

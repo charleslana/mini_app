@@ -30,13 +30,19 @@ class CustomBar extends StatelessWidget {
                     child: Obx(() {
                       return FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(landingController.name),
+                        child: Text(
+                          landingController.name,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       );
                     }),
                   ),
                   IconButton(
                     onPressed: () => Utils().dialogEditName(),
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -49,7 +55,10 @@ class CustomBar extends StatelessWidget {
             ),
             child: IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.settings),
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

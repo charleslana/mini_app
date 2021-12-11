@@ -12,7 +12,10 @@ class Favorites extends StatelessWidget {
         const CustomBar(),
         const SizedBox(height: 20),
         Center(
-          child: Text('favoritesNotFound'.tr),
+          child: Text(
+            'favoritesNotFound'.tr,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );

@@ -21,26 +21,29 @@ class HomePage extends StatelessWidget {
         return false;
       },
       child: SafeArea(
-        child: AppBottomNavigationBar(
-          widgets: const [
-            Collection(),
-            Units(),
-            Favorites(),
-            Rank(),
-            Patch(),
-          ],
-          bottomNavigationBarItem: [
-            appBottomNavigationBarItem(
-                ImageConstants.iconSkeletonGuard, 'homePageCollection'.tr),
-            appBottomNavigationBarItem(
-                ImageConstants.iconPekka, 'homePageUnits'.tr),
-            appBottomNavigationBarItem(
-                ImageConstants.iconLumberjack, 'homePageFavorites'.tr),
-            appBottomNavigationBarItem(
-                ImageConstants.iconValkyrie, 'homePageRank'.tr),
-            appBottomNavigationBarItem(
-                ImageConstants.iconArcher, 'homePagePatch'.tr),
-          ],
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: AppBottomNavigationBar(
+            widgets: const [
+              Collection(),
+              Units(),
+              Favorites(),
+              Rank(),
+              Patch(),
+            ],
+            bottomNavigationBarItem: [
+              appBottomNavigationBarItem(
+                  ImageConstants.iconSkeletonGuard, 'homePageCollection'.tr),
+              appBottomNavigationBarItem(
+                  ImageConstants.iconPekka, 'homePageUnits'.tr),
+              appBottomNavigationBarItem(
+                  ImageConstants.iconLumberjack, 'homePageFavorites'.tr),
+              appBottomNavigationBarItem(
+                  ImageConstants.iconValkyrie, 'homePageRank'.tr),
+              appBottomNavigationBarItem(
+                  ImageConstants.iconArcher, 'homePagePatch'.tr),
+            ],
+          ),
         ),
       ),
     );

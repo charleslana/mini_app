@@ -4,4 +4,6 @@ abstract class AppRoutes {
   static const String splashscreen = '/';
   static const String landing = '/landing';
   static const String home = '/home';
+  static const String heroDetails = '/hero-details';
+  static const String miniDetails = '/mini-details';
 }

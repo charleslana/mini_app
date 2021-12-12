@@ -22,7 +22,7 @@ class Utils {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: utilsController.dialogNameTextEditingController
+            controller: utilsController.textEditingController
               ..text = landingController.name,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
@@ -41,23 +41,17 @@ class Utils {
           AppButton(
             text: 'utilsDialogEditNameButton'.tr,
             onPressed: () {
-              if (utilsController.dialogNameTextEditingController.text
-                  .trim()
-                  .isEmpty) {
+              if (utilsController.textEditingController.text.trim().isEmpty) {
                 snackBar('utilsDialogNameInputEmpty'.tr);
                 return;
               }
-              if (utilsController.dialogNameTextEditingController.text
-                      .trim()
-                      .length >
+              if (utilsController.textEditingController.text.trim().length >
                   20) {
                 snackBar('utilsDialogNameInputMaxCharacters'.tr);
                 return;
               }
-              landingController.name = utilsController
-                  .dialogNameTextEditingController.text
-                  .trim()
-                  .capitalize!;
+              landingController.name =
+                  utilsController.textEditingController.text.trim().capitalize!;
               Get.back<dynamic>();
             },
           ),
@@ -132,7 +126,7 @@ class Utils {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: utilsController.dialogNameTextEditingController,
+            controller: utilsController.textEditingController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: 'utilsDialogNameInput'.tr,
@@ -150,29 +144,34 @@ class Utils {
           AppButton(
             text: 'utilsDialogNameButton'.tr,
             onPressed: () {
-              if (utilsController.dialogNameTextEditingController.text
-                  .trim()
-                  .isEmpty) {
+              if (utilsController.textEditingController.text.trim().isEmpty) {
                 snackBar('utilsDialogNameInputEmpty'.tr);
                 return;
               }
-              if (utilsController.dialogNameTextEditingController.text
-                      .trim()
-                      .length >
+              if (utilsController.textEditingController.text.trim().length >
                   20) {
                 snackBar('utilsDialogNameInputMaxCharacters'.tr);
                 return;
               }
-              landingController.name = utilsController
-                  .dialogNameTextEditingController.text
-                  .trim()
-                  .capitalize!;
+              landingController.name =
+                  utilsController.textEditingController.text.trim().capitalize!;
               Get.toNamed<dynamic>(AppRoutes.home);
             },
           ),
         ],
       ),
     );
+  }
+
+  static String removeDiacritics(String string) {
+    const withDiacritics =
+        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+    const withoutDiacritics =
+        'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+    for (int i = 0; i < withDiacritics.length; i++) {
+      string = string.replaceAll(withDiacritics[i], withoutDiacritics[i]);
+    }
+    return string;
   }
 
   void snackBar(String message) {

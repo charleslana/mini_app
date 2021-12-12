@@ -29,6 +29,13 @@ final Map<String, String> enUS = {
   'homePageRank': 'Rank',
   'homePagePatch': 'Patch',
   'favoritesNotFound': 'No favorites found.',
+  'tabCollectionHeroes': 'Heroes (@value)',
+  'tabCollectionMinis': 'Minis (@value)',
+  'tabHeroesSearch': 'Search Heroes',
+  'tabHeroesSearchNotFound': 'No hero found.',
+  'tabMinisSearch': 'Search Minis',
+  'tabMinisSearchNotFound': 'No mini found.',
+  'tabMinisFilterAll': 'All',
 };
 
 final Map<String, String> ptBR = {
@@ -56,4 +63,11 @@ final Map<String, String> ptBR = {
   'homePageRank': 'Classificação',
   'homePagePatch': 'Correção',
   'favoritesNotFound': 'Nenhum favorito encontrado.',
+  'tabCollectionHeroes': 'Heróis (@value)',
+  'tabCollectionMinis': 'Minis (@value)',
+  'tabHeroesSearch': 'Pesquisar Heróis',
+  'tabHeroesSearchNotFound': 'Nenhum herói encontrado.',
+  'tabMinisSearch': 'Pesquisar Minis',
+  'tabMinisSearchNotFound': 'Nenhum mini encontrado.',
+  'tabMinisFilterAll': 'Todos',
 };

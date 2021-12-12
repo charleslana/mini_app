@@ -11,5 +11,16 @@ class ImageConstants {
   static const String iconSkeletonGuard =
       'assets/images/icons/skeleton_guard.png';
   static const String iconValkyrie = 'assets/images/icons/valkyrie.png';
+  static const String iconCountess = 'assets/images/icons/countess.png';
+  static const String iconSpearGoblin = 'assets/images/icons/spear_goblin.png';
+  static const String iconElixir = 'assets/images/icons/elixir.png';
   static const String background = 'assets/images/background.png';
+
+  String getHeroThumbnail(String image) {
+    return 'assets/images/heroes/thumbnail/$image.png';
+  }
+
+  String getMiniThumbnail(String image) {
+    return 'assets/images/minis/thumbnail/$image.png';
+  }
 }

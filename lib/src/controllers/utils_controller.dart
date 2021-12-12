@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UtilsController extends GetxController {
-  final TextEditingController dialogNameTextEditingController =
-      TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   void onClose() {
-    dialogNameTextEditingController.dispose();
+    textEditingController.dispose();
     super.onClose();
   }
 }

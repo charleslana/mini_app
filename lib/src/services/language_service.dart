@@ -6,16 +6,14 @@ class LanguageService {
   final GetStorage _box = GetStorage();
   final String _key = 'languageCode';
 
-  Locale? get locale =>
-      _loadLanguageFromBox() != null ? Locale(_loadLanguageFromBox()!) : null;
+  Locale? get locale => _loadFromBox() != null ? Locale(_loadFromBox()!) : null;
 
-  String? _loadLanguageFromBox() => _box.read(_key);
+  String? _loadFromBox() => _box.read(_key);
 
-  void _saveLanguageToBox(String languageCode) =>
-      _box.write(_key, languageCode);
+  void _saveToBox(String languageCode) => _box.write(_key, languageCode);
 
-  void changeLanguage(Locale locale) {
+  void change(Locale locale) {
     Get.updateLocale(locale);
-    _saveLanguageToBox(locale.languageCode);
+    _saveToBox(locale.languageCode);
   }
 }

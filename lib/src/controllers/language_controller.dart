@@ -29,7 +29,7 @@ class LanguageController extends GetxController {
   void changeLanguage(Locale locale, int index) {
     if (index != selectedIndex.value) {
       selectedIndex.value = index;
-      languageService.changeLanguage(locale);
+      languageService.change(locale);
     }
   }
 }

@@ -20,26 +20,29 @@ class Collection extends StatelessWidget {
       children: [
         const CustomBar(),
         const SizedBox(height: 20),
-        TabBar(
-          controller: collectionController.tabController,
-          tabs: [
-            Tab(
-              icon: Image.asset(
-                ImageConstants.iconCountess,
-                height: 38,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: TabBar(
+            controller: collectionController.tabController,
+            tabs: [
+              Tab(
+                icon: Image.asset(
+                  ImageConstants.iconCountess,
+                  height: 38,
+                ),
+                text: 'tabCollectionHeroes'.trParams(
+                    {'value': landingController.heroesList.length.toString()}),
               ),
-              text: 'tabCollectionHeroes'.trParams(
-                  {'value': landingController.heroesList.length.toString()}),
-            ),
-            Tab(
-              icon: Image.asset(
-                ImageConstants.iconSpearGoblin,
-                height: 38,
+              Tab(
+                icon: Image.asset(
+                  ImageConstants.iconSpearGoblin,
+                  height: 38,
+                ),
+                text: 'tabCollectionMinis'.trParams(
+                    {'value': landingController.minisList.length.toString()}),
               ),
-              text: 'tabCollectionMinis'.trParams(
-                  {'value': landingController.minisList.length.toString()}),
-            ),
-          ],
+            ],
+          ),
         ),
         Expanded(
           child: TabBarView(

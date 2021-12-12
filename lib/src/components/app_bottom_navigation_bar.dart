@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/components/background_animation.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
-import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/app_bottom_navigation_bar_controller.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({
@@ -25,42 +24,7 @@ class AppBottomNavigationBar extends StatelessWidget {
         backgroundColor: ColorConstants.background,
         body: Stack(
           children: [
-            LoopAnimation<double>(
-              duration: const Duration(seconds: 10),
-              tween: Tween(begin: 0, end: Get.width),
-              builder: (context, child, value) {
-                return Transform.translate(
-                  offset: Offset(value, 0),
-                  child: child,
-                );
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    repeat: ImageRepeat.repeat,
-                    image: AssetImage(ImageConstants.background),
-                  ),
-                ),
-              ),
-            ),
-            LoopAnimation<double>(
-              duration: const Duration(seconds: 10),
-              tween: Tween(begin: -Get.width, end: 0),
-              builder: (context, child, value) {
-                return Transform.translate(
-                  offset: Offset(value, 0),
-                  child: child,
-                );
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    repeat: ImageRepeat.repeat,
-                    image: AssetImage(ImageConstants.background),
-                  ),
-                ),
-              ),
-            ),
+            const BackgroundAnimation(),
             widgets
                 .elementAt(appBottomNavigationBarController.currentIndex.value),
           ],

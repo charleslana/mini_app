@@ -80,7 +80,8 @@ class TabHeroes extends StatelessWidget {
                             child: ScaleAnimation(
                               child: GestureDetector(
                                 onTap: () => {
-                                  landingController..heroIndex.value = index,
+                                  landingController
+                                    ..heroIndex.value = hero.id - 1,
                                   FocusManager.instance.primaryFocus?.unfocus(),
                                   Get.toNamed<dynamic>(AppRoutes.heroDetails),
                                 },

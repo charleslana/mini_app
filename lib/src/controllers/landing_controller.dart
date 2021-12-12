@@ -34,7 +34,7 @@ class LandingController extends GetxController {
 
   set name(String newName) {
     _name.value = newName;
-    nameService.saveNameToBox(newName);
+    nameService.saveToBox(newName);
   }
 
   void addHeroList(String text) {
@@ -96,7 +96,7 @@ class LandingController extends GetxController {
   }
 
   void fecthBoxName() {
-    final String? boxName = nameService.loadNameFromBox();
+    final String? boxName = nameService.loadFromBox();
     if (boxName != null) {
       name = boxName;
     }

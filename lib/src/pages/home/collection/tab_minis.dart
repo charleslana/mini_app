@@ -143,7 +143,8 @@ class TabMinis extends StatelessWidget {
                             child: ScaleAnimation(
                               child: GestureDetector(
                                 onTap: () => {
-                                  landingController..miniIndex.value = index,
+                                  landingController
+                                    ..miniIndex.value = mini.id - 1,
                                   FocusManager.instance.primaryFocus?.unfocus(),
                                   Get.toNamed<dynamic>(AppRoutes.miniDetails),
                                 },

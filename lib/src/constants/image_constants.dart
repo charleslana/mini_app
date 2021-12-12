@@ -23,4 +23,12 @@ class ImageConstants {
   String getMiniThumbnail(String image) {
     return 'assets/images/minis/thumbnail/$image.png';
   }
+
+  String getHeroPortrait(String image) {
+    return 'assets/images/heroes/portrait/$image.png';
+  }
+
+  String getMiniPortrait(String image) {
+    return 'assets/images/minis/portrait/$image.png';
+  }
 }

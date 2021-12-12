@@ -4,7 +4,7 @@ class NameService {
   final GetStorage _box = GetStorage();
   final String _key = 'name';
 
-  String? loadNameFromBox() => _box.read(_key);
+  String? loadFromBox() => _box.read(_key);
 
-  void saveNameToBox(String name) => _box.write(_key, name);
+  void saveToBox(String name) => _box.write(_key, name);
 }

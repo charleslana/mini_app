@@ -141,41 +141,44 @@ class TabMinis extends StatelessWidget {
                             duration: const Duration(milliseconds: 375),
                             columnCount: columnCount,
                             child: ScaleAnimation(
-                              child: GestureDetector(
-                                onTap: () => {
-                                  landingController
-                                    ..miniIndex.value = mini.id - 1,
-                                  FocusManager.instance.primaryFocus?.unfocus(),
-                                  Get.toNamed<dynamic>(AppRoutes.miniDetails),
-                                },
-                                child: Column(
-                                  children: [
-                                    CustomCircleAvatar(
-                                      image: ImageConstants()
-                                          .getMiniThumbnail(mini.image),
-                                      width: 60,
-                                      height: 60,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Flexible(
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: Text(
-                                            'languageCode'.tr == 'en'
-                                                ? mini.name.enUs
-                                                : mini.name.ptBr,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
+                              child: FadeInAnimation(
+                                child: GestureDetector(
+                                  onTap: () => {
+                                    landingController
+                                      ..miniIndex.value = mini.id - 1,
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus(),
+                                    Get.toNamed<dynamic>(AppRoutes.miniDetails),
+                                  },
+                                  child: Column(
+                                    children: [
+                                      CustomCircleAvatar(
+                                        image: ImageConstants()
+                                            .getMiniThumbnail(mini.image),
+                                        width: 60,
+                                        height: 60,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Flexible(
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 5),
+                                            child: Text(
+                                              'languageCode'.tr == 'en'
+                                                  ? mini.name.enUs
+                                                  : mini.name.ptBr,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

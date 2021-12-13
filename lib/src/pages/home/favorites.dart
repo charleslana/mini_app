@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/config_constants.dart';
@@ -81,91 +82,116 @@ class Favorites extends StatelessWidget {
             )
           else
             Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: favoritesController.listFavorites.length,
-                itemBuilder: (context, index) {
-                  final Favorite favorite =
-                      favoritesController.listFavorites[index];
+              child: AnimationLimiter(
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: favoritesController.listFavorites.length,
+                  itemBuilder: (context, index) {
+                    final Favorite favorite =
+                        favoritesController.listFavorites[index];
 
-                  if (favorite.type == TypeFavorite.hero) {
-                    final Heroes hero =
-                        landingController.heroesList[favorite.index!];
+                    if (favorite.type == TypeFavorite.hero) {
+                      final Heroes hero =
+                          landingController.heroesList[favorite.index!];
 
-                    return GestureDetector(
-                      onTap: () => {
-                        landingController..heroIndex.value = hero.id - 1,
-                        Get.toNamed<dynamic>(AppRoutes.heroDetails),
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  ImageConstants().getHeroThumbnail(hero.image),
-                                  height: 80,
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    'languageCode'.tr == 'en'
-                                        ? hero.name.enUs
-                                        : hero.name.ptBr,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.indigoAccent,
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        child: SlideAnimation(
+                          verticalOffset: 50,
+                          child: FadeInAnimation(
+                            child: GestureDetector(
+                              onTap: () => {
+                                landingController
+                                  ..heroIndex.value = hero.id - 1,
+                                Get.toNamed<dynamic>(AppRoutes.heroDetails),
+                              },
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Image.asset(
+                                          ImageConstants()
+                                              .getHeroThumbnail(hero.image),
+                                          height: 80,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            'languageCode'.tr == 'en'
+                                                ? hero.name.enUs
+                                                : hero.name.ptBr,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.indigoAccent,
+                                            ),
+                                            textAlign: TextAlign.end,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    textAlign: TextAlign.end,
                                   ),
                                 ),
-                              ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    final Minis mini =
+                        landingController.minisList[favorite.index!];
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 375),
+                      child: SlideAnimation(
+                        verticalOffset: 50,
+                        child: FadeInAnimation(
+                          child: GestureDetector(
+                            onTap: () => {
+                              landingController..miniIndex.value = mini.id - 1,
+                              Get.toNamed<dynamic>(AppRoutes.miniDetails),
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Image.asset(
+                                        ImageConstants()
+                                            .getMiniThumbnail(mini.image),
+                                        height: 80,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          'languageCode'.tr == 'en'
+                                              ? mini.name.enUs
+                                              : mini.name.ptBr,
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.indigoAccent,
+                                          ),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     );
-                  }
-                  final Minis mini =
-                      landingController.minisList[favorite.index!];
-                  return GestureDetector(
-                    onTap: () => {
-                      landingController..miniIndex.value = mini.id - 1,
-                      Get.toNamed<dynamic>(AppRoutes.miniDetails),
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                ImageConstants().getMiniThumbnail(mini.image),
-                                height: 80,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  'languageCode'.tr == 'en'
-                                      ? mini.name.enUs
-                                      : mini.name.ptBr,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.indigoAccent,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
+                  },
+                ),
               ),
             ),
         ],

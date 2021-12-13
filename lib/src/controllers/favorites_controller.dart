@@ -15,6 +15,19 @@ class FavoritesController extends GetxController {
     super.onInit();
   }
 
+  bool existFavorite(Favorite favorite) {
+    final List<Favorite> existFavorite = listFavorites
+        .where((element) =>
+            element.type == favorite.type && element.index == favorite.index)
+        .toList();
+    if (existFavorite.isNotEmpty) {
+      isFavorite.value = true;
+      return true;
+    }
+    isFavorite.value = false;
+    return false;
+  }
+
   void fecthFavorites() {
     final FavoriteModel loadFavorite = favoriteService.loadFromBox();
     listFavorites.addAll(loadFavorite.favorites);
@@ -32,17 +45,5 @@ class FavoritesController extends GetxController {
     listFavorites.add(favorite);
     favoriteService.saveToBox(FavoriteModel(favorites: listFavorites));
     isFavorite.value = true;
-  }
-
-  bool existFavorite(Favorite favorite) {
-    final List<Favorite> existFavorite = listFavorites
-        .where((element) =>
-            element.type == favorite.type && element.index == favorite.index)
-        .toList();
-    if (existFavorite.isNotEmpty) {
-      isFavorite.value = true;
-      return true;
-    }
-    return false;
   }
 }

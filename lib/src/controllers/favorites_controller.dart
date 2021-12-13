@@ -5,7 +5,7 @@ import 'package:mini_app/src/services/favorite_service.dart';
 
 class FavoritesController extends GetxController {
   FavoriteService favoriteService = FavoriteService();
-  List<Favorite> listFavorites = [];
+  List<Favorite> listFavorites = <Favorite>[].obs;
   RxBool isFavorite = false.obs;
   LandingController landingController = Get.find();
 

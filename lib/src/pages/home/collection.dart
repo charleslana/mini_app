@@ -16,13 +16,17 @@ class Collection extends StatelessWidget {
         Get.put(CollectionController());
     final LandingController landingController = Get.put(LandingController());
 
-    return Column(
-      children: [
-        const CustomBar(),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: TabBar(
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 10,
+        right: 10,
+      ),
+      child: Column(
+        children: [
+          const CustomBar(),
+          const SizedBox(height: 20),
+          TabBar(
             controller: collectionController.tabController,
             tabs: [
               Tab(
@@ -43,18 +47,18 @@ class Collection extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        Expanded(
-          child: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: collectionController.tabController,
-            children: const [
-              TabHeroes(),
-              TabMinis(),
-            ],
+          Expanded(
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: collectionController.tabController,
+              children: const [
+                TabHeroes(),
+                TabMinis(),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

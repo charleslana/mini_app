@@ -10,59 +10,56 @@ class CustomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final LandingController landingController = Get.put(LandingController());
 
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: Get.width * 0.50,
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Obx(() {
-                      return FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          landingController.name,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      );
-                    }),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: Get.width * 0.50,
+          decoration: const BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Obx(() {
+                    return FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        landingController.name,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }),
+                ),
+                IconButton(
+                  onPressed: () => Utils().dialogEditName(),
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
                   ),
-                  IconButton(
-                    onPressed: () => Utils().dialogEditName(),
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-            ),
-            child: IconButton(
-              onPressed: () => Utils().dialogLanguage(),
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
+        ),
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: IconButton(
+            onPressed: () => Utils().dialogLanguage(),
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

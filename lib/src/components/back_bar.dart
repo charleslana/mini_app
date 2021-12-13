@@ -7,39 +7,36 @@ class BackBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-            ),
-            child: IconButton(
-              onPressed: Get.back,
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.white,
-              ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: IconButton(
+            onPressed: Get.back,
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.white,
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-            ),
-            child: IconButton(
-              onPressed: () => Utils().dialogLanguage(),
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
+        ),
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.black54,
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: IconButton(
+            onPressed: () => Utils().dialogLanguage(),
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

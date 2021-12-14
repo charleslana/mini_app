@@ -83,13 +83,13 @@ class TabMinis extends StatelessWidget {
                     suffixIcon: IconButton(
                       onPressed: () {
                         if (landingController.filterMinisList.length !=
-                            landingController.minisList.length) {
+                            landingController.miniModel.minis.length) {
                           collectionController
                             ..miniTextEditingController.clear()
                             ..filterIndex.value = 0;
                           landingController.filterMinisList
                             ..clear()
-                            ..addAll(landingController.minisList);
+                            ..addAll(landingController.miniModel.minis);
                         }
                         FocusManager.instance.primaryFocus?.unfocus();
                       },

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
@@ -10,6 +9,7 @@ import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/hero_details_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/models/mini_model.dart';
 
 class HeroDetailsPage extends StatelessWidget {
   const HeroDetailsPage({Key? key}) : super(key: key);
@@ -31,8 +31,10 @@ class HeroDetailsPage extends StatelessWidget {
             Obx(() {
               final int index = landingController.heroIndex.value;
               final int level = heroDetailsController.currentLevel.value;
-              final Favorite favoriteModel =
-                  Favorite(index: index, type: TypeFavorite.hero);
+              final Favorite favoriteModel = Favorite(
+                index: index,
+                type: TypeFavorite.hero,
+              );
 
               return Padding(
                 padding: const EdgeInsets.all(10),
@@ -67,211 +69,223 @@ class HeroDetailsPage extends StatelessWidget {
                       children: [
                         Text(
                           'languageCode'.tr == 'en'
-                              ? landingController.heroesList[index].name.enUs
-                              : landingController.heroesList[index].name.ptBr,
+                              ? landingController
+                                  .miniModel.heroes[index].name.enUs
+                              : landingController
+                                  .miniModel.heroes[index].name.ptBr,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () =>
-                              favoritesController.toggleFavorite(favoriteModel),
-                          icon: Icon(
-                            favoritesController.isFavorite.value
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            Visibility(
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: index > 0,
+                              child: IconButton(
+                                onPressed: () {
+                                  landingController.heroIndex.value--;
+                                  heroDetailsController.currentLevel.value = 1;
+                                  favoritesController.existFavorite(Favorite(
+                                    index: index - 1,
+                                    type: TypeFavorite.hero,
+                                  ));
+                                  heroDetailsController.scrollToUp();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: index + 1 <
+                                  landingController.miniModel.heroes.length,
+                              child: IconButton(
+                                onPressed: () {
+                                  landingController.heroIndex.value++;
+                                  heroDetailsController.currentLevel.value = 1;
+                                  favoritesController.existFavorite(Favorite(
+                                    index: index + 1,
+                                    type: TypeFavorite.hero,
+                                  ));
+                                  heroDetailsController.scrollToUp();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => favoritesController
+                                  .toggleFavorite(favoriteModel),
+                              icon: Icon(
+                                favoritesController.isFavorite.value
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: AnimationLimiter(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Image.asset(
+                            ImageConstants().getHeroPortrait(landingController
+                                .miniModel.heroes[index].image),
+                            height: 200,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
                           child: Column(
-                            children: AnimationConfiguration.toStaggeredList(
-                              duration: const Duration(milliseconds: 375),
-                              childAnimationBuilder: (child) => SlideAnimation(
-                                horizontalOffset: 50,
-                                child: FadeInAnimation(
-                                  child: child,
-                                ),
+                            children: [
+                              CardStats(
+                                title: 'heroDetailsStatsLevel'.tr,
+                                text: level.toString(),
+                                isOpacity: true,
                               ),
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Image.asset(
-                                        ImageConstants().getHeroPortrait(
-                                            landingController
-                                                .heroesList[index].image),
-                                        height: 200,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
+                              CardStats(
+                                title: 'heroDetailsStatsHP'.tr,
+                                text: landingController
+                                    .miniModel.heroes[index].stats[level - 1].hp
+                                    .toString(),
+                              ),
+                              CardStats(
+                                title: 'heroDetailsStatsHitPerSecond'.tr,
+                                text: landingController.miniModel.heroes[index]
+                                    .stats[level - 1].hitPerSecond
+                                    .toString(),
+                                isOpacity: true,
+                              ),
+                              CardStats(
+                                title: 'heroDetailsStatsDamagePerHit'.tr,
+                                text: landingController.miniModel.heroes[index]
+                                    .stats[level - 1].damagePerHit
+                                    .toString(),
+                              ),
+                              CardStats(
+                                title: 'heroDetailsStatsEnergyCost'.tr,
+                                text: landingController.miniModel.heroes[index]
+                                    .stats[level - 1].energyCost
+                                    .toString(),
+                                isOpacity: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              controller:
+                                  heroDetailsController.scrollController,
+                              itemCount: landingController
+                                  .miniModel.heroes[index].levels.length,
+                              itemBuilder: (_, i) {
+                                final Levels level = landingController
+                                    .miniModel.heroes[index].levels[i];
+
+                                return Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: SizedBox(
+                                      width: double.infinity,
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          CardStats(
-                                            title: 'heroDetailsStatsLevel'.tr,
-                                            text: level.toString(),
-                                            isOpacity: true,
+                                          Text(
+                                            'languageCode'.tr == 'en'
+                                                ? level.name.enUs
+                                                : level.name.ptBr,
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                              color: ColorConstants.background,
+                                            ),
                                           ),
-                                          CardStats(
-                                            title: 'heroDetailsStatsHP'.tr,
-                                            text: landingController
-                                                .heroesList[index]
-                                                .stats[level - 1]
-                                                .hp
-                                                .toString(),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'heroDetailsLevelsUnlockLevel'
+                                                .trParams({
+                                              'level': level.level.toString()
+                                            }),
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.redAccent,
+                                            ),
                                           ),
-                                          CardStats(
-                                            title:
-                                                'heroDetailsStatsHitPerSecond'
-                                                    .tr,
-                                            text: landingController
-                                                .heroesList[index]
-                                                .stats[level - 1]
-                                                .hitPerSecond
-                                                .toString(),
-                                            isOpacity: true,
-                                          ),
-                                          CardStats(
-                                            title:
-                                                'heroDetailsStatsDamagePerHit'
-                                                    .tr,
-                                            text: landingController
-                                                .heroesList[index]
-                                                .stats[level - 1]
-                                                .damagePerHit
-                                                .toString(),
-                                          ),
-                                          CardStats(
-                                            title:
-                                                'heroDetailsStatsEnergyCost'.tr,
-                                            text: landingController
-                                                .heroesList[index]
-                                                .stats[level - 1]
-                                                .energyCost
-                                                .toString(),
-                                            isOpacity: true,
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 5),
+                                                child: Text(
+                                                  level.clash
+                                                      ? 'heroDetailsLevelsClash'
+                                                          .tr
+                                                          .toUpperCase()
+                                                      : level.spr
+                                                          ? 'heroDetailsLevelsSuper'
+                                                              .tr
+                                                              .toUpperCase()
+                                                          : level.boast
+                                                              ? 'heroDetailsLevelsBoast'
+                                                                  .tr
+                                                                  .toUpperCase()
+                                                              : '',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.blueAccent,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: Text(
+                                                  'languageCode'.tr == 'en'
+                                                      ? level.description.enUs
+                                                      : level.description.ptBr,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.indigoAccent,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Column(
-                                  children: landingController
-                                      .heroesList[index].levels
-                                      .map(
-                                        (level) => Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'languageCode'.tr == 'en'
-                                                        ? level.name.enUs
-                                                        : level.name.ptBr,
-                                                    style: const TextStyle(
-                                                      fontSize: 15,
-                                                      color: ColorConstants
-                                                          .background,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Text(
-                                                    'heroDetailsLevelsUnlockLevel'
-                                                        .trParams({
-                                                      'level':
-                                                          level.level.toString()
-                                                    }),
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.redAccent,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(right: 5),
-                                                        child: Text(
-                                                          level.clash
-                                                              ? 'heroDetailsLevelsClash'
-                                                                  .tr
-                                                                  .toUpperCase()
-                                                              : level.spr
-                                                                  ? 'heroDetailsLevelsSuper'
-                                                                      .tr
-                                                                      .toUpperCase()
-                                                                  : level.boast
-                                                                      ? 'heroDetailsLevelsBoast'
-                                                                          .tr
-                                                                          .toUpperCase()
-                                                                      : '',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            color: Colors
-                                                                .blueAccent,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                        child: Text(
-                                                          'languageCode'
-                                                                      .tr ==
-                                                                  'en'
-                                                              ? level
-                                                                  .description
-                                                                  .enUs
-                                                              : level
-                                                                  .description
-                                                                  .ptBr,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            color: Colors
-                                                                .indigoAccent,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ],

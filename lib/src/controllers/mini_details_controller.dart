@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
@@ -8,6 +9,7 @@ class MiniDetailsController extends GetxController {
   int maxStar = 3;
   LandingController landingController = Get.find();
   FavoritesController favoritesController = Get.put(FavoritesController());
+  final ScrollController scrollController = ScrollController();
 
   @override
   void onInit() {
@@ -24,5 +26,11 @@ class MiniDetailsController extends GetxController {
   void fecthFavorites() {
     favoritesController.existFavorite(Favorite(
         index: landingController.miniIndex.value, type: TypeFavorite.mini));
+  }
+
+  void scrollToUp() {
+    if (scrollController.hasClients) {
+      scrollController.jumpTo(0);
+    }
   }
 }

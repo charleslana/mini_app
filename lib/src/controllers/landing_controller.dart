@@ -9,9 +9,8 @@ import 'package:mini_app/src/utils/utils.dart';
 
 class LandingController extends GetxController {
   Client client = Client();
-  RxList<Minis> minisList = <Minis>[].obs;
+  late MiniModel miniModel;
   RxList<Minis> filterMinisList = <Minis>[].obs;
-  RxList<Heroes> heroesList = <Heroes>[].obs;
   RxList<Heroes> filterHeroesList = <Heroes>[].obs;
   RxInt heroIndex = 0.obs;
   RxInt miniIndex = 0.obs;
@@ -40,13 +39,13 @@ class LandingController extends GetxController {
   void addHeroList(String text) {
     filterHeroesList.clear();
     if ('languageCode'.tr == 'en') {
-      filterHeroesList.addAll(heroesList
+      filterHeroesList.addAll(miniModel.heroes
           .where((hero) => Utils.removeDiacritics(hero.name.enUs.toLowerCase())
               .contains(Utils.removeDiacritics(text.toLowerCase())))
           .toList());
       return;
     }
-    filterHeroesList.addAll(heroesList
+    filterHeroesList.addAll(miniModel.heroes
         .where((hero) => Utils.removeDiacritics(hero.name.ptBr.toLowerCase())
             .contains(Utils.removeDiacritics(text.toLowerCase())))
         .toList());
@@ -55,13 +54,13 @@ class LandingController extends GetxController {
   void addMiniList(String text) {
     filterMinisList.clear();
     if ('languageCode'.tr == 'en') {
-      filterMinisList.addAll(minisList
+      filterMinisList.addAll(miniModel.minis
           .where((mini) => Utils.removeDiacritics(mini.name.enUs.toLowerCase())
               .contains(Utils.removeDiacritics(text.toLowerCase())))
           .toList());
       return;
     }
-    filterMinisList.addAll(minisList
+    filterMinisList.addAll(miniModel.minis
         .where((mini) => Utils.removeDiacritics(mini.name.ptBr.toLowerCase())
             .contains(Utils.removeDiacritics(text.toLowerCase())))
         .toList());
@@ -107,8 +106,7 @@ class LandingController extends GetxController {
       await MiniService(client).getMini().then((miniModel) {
         if (miniModel != null) {
           checkAppVersion(miniModel);
-          setHeroes(miniModel);
-          setMinis(miniModel);
+          setMiniModel(miniModel);
           checkName();
         }
       });
@@ -123,19 +121,20 @@ class LandingController extends GetxController {
     if (value == 1) {
       filterMinisList
         ..clear()
-        ..addAll(minisList);
+        ..addAll(miniModel.minis);
       return;
     }
     filterMinisList
       ..clear()
-      ..addAll(minisList.where((mini) => mini.elixirCost == value).toList());
+      ..addAll(
+          miniModel.minis.where((mini) => mini.elixirCost == value).toList());
   }
 
   void searchHero(String text) {
     if (text.isEmpty) {
       filterHeroesList
         ..clear()
-        ..addAll(heroesList);
+        ..addAll(miniModel.heroes);
       return;
     }
     addHeroList(text);
@@ -145,19 +144,15 @@ class LandingController extends GetxController {
     if (text.isEmpty) {
       filterMinisList
         ..clear()
-        ..addAll(minisList);
+        ..addAll(miniModel.minis);
       return;
     }
     addMiniList(text);
   }
 
-  void setHeroes(MiniModel miniModel) {
-    heroesList.value = miniModel.heroes;
-    filterHeroesList.addAll(heroesList);
-  }
-
-  void setMinis(MiniModel miniModel) {
-    minisList.value = miniModel.minis;
-    filterMinisList.addAll(minisList);
+  void setMiniModel(MiniModel newMiniModel) {
+    miniModel = newMiniModel;
+    filterMinisList.addAll(miniModel.minis);
+    filterHeroesList.addAll(miniModel.heroes);
   }
 }

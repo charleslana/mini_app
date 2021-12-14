@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
@@ -10,6 +9,7 @@ import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/mini_details_controller.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/models/mini_model.dart';
 
 class MiniDetailsPage extends StatelessWidget {
   const MiniDetailsPage({Key? key}) : super(key: key);
@@ -31,8 +31,10 @@ class MiniDetailsPage extends StatelessWidget {
             Obx(() {
               final int index = landingController.miniIndex.value;
               final int star = miniDetailsController.currentStar.value;
-              final Favorite favoriteModel =
-                  Favorite(index: index, type: TypeFavorite.mini);
+              final Favorite favoriteModel = Favorite(
+                index: index,
+                type: TypeFavorite.mini,
+              );
 
               return Padding(
                 padding: const EdgeInsets.all(10),
@@ -66,323 +68,348 @@ class MiniDetailsPage extends StatelessWidget {
                       children: [
                         Text(
                           'languageCode'.tr == 'en'
-                              ? landingController.minisList[index].name.enUs
-                              : landingController.minisList[index].name.ptBr,
+                              ? landingController
+                                  .miniModel.minis[index].name.enUs
+                              : landingController
+                                  .miniModel.minis[index].name.ptBr,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () =>
-                              favoritesController.toggleFavorite(favoriteModel),
-                          icon: Icon(
-                            favoritesController.isFavorite.value
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          children: [
+                            Visibility(
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: index > 0,
+                              child: IconButton(
+                                onPressed: () {
+                                  landingController.miniIndex.value--;
+                                  miniDetailsController.currentStar.value = 0;
+                                  favoritesController.existFavorite(Favorite(
+                                    index: index - 1,
+                                    type: TypeFavorite.mini,
+                                  ));
+                                  miniDetailsController.scrollToUp();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              maintainState: true,
+                              visible: index + 1 <
+                                  landingController.miniModel.minis.length,
+                              child: IconButton(
+                                onPressed: () {
+                                  landingController.miniIndex.value++;
+                                  miniDetailsController.currentStar.value = 0;
+                                  favoritesController.existFavorite(Favorite(
+                                    index: index + 1,
+                                    type: TypeFavorite.mini,
+                                  ));
+                                  miniDetailsController.scrollToUp();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => favoritesController
+                                  .toggleFavorite(favoriteModel),
+                              icon: Icon(
+                                favoritesController.isFavorite.value
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                ImageConstants().getMiniPortrait(
+                                    landingController
+                                        .miniModel.minis[index].image),
+                                height: 200,
+                                fit: BoxFit.fitWidth,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    ImageConstants.iconElixir,
+                                    height: 30,
+                                  ),
+                                  Text(landingController
+                                      .miniModel.minis[index].elixirCost
+                                      .toString()),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              CardStats(
+                                title: 'miniDetailsStatsStar'.tr,
+                                text: star.toString(),
+                                isOpacity: true,
+                              ),
+                              CardStats(
+                                title: 'miniDetailsStatsHP'.tr,
+                                text: landingController
+                                    .miniModel.minis[index].stats[star].hp
+                                    .toString(),
+                              ),
+                              CardStats(
+                                title: 'miniDetailsStatsHitPerSecond'.tr,
+                                text: landingController.miniModel.minis[index]
+                                    .stats[star].hitPerSecond
+                                    .toString(),
+                                isOpacity: true,
+                              ),
+                              CardStats(
+                                title: 'miniDetailsStatsDamagePerHit'.tr,
+                                text: landingController
+                                    .miniModel.minis[index].damagePerHit
+                                    .toString(),
+                              ),
+                              CardStats(
+                                title: 'miniDetailsStatsEnergyCost'.tr,
+                                text: landingController
+                                    .miniModel.minis[index].energyCost
+                                    .toString(),
+                                isOpacity: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
-                        child: AnimationLimiter(
-                          child: Column(
-                            children: AnimationConfiguration.toStaggeredList(
-                              duration: const Duration(milliseconds: 375),
-                              childAnimationBuilder: (child) => SlideAnimation(
-                                horizontalOffset: 50,
-                                child: FadeInAnimation(
-                                  child: child,
-                                ),
-                              ),
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        children: [
-                                          Image.asset(
-                                            ImageConstants().getMiniPortrait(
-                                                landingController
-                                                    .minisList[index].image),
-                                            height: 200,
-                                            fit: BoxFit.fitWidth,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                ImageConstants.iconElixir,
-                                                height: 30,
-                                              ),
-                                              Text(landingController
-                                                  .minisList[index].elixirCost
-                                                  .toString()),
-                                            ],
-                                          ),
-                                        ],
+                        controller: miniDetailsController.scrollController,
+                        child: Column(
+                          children: [
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'languageCode'.tr == 'en'
+                                            ? landingController.miniModel
+                                                .minis[index].skill.name.enUs
+                                            : landingController.miniModel
+                                                .minis[index].skill.name.ptBr,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          color: ColorConstants.background,
+                                        ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        children: [
-                                          CardStats(
-                                            title: 'miniDetailsStatsStar'.tr,
-                                            text: star.toString(),
-                                            isOpacity: true,
-                                          ),
-                                          CardStats(
-                                            title: 'miniDetailsStatsHP'.tr,
-                                            text: landingController
-                                                .minisList[index].stats[star].hp
-                                                .toString(),
-                                          ),
-                                          CardStats(
-                                            title:
-                                                'miniDetailsStatsHitPerSecond'
-                                                    .tr,
-                                            text: landingController
-                                                .minisList[index]
-                                                .stats[star]
-                                                .hitPerSecond
-                                                .toString(),
-                                            isOpacity: true,
-                                          ),
-                                          CardStats(
-                                            title:
-                                                'miniDetailsStatsDamagePerHit'
-                                                    .tr,
-                                            text: landingController
-                                                .minisList[index].damagePerHit
-                                                .toString(),
-                                          ),
-                                          CardStats(
-                                            title:
-                                                'miniDetailsStatsEnergyCost'.tr,
-                                            text: landingController
-                                                .minisList[index].energyCost
-                                                .toString(),
-                                            isOpacity: true,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Column(
+                                      const SizedBox(height: 10),
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'languageCode'.tr == 'en'
-                                                ? landingController
-                                                    .minisList[index]
-                                                    .skill
-                                                    .name
-                                                    .enUs
-                                                : landingController
-                                                    .minisList[index]
-                                                    .skill
-                                                    .name
-                                                    .ptBr,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              color: ColorConstants.background,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 5),
-                                                child: Text(
-                                                  landingController
-                                                          .minisList[index]
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 5),
+                                            child: Text(
+                                              landingController.miniModel
+                                                      .minis[index].skill.clash
+                                                  ? 'miniDetailsAbilitiesClash'
+                                                      .tr
+                                                      .toUpperCase()
+                                                  : landingController
+                                                          .miniModel
+                                                          .minis[index]
                                                           .skill
-                                                          .clash
-                                                      ? 'miniDetailsAbilitiesClash'
+                                                          .spr
+                                                      ? 'miniDetailsAbilitiesSuper'
                                                           .tr
                                                           .toUpperCase()
                                                       : landingController
-                                                              .minisList[index]
+                                                              .miniModel
+                                                              .minis[index]
                                                               .skill
-                                                              .spr
-                                                          ? 'miniDetailsAbilitiesSuper'
+                                                              .boast
+                                                          ? 'miniDetailsAbilitiesBoast'
                                                               .tr
                                                               .toUpperCase()
                                                           : landingController
-                                                                  .minisList[
-                                                                      index]
+                                                                  .miniModel
+                                                                  .minis[index]
                                                                   .skill
-                                                                  .boast
-                                                              ? 'miniDetailsAbilitiesBoast'
+                                                                  .ko
+                                                              ? 'miniDetailsAbilitiesKO'
                                                                   .tr
-                                                                  .toUpperCase()
-                                                              : landingController
-                                                                      .minisList[
-                                                                          index]
-                                                                      .skill
-                                                                      .ko
-                                                                  ? 'miniDetailsAbilitiesKO'
-                                                                      .tr
-                                                                  : '',
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.blueAccent,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  'languageCode'.tr == 'en'
-                                                      ? landingController
-                                                          .minisList[index]
-                                                          .skill
-                                                          .description
-                                                          .enUs
-                                                      : landingController
-                                                          .minisList[index]
-                                                          .skill
-                                                          .description
-                                                          .ptBr,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.indigoAccent,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: landingController
-                                      .minisList[index].abilities
-                                      .map(
-                                        (ability) => Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'languageCode'.tr == 'en'
-                                                        ? ability.name.enUs
-                                                        : ability.name.ptBr,
-                                                    style: const TextStyle(
-                                                      fontSize: 15,
-                                                      color: ColorConstants
-                                                          .background,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Text(
-                                                    'miniDetailsAbilitiesUnlockStar'
-                                                        .trParams({
-                                                      'star': ability.star
-                                                          .toString()
-                                                    }),
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.redAccent,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(right: 5),
-                                                        child: Text(
-                                                          ability.clash
-                                                              ? 'miniDetailsAbilitiesClash'
-                                                                  .tr
-                                                                  .toUpperCase()
-                                                              : ability.spr
-                                                                  ? 'miniDetailsAbilitiesSuper'
-                                                                      .tr
-                                                                      .toUpperCase()
-                                                                  : ability
-                                                                          .boast
-                                                                      ? 'miniDetailsAbilitiesBoast'
-                                                                          .tr
-                                                                          .toUpperCase()
-                                                                      : ability
-                                                                              .ko
-                                                                          ? 'miniDetailsAbilitiesKO'
-                                                                              .tr
-                                                                          : '',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            color: Colors
-                                                                .blueAccent,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                        child: Text(
-                                                          'languageCode'.tr ==
-                                                                  'en'
-                                                              ? ability
-                                                                  .description
-                                                                  .enUs
-                                                              : ability
-                                                                  .description
-                                                                  .ptBr,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            color: Colors
-                                                                .indigoAccent,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                              : '',
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.blueAccent,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ),
+                                          Flexible(
+                                            child: Text(
+                                              'languageCode'.tr == 'en'
+                                                  ? landingController
+                                                      .miniModel
+                                                      .minis[index]
+                                                      .skill
+                                                      .description
+                                                      .enUs
+                                                  : landingController
+                                                      .miniModel
+                                                      .minis[index]
+                                                      .skill
+                                                      .description
+                                                      .ptBr,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.indigoAccent,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: landingController
+                                      .miniModel.minis[index].abilities.length,
+                                  itemBuilder: (_, i) {
+                                    final Abilities ability = landingController
+                                        .miniModel.minis[index].abilities[i];
+
+                                    return Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'languageCode'.tr == 'en'
+                                                    ? ability.name.enUs
+                                                    : ability.name.ptBr,
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                  color:
+                                                      ColorConstants.background,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'miniDetailsAbilitiesUnlockStar'
+                                                    .trParams({
+                                                  'star':
+                                                      ability.star.toString()
+                                                }),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.redAccent,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 5),
+                                                    child: Text(
+                                                      ability.clash
+                                                          ? 'miniDetailsAbilitiesClash'
+                                                              .tr
+                                                              .toUpperCase()
+                                                          : ability.spr
+                                                              ? 'miniDetailsAbilitiesSuper'
+                                                                  .tr
+                                                                  .toUpperCase()
+                                                              : ability.boast
+                                                                  ? 'miniDetailsAbilitiesBoast'
+                                                                      .tr
+                                                                      .toUpperCase()
+                                                                  : ability.ko
+                                                                      ? 'miniDetailsAbilitiesKO'
+                                                                          .tr
+                                                                      : '',
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            Colors.blueAccent,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      'languageCode'.tr == 'en'
+                                                          ? ability
+                                                              .description.enUs
+                                                          : ability
+                                                              .description.ptBr,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            Colors.indigoAccent,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      )
-                                      .toList(),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),

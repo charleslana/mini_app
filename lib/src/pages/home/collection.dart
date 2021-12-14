@@ -34,16 +34,18 @@ class Collection extends StatelessWidget {
                   ImageConstants.iconCountess,
                   height: 38,
                 ),
-                text: 'tabCollectionHeroes'.trParams(
-                    {'value': landingController.heroesList.length.toString()}),
+                text: 'tabCollectionHeroes'.trParams({
+                  'value': landingController.miniModel.heroes.length.toString()
+                }),
               ),
               Tab(
                 icon: Image.asset(
                   ImageConstants.iconSpearGoblin,
                   height: 38,
                 ),
-                text: 'tabCollectionMinis'.trParams(
-                    {'value': landingController.minisList.length.toString()}),
+                text: 'tabCollectionMinis'.trParams({
+                  'value': landingController.miniModel.minis.length.toString()
+                }),
               ),
             ],
           ),

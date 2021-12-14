@@ -39,11 +39,11 @@ class TabHeroes extends StatelessWidget {
                   suffixIcon: IconButton(
                     onPressed: () {
                       if (landingController.filterHeroesList.length !=
-                          landingController.heroesList.length) {
+                          landingController.miniModel.heroes.length) {
                         collectionController.heroTextEditingController.clear();
                         landingController.filterHeroesList
                           ..clear()
-                          ..addAll(landingController.heroesList);
+                          ..addAll(landingController.miniModel.heroes);
                       }
                       FocusManager.instance.primaryFocus?.unfocus();
                     },

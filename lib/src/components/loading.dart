@@ -11,12 +11,10 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     final tween = TimelineTween<AniProps>()
       ..addScene(
-              begin: const Duration(milliseconds: 0),
-              duration: const Duration(milliseconds: 800))
+              begin: Duration.zero, duration: const Duration(milliseconds: 800))
           .animate(AniProps.y, tween: Tween(begin: 0.0, end: -25.0))
       ..addScene(
-              begin: const Duration(milliseconds: 0),
-              duration: const Duration(milliseconds: 800))
+              begin: Duration.zero, duration: const Duration(milliseconds: 800))
           .animate(AniProps.y, tween: Tween(begin: -25.0, end: 0.0));
 
     return Row(

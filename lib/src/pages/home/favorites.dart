@@ -93,7 +93,7 @@ class Favorites extends StatelessWidget {
 
                       if (favorite.type == TypeFavorite.hero) {
                         final Heroes hero =
-                            landingController.heroesList[favorite.index!];
+                            landingController.miniModel.heroes[favorite.index!];
 
                         return AnimationConfiguration.staggeredList(
                           position: index,
@@ -144,7 +144,7 @@ class Favorites extends StatelessWidget {
                         );
                       }
                       final Minis mini =
-                          landingController.minisList[favorite.index!];
+                          landingController.miniModel.minis[favorite.index!];
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         duration: const Duration(milliseconds: 375),

@@ -32,9 +32,9 @@ class MiniModel {
       });
     }
     if (json['patch'] != null) {
-      patch = <Patch>[];
+      patch = <Patches>[];
       json['patch'].forEach((dynamic v) {
-        patch.add(Patch.fromJson(v));
+        patch.add(Patches.fromJson(v));
       });
     }
   }
@@ -45,7 +45,7 @@ class MiniModel {
   late List<Minis> minis;
   late List<Heroes> heroes;
   late List<Maps> maps;
-  late List<Patch> patch;
+  late List<Patches> patch;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -401,14 +401,14 @@ class Maps {
   }
 }
 
-class Patch {
-  Patch({
+class Patches {
+  Patches({
     required this.id,
     required this.date,
     required this.description,
   });
 
-  Patch.fromJson(Map<String, dynamic> json) {
+  Patches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     date = json['date'];
     description = Name.fromJson(json['description']);

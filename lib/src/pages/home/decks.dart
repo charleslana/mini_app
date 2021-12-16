@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 
-class Units extends StatelessWidget {
-  const Units({Key? key}) : super(key: key);
+class Decks extends StatelessWidget {
+  const Decks({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class Units extends StatelessWidget {
           CustomBar(),
           SizedBox(height: 20),
           Center(
-            child: Text('Units'),
+            child: Text('Decks'),
           ),
         ],
       ),

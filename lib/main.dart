@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mini_app/src/constants/theme_constants.dart';
@@ -9,6 +10,10 @@ import 'package:mini_app/src/translation/app_translation.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 

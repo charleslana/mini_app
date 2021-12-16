@@ -24,7 +24,7 @@ final Map<String, String> enUS = {
   'utilsDialogEditNameButton': 'Edit',
   'utilsDialogLanguage': 'Change language',
   'homePageCollection': 'Collection',
-  'homePageUnits': 'Units',
+  'homePageDecks': 'Decks',
   'homePageFavorites': 'Favorites',
   'homePageRank': 'Rank',
   'homePagePatch': 'Patch',
@@ -60,6 +60,8 @@ final Map<String, String> enUS = {
   'miniDetailsAbilitiesSuper': 'Super',
   'miniDetailsAbilitiesBoast': 'Boast',
   'miniDetailsAbilitiesKO': 'KO',
+  'rankTrophies': 'Trophies: @trophies',
+  'rankMapTooltip': '@name\nTrophies required: @trophies\n@description',
 };
 
 final Map<String, String> ptBR = {
@@ -82,7 +84,7 @@ final Map<String, String> ptBR = {
   'utilsDialogEditNameButton': 'Editar',
   'utilsDialogLanguage': 'Alterar idioma',
   'homePageCollection': 'Coleção',
-  'homePageUnits': 'Unidades',
+  'homePageDecks': 'Decks',
   'homePageFavorites': 'Favoritos',
   'homePageRank': 'Classificação',
   'homePagePatch': 'Correção',
@@ -118,4 +120,6 @@ final Map<String, String> ptBR = {
   'miniDetailsAbilitiesSuper': 'Super',
   'miniDetailsAbilitiesBoast': 'Ostentação',
   'miniDetailsAbilitiesKO': 'KO',
+  'rankTrophies': 'Troféus: @trophies',
+  'rankMapTooltip': '@name\nTroféus necessários: @trophies\n@description',
 };

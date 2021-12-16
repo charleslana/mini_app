@@ -7,6 +7,8 @@ class MiniModel {
     required this.heroes,
     required this.maps,
     required this.patch,
+    required this.rank,
+    required this.deck,
   });
 
   MiniModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,18 @@ class MiniModel {
         patch.add(Patches.fromJson(v));
       });
     }
+    if (json['rank'] != null) {
+      rank = <Rank>[];
+      json['rank'].forEach((dynamic v) {
+        rank.add(Rank.fromJson(v));
+      });
+    }
+    if (json['deck'] != null) {
+      deck = <Deck>[];
+      json['deck'].forEach((dynamic v) {
+        deck.add(Deck.fromJson(v));
+      });
+    }
   }
 
   late String version;
@@ -46,6 +60,8 @@ class MiniModel {
   late List<Heroes> heroes;
   late List<Maps> maps;
   late List<Patches> patch;
+  late List<Rank> rank;
+  late List<Deck> deck;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -56,6 +72,8 @@ class MiniModel {
     data['heroes'] = heroes.map((v) => v.toJson()).toList();
     data['maps'] = maps.map((v) => v.toJson()).toList();
     data['patch'] = patch.map((v) => v.toJson()).toList();
+    data['rank'] = rank.map((v) => v.toJson()).toList();
+    data['deck'] = deck.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -449,6 +467,44 @@ class Rank {
     data['id'] = id;
     data['name'] = name.toJson();
     data['trophies'] = trophies;
+    return data;
+  }
+}
+
+class Deck {
+  Deck({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.image,
+    required this.heroId,
+    required this.minisId,
+  });
+
+  Deck.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = Name.fromJson(json['name']);
+    description = Name.fromJson(json['description']);
+    image = json['image'];
+    heroId = json['heroId'];
+    minisId = json['minisId'].cast<int>();
+  }
+
+  late int id;
+  late Name name;
+  late Name description;
+  late String image;
+  late int heroId;
+  late List<int> minisId;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name.toJson();
+    data['description'] = description.toJson();
+    data['image'] = image;
+    data['heroId'] = heroId;
+    data['minisId'] = minisId;
     return data;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -28,46 +29,57 @@ class Patch extends StatelessWidget {
         children: [
           const CustomBar(),
           const SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: landingController.miniModel.patch.length,
-              itemBuilder: (context, i) {
-                final Patches patch = landingController.miniModel.patch[i];
-                final DateTime date =
-                    DateFormat('yyyy/MM/dd').parse(patch.date);
-                final String formatted = formatter.format(date);
+          AnimationLimiter(
+            child: Expanded(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: landingController.miniModel.patch.length,
+                itemBuilder: (context, i) {
+                  final Patches patch = landingController.miniModel.patch[i];
+                  final DateTime date =
+                      DateFormat('yyyy/MM/dd').parse(patch.date);
+                  final String formatted = formatter.format(date);
 
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          Text(
-                            formatted,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.blueAccent,
+                  return AnimationConfiguration.staggeredList(
+                    position: i,
+                    duration: const Duration(milliseconds: 375),
+                    child: SlideAnimation(
+                      verticalOffset: 50,
+                      child: FadeInAnimation(
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    formatted,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.blueAccent,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    'languageCode'.tr == 'en'
+                                        ? patch.description.enUs
+                                        : patch.description.ptBr,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.indigoAccent,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'languageCode'.tr == 'en'
-                                ? patch.description.enUs
-                                : patch.description.ptBr,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.indigoAccent,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],

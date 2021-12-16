@@ -91,8 +91,9 @@ class Classification extends StatelessWidget {
                                             message: 'languageCode'.tr == 'en'
                                                 ? 'rankMapTooltip'.trParams({
                                                     'name': map.name.enUs,
-                                                    'trophies': map
-                                                        .trophiesRequired
+                                                    'trophies': formatter
+                                                        .format(map
+                                                            .trophiesRequired)
                                                         .toString(),
                                                     'description':
                                                         map.description?.enUs ??
@@ -100,8 +101,9 @@ class Classification extends StatelessWidget {
                                                   })
                                                 : 'rankMapTooltip'.trParams({
                                                     'name': map.name.ptBr,
-                                                    'trophies': map
-                                                        .trophiesRequired
+                                                    'trophies': formatter
+                                                        .format(map
+                                                            .trophiesRequired)
                                                         .toString(),
                                                     'description':
                                                         map.description?.ptBr ??

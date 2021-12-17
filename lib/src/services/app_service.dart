@@ -2,19 +2,19 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:mini_app/src/constants/config_constants.dart';
-import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/models/app_model.dart';
 
-class MiniService {
-  MiniService(this.client);
+class AppService {
+  AppService(this.client);
 
   Client client;
 
-  Future<MiniModel?> getMini() async {
+  Future<AppModel?> getApp() async {
     try {
       final response = await client.get(Uri.parse(ConfigConstants.baseURL));
       if (response.statusCode == 200) {
         final dynamic decodeJson = jsonDecode(response.body);
-        return MiniModel.fromJson(decodeJson);
+        return AppModel.fromJson(decodeJson);
       }
       throw Exception('Error on server');
     } catch (error) {

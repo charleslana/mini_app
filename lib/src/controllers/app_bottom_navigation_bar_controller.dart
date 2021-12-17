@@ -19,24 +19,24 @@ class AppBottomNavigationBarController extends GetxController {
   }
 
   void clearTabHero() {
-    if (landingController.filterHeroesList.length !=
-        landingController.miniModel.heroes.length) {
+    if (landingController.filterHeroList.length !=
+        landingController.appModel.heroes.length) {
       collectionController.heroTextEditingController.clear();
-      landingController.filterHeroesList
+      landingController.filterHeroList
         ..clear()
-        ..addAll(landingController.miniModel.heroes);
+        ..addAll(landingController.appModel.heroes);
     }
   }
 
   void clearTabMinis() {
-    if (landingController.filterMinisList.length !=
-        landingController.miniModel.minis.length) {
+    if (landingController.filterMiniList.length !=
+        landingController.appModel.minis.length) {
       collectionController
         ..miniTextEditingController.clear()
         ..filterIndex.value = 0;
-      landingController.filterMinisList
+      landingController.filterMiniList
         ..clear()
-        ..addAll(landingController.miniModel.minis);
+        ..addAll(landingController.appModel.minis);
     }
   }
 }

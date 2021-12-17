@@ -5,7 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/models/app_model.dart';
 
 class Patch extends StatelessWidget {
   const Patch({Key? key}) : super(key: key);
@@ -33,11 +33,12 @@ class Patch extends StatelessWidget {
             child: Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: landingController.miniModel.patch.length,
+                itemCount: landingController.appModel.patch.length,
                 itemBuilder: (context, i) {
-                  final Patches patch = landingController.miniModel.patch[i];
+                  final PatchModel patchModel =
+                      landingController.appModel.patch[i];
                   final DateTime date =
-                      DateFormat('yyyy/MM/dd').parse(patch.date);
+                      DateFormat('yyyy/MM/dd').parse(patchModel.date);
                   final String formatted = formatter.format(date);
 
                   return AnimationConfiguration.staggeredList(
@@ -63,8 +64,8 @@ class Patch extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   Text(
                                     'languageCode'.tr == 'en'
-                                        ? patch.description.enUs
-                                        : patch.description.ptBr,
+                                        ? patchModel.description.enUs
+                                        : patchModel.description.ptBr,
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.indigoAccent,

@@ -6,8 +6,8 @@ import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
-import 'package:mini_app/src/models/mini_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -92,8 +92,8 @@ class Favorites extends StatelessWidget {
                           favoritesController.listFavorites[index];
 
                       if (favorite.type == TypeFavorite.hero) {
-                        final Heroes hero =
-                            landingController.miniModel.heroes[favorite.index!];
+                        final HeroModel heroModel =
+                            landingController.appModel.heroes[favorite.index!];
 
                         return AnimationConfiguration.staggeredList(
                           position: index,
@@ -104,7 +104,7 @@ class Favorites extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () => {
                                   landingController
-                                    ..heroIndex.value = hero.id - 1,
+                                    ..heroIndex.value = heroModel.id - 1,
                                   Get.toNamed<dynamic>(AppRoutes.heroDetails),
                                 },
                                 child: Card(
@@ -117,15 +117,15 @@ class Favorites extends StatelessWidget {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Image.asset(
-                                            ImageConstants()
-                                                .getHeroThumbnail(hero.image),
+                                            ImageConstants().getHeroThumbnail(
+                                                heroModel.image),
                                             height: 80,
                                           ),
                                           Flexible(
                                             child: Text(
                                               'languageCode'.tr == 'en'
-                                                  ? hero.name.enUs
-                                                  : hero.name.ptBr,
+                                                  ? heroModel.name.enUs
+                                                  : heroModel.name.ptBr,
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.indigoAccent,
@@ -143,8 +143,8 @@ class Favorites extends StatelessWidget {
                           ),
                         );
                       }
-                      final Minis mini =
-                          landingController.miniModel.minis[favorite.index!];
+                      final MiniModel miniModel =
+                          landingController.appModel.minis[favorite.index!];
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         duration: const Duration(milliseconds: 375),
@@ -154,7 +154,7 @@ class Favorites extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () => {
                                 landingController
-                                  ..miniIndex.value = mini.id - 1,
+                                  ..miniIndex.value = miniModel.id - 1,
                                 Get.toNamed<dynamic>(AppRoutes.miniDetails),
                               },
                               child: Card(
@@ -167,15 +167,15 @@ class Favorites extends StatelessWidget {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Image.asset(
-                                          ImageConstants()
-                                              .getMiniThumbnail(mini.image),
+                                          ImageConstants().getMiniThumbnail(
+                                              miniModel.image),
                                           height: 80,
                                         ),
                                         Flexible(
                                           child: Text(
                                             'languageCode'.tr == 'en'
-                                                ? mini.name.enUs
-                                                : mini.name.ptBr,
+                                                ? miniModel.name.enUs
+                                                : miniModel.name.ptBr,
                                             style: const TextStyle(
                                               fontSize: 18,
                                               color: Colors.indigoAccent,

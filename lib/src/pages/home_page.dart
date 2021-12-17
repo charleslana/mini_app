@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:mini_app/src/components/app_bottom_navigation_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
-import 'package:mini_app/src/pages/home/classification.dart';
 import 'package:mini_app/src/pages/home/collection.dart';
 import 'package:mini_app/src/pages/home/decks.dart';
 import 'package:mini_app/src/pages/home/favorites.dart';
 import 'package:mini_app/src/pages/home/patch.dart';
+import 'package:mini_app/src/pages/home/rank.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               Collection(),
               Decks(),
               Favorites(),
-              Classification(),
+              Rank(),
               Patch(),
             ],
             bottomNavigationBarItem: [

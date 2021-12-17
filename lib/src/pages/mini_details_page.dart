@@ -8,8 +8,8 @@ import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/mini_details_controller.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
-import 'package:mini_app/src/models/mini_model.dart';
 
 class MiniDetailsPage extends StatelessWidget {
   const MiniDetailsPage({Key? key}) : super(key: key);
@@ -69,9 +69,9 @@ class MiniDetailsPage extends StatelessWidget {
                         Text(
                           'languageCode'.tr == 'en'
                               ? landingController
-                                  .miniModel.minis[index].name.enUs
+                                  .appModel.minis[index].name.enUs
                               : landingController
-                                  .miniModel.minis[index].name.ptBr,
+                                  .appModel.minis[index].name.ptBr,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -105,7 +105,7 @@ class MiniDetailsPage extends StatelessWidget {
                               maintainAnimation: true,
                               maintainState: true,
                               visible: index + 1 <
-                                  landingController.miniModel.minis.length,
+                                  landingController.appModel.minis.length,
                               child: IconButton(
                                 onPressed: () {
                                   landingController.miniIndex.value++;
@@ -148,7 +148,7 @@ class MiniDetailsPage extends StatelessWidget {
                               Image.asset(
                                 ImageConstants().getMiniPortrait(
                                     landingController
-                                        .miniModel.minis[index].image),
+                                        .appModel.minis[index].image),
                                 height: 200,
                                 fit: BoxFit.fitWidth,
                               ),
@@ -160,7 +160,7 @@ class MiniDetailsPage extends StatelessWidget {
                                     height: 30,
                                   ),
                                   Text(landingController
-                                      .miniModel.minis[index].elixirCost
+                                      .appModel.minis[index].elixirCost
                                       .toString()),
                                 ],
                               ),
@@ -179,12 +179,12 @@ class MiniDetailsPage extends StatelessWidget {
                               CardStats(
                                 title: 'miniDetailsStatsHP'.tr,
                                 text: landingController
-                                    .miniModel.minis[index].stats[star].hp
+                                    .appModel.minis[index].stats[star].hp
                                     .toString(),
                               ),
                               CardStats(
                                 title: 'miniDetailsStatsHitPerSecond'.tr,
-                                text: landingController.miniModel.minis[index]
+                                text: landingController.appModel.minis[index]
                                     .stats[star].hitPerSecond
                                     .toString(),
                                 isOpacity: true,
@@ -192,13 +192,13 @@ class MiniDetailsPage extends StatelessWidget {
                               CardStats(
                                 title: 'miniDetailsStatsDamagePerHit'.tr,
                                 text: landingController
-                                    .miniModel.minis[index].damagePerHit
+                                    .appModel.minis[index].damagePerHit
                                     .toString(),
                               ),
                               CardStats(
                                 title: 'miniDetailsStatsEnergyCost'.tr,
                                 text: landingController
-                                    .miniModel.minis[index].energyCost
+                                    .appModel.minis[index].energyCost
                                     .toString(),
                                 isOpacity: true,
                               ),
@@ -225,9 +225,9 @@ class MiniDetailsPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         'languageCode'.tr == 'en'
-                                            ? landingController.miniModel
+                                            ? landingController.appModel
                                                 .minis[index].skill.name.enUs
-                                            : landingController.miniModel
+                                            : landingController.appModel
                                                 .minis[index].skill.name.ptBr,
                                         style: const TextStyle(
                                           fontSize: 15,
@@ -243,13 +243,13 @@ class MiniDetailsPage extends StatelessWidget {
                                             padding:
                                                 const EdgeInsets.only(right: 5),
                                             child: Text(
-                                              landingController.miniModel
+                                              landingController.appModel
                                                       .minis[index].skill.clash
                                                   ? 'miniDetailsAbilitiesClash'
                                                       .tr
                                                       .toUpperCase()
                                                   : landingController
-                                                          .miniModel
+                                                          .appModel
                                                           .minis[index]
                                                           .skill
                                                           .spr
@@ -257,7 +257,7 @@ class MiniDetailsPage extends StatelessWidget {
                                                           .tr
                                                           .toUpperCase()
                                                       : landingController
-                                                              .miniModel
+                                                              .appModel
                                                               .minis[index]
                                                               .skill
                                                               .boast
@@ -265,7 +265,7 @@ class MiniDetailsPage extends StatelessWidget {
                                                               .tr
                                                               .toUpperCase()
                                                           : landingController
-                                                                  .miniModel
+                                                                  .appModel
                                                                   .minis[index]
                                                                   .skill
                                                                   .ko
@@ -283,13 +283,13 @@ class MiniDetailsPage extends StatelessWidget {
                                             child: Text(
                                               'languageCode'.tr == 'en'
                                                   ? landingController
-                                                      .miniModel
+                                                      .appModel
                                                       .minis[index]
                                                       .skill
                                                       .description
                                                       .enUs
                                                   : landingController
-                                                      .miniModel
+                                                      .appModel
                                                       .minis[index]
                                                       .skill
                                                       .description
@@ -313,10 +313,11 @@ class MiniDetailsPage extends StatelessWidget {
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: landingController
-                                      .miniModel.minis[index].abilities.length,
+                                      .appModel.minis[index].abilities.length,
                                   itemBuilder: (_, i) {
-                                    final Abilities ability = landingController
-                                        .miniModel.minis[index].abilities[i];
+                                    final AbilityModel abilityModel =
+                                        landingController
+                                            .appModel.minis[index].abilities[i];
 
                                     return Card(
                                       child: Padding(
@@ -329,8 +330,8 @@ class MiniDetailsPage extends StatelessWidget {
                                             children: [
                                               Text(
                                                 'languageCode'.tr == 'en'
-                                                    ? ability.name.enUs
-                                                    : ability.name.ptBr,
+                                                    ? abilityModel.name.enUs
+                                                    : abilityModel.name.ptBr,
                                                 style: const TextStyle(
                                                   fontSize: 15,
                                                   color:
@@ -341,8 +342,8 @@ class MiniDetailsPage extends StatelessWidget {
                                               Text(
                                                 'miniDetailsAbilitiesUnlockStar'
                                                     .trParams({
-                                                  'star':
-                                                      ability.star.toString()
+                                                  'star': abilityModel.star
+                                                      .toString()
                                                 }),
                                                 style: const TextStyle(
                                                   fontSize: 14,
@@ -359,19 +360,21 @@ class MiniDetailsPage extends StatelessWidget {
                                                         const EdgeInsets.only(
                                                             right: 5),
                                                     child: Text(
-                                                      ability.clash
+                                                      abilityModel.clash
                                                           ? 'miniDetailsAbilitiesClash'
                                                               .tr
                                                               .toUpperCase()
-                                                          : ability.spr
+                                                          : abilityModel.spr
                                                               ? 'miniDetailsAbilitiesSuper'
                                                                   .tr
                                                                   .toUpperCase()
-                                                              : ability.boast
+                                                              : abilityModel
+                                                                      .boast
                                                                   ? 'miniDetailsAbilitiesBoast'
                                                                       .tr
                                                                       .toUpperCase()
-                                                                  : ability.ko
+                                                                  : abilityModel
+                                                                          .ko
                                                                       ? 'miniDetailsAbilitiesKO'
                                                                           .tr
                                                                       : '',
@@ -387,9 +390,9 @@ class MiniDetailsPage extends StatelessWidget {
                                                   Flexible(
                                                     child: Text(
                                                       'languageCode'.tr == 'en'
-                                                          ? ability
+                                                          ? abilityModel
                                                               .description.enUs
-                                                          : ability
+                                                          : abilityModel
                                                               .description.ptBr,
                                                       style: const TextStyle(
                                                         fontSize: 14,

@@ -6,7 +6,7 @@ import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/collection_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class TabMinis extends StatelessWidget {
@@ -82,14 +82,14 @@ class TabMinis extends StatelessWidget {
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        if (landingController.filterMinisList.length !=
-                            landingController.miniModel.minis.length) {
+                        if (landingController.filterMiniList.length !=
+                            landingController.appModel.minis.length) {
                           collectionController
                             ..miniTextEditingController.clear()
                             ..filterIndex.value = 0;
-                          landingController.filterMinisList
+                          landingController.filterMiniList
                             ..clear()
-                            ..addAll(landingController.miniModel.minis);
+                            ..addAll(landingController.appModel.minis);
                         }
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
@@ -121,7 +121,7 @@ class TabMinis extends StatelessWidget {
           Expanded(
             child: AnimationLimiter(
               child: Obx(() {
-                return landingController.filterMinisList.isEmpty
+                return landingController.filterMiniList.isEmpty
                     ? Text('tabMinisSearchNotFound'.tr)
                     : GridView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -131,10 +131,10 @@ class TabMinis extends StatelessWidget {
                           crossAxisCount: columnCount,
                           childAspectRatio: Get.width / (Get.height / 1.5),
                         ),
-                        itemCount: landingController.filterMinisList.length,
+                        itemCount: landingController.filterMiniList.length,
                         itemBuilder: (_, int index) {
-                          final Minis mini =
-                              landingController.filterMinisList[index];
+                          final MiniModel miniModel =
+                              landingController.filterMiniList[index];
 
                           return AnimationConfiguration.staggeredGrid(
                             position: index,
@@ -145,7 +145,7 @@ class TabMinis extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () => {
                                     landingController
-                                      ..miniIndex.value = mini.id - 1,
+                                      ..miniIndex.value = miniModel.id - 1,
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus(),
                                     Get.toNamed<dynamic>(AppRoutes.miniDetails),
@@ -154,7 +154,7 @@ class TabMinis extends StatelessWidget {
                                     children: [
                                       CustomCircleAvatar(
                                         image: ImageConstants()
-                                            .getMiniThumbnail(mini.image),
+                                            .getMiniThumbnail(miniModel.image),
                                         width: 60,
                                         height: 60,
                                       ),
@@ -167,8 +167,8 @@ class TabMinis extends StatelessWidget {
                                                 horizontal: 5),
                                             child: Text(
                                               'languageCode'.tr == 'en'
-                                                  ? mini.name.enUs
-                                                  : mini.name.ptBr,
+                                                  ? miniModel.name.enUs
+                                                  : miniModel.name.ptBr,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,

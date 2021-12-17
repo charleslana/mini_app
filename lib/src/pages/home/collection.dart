@@ -35,7 +35,7 @@ class Collection extends StatelessWidget {
                   height: 38,
                 ),
                 text: 'tabCollectionHeroes'.trParams({
-                  'value': landingController.miniModel.heroes.length.toString()
+                  'value': landingController.appModel.heroes.length.toString()
                 }),
               ),
               Tab(
@@ -44,7 +44,7 @@ class Collection extends StatelessWidget {
                   height: 38,
                 ),
                 text: 'tabCollectionMinis'.trParams({
-                  'value': landingController.miniModel.minis.length.toString()
+                  'value': landingController.appModel.minis.length.toString()
                 }),
               ),
             ],

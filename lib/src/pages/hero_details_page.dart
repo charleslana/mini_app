@@ -8,8 +8,8 @@ import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/hero_details_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
-import 'package:mini_app/src/models/mini_model.dart';
 
 class HeroDetailsPage extends StatelessWidget {
   const HeroDetailsPage({Key? key}) : super(key: key);
@@ -70,9 +70,9 @@ class HeroDetailsPage extends StatelessWidget {
                         Text(
                           'languageCode'.tr == 'en'
                               ? landingController
-                                  .miniModel.heroes[index].name.enUs
+                                  .appModel.heroes[index].name.enUs
                               : landingController
-                                  .miniModel.heroes[index].name.ptBr,
+                                  .appModel.heroes[index].name.ptBr,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -106,7 +106,7 @@ class HeroDetailsPage extends StatelessWidget {
                               maintainAnimation: true,
                               maintainState: true,
                               visible: index + 1 <
-                                  landingController.miniModel.heroes.length,
+                                  landingController.appModel.heroes.length,
                               child: IconButton(
                                 onPressed: () {
                                   landingController.heroIndex.value++;
@@ -145,8 +145,8 @@ class HeroDetailsPage extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Image.asset(
-                            ImageConstants().getHeroPortrait(landingController
-                                .miniModel.heroes[index].image),
+                            ImageConstants().getHeroPortrait(
+                                landingController.appModel.heroes[index].image),
                             height: 200,
                             fit: BoxFit.fitWidth,
                           ),
@@ -163,25 +163,25 @@ class HeroDetailsPage extends StatelessWidget {
                               CardStats(
                                 title: 'heroDetailsStatsHP'.tr,
                                 text: landingController
-                                    .miniModel.heroes[index].stats[level - 1].hp
+                                    .appModel.heroes[index].stats[level - 1].hp
                                     .toString(),
                               ),
                               CardStats(
                                 title: 'heroDetailsStatsHitPerSecond'.tr,
-                                text: landingController.miniModel.heroes[index]
+                                text: landingController.appModel.heroes[index]
                                     .stats[level - 1].hitPerSecond
                                     .toString(),
                                 isOpacity: true,
                               ),
                               CardStats(
                                 title: 'heroDetailsStatsDamagePerHit'.tr,
-                                text: landingController.miniModel.heroes[index]
+                                text: landingController.appModel.heroes[index]
                                     .stats[level - 1].damagePerHit
                                     .toString(),
                               ),
                               CardStats(
                                 title: 'heroDetailsStatsEnergyCost'.tr,
-                                text: landingController.miniModel.heroes[index]
+                                text: landingController.appModel.heroes[index]
                                     .stats[level - 1].energyCost
                                     .toString(),
                                 isOpacity: true,
@@ -201,10 +201,10 @@ class HeroDetailsPage extends StatelessWidget {
                               controller:
                                   heroDetailsController.scrollController,
                               itemCount: landingController
-                                  .miniModel.heroes[index].levels.length,
+                                  .appModel.heroes[index].levels.length,
                               itemBuilder: (_, i) {
-                                final Levels level = landingController
-                                    .miniModel.heroes[index].levels[i];
+                                final LevelModel levelModel = landingController
+                                    .appModel.heroes[index].levels[i];
 
                                 return Card(
                                   child: Padding(
@@ -217,8 +217,8 @@ class HeroDetailsPage extends StatelessWidget {
                                         children: [
                                           Text(
                                             'languageCode'.tr == 'en'
-                                                ? level.name.enUs
-                                                : level.name.ptBr,
+                                                ? levelModel.name.enUs
+                                                : levelModel.name.ptBr,
                                             style: const TextStyle(
                                               fontSize: 15,
                                               color: ColorConstants.background,
@@ -228,7 +228,8 @@ class HeroDetailsPage extends StatelessWidget {
                                           Text(
                                             'heroDetailsLevelsUnlockLevel'
                                                 .trParams({
-                                              'level': level.level.toString()
+                                              'level':
+                                                  levelModel.level.toString()
                                             }),
                                             style: const TextStyle(
                                               fontSize: 14,
@@ -244,15 +245,15 @@ class HeroDetailsPage extends StatelessWidget {
                                                 padding: const EdgeInsets.only(
                                                     right: 5),
                                                 child: Text(
-                                                  level.clash
+                                                  levelModel.clash
                                                       ? 'heroDetailsLevelsClash'
                                                           .tr
                                                           .toUpperCase()
-                                                      : level.spr
+                                                      : levelModel.spr
                                                           ? 'heroDetailsLevelsSuper'
                                                               .tr
                                                               .toUpperCase()
-                                                          : level.boast
+                                                          : levelModel.boast
                                                               ? 'heroDetailsLevelsBoast'
                                                                   .tr
                                                                   .toUpperCase()
@@ -267,8 +268,10 @@ class HeroDetailsPage extends StatelessWidget {
                                               Flexible(
                                                 child: Text(
                                                   'languageCode'.tr == 'en'
-                                                      ? level.description.enUs
-                                                      : level.description.ptBr,
+                                                      ? levelModel
+                                                          .description.enUs
+                                                      : levelModel
+                                                          .description.ptBr,
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.indigoAccent,

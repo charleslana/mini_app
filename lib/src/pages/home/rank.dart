@@ -5,10 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/models/app_model.dart';
 
-class Classification extends StatelessWidget {
-  const Classification({Key? key}) : super(key: key);
+class Rank extends StatelessWidget {
+  const Rank({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,10 @@ class Classification extends StatelessWidget {
             child: Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: landingController.miniModel.rank.length,
+                itemCount: landingController.appModel.rank.length,
                 itemBuilder: (context, i) {
-                  final Rank rank = landingController.miniModel.rank[i];
+                  final RankModel rankModel =
+                      landingController.appModel.rank[i];
 
                   return AnimationConfiguration.staggeredList(
                     position: i,
@@ -53,7 +54,7 @@ class Classification extends StatelessWidget {
                                   Text(
                                     'rankTrophies'.trParams({
                                       'trophies': formatter
-                                          .format(rank.trophies)
+                                          .format(rankModel.trophies)
                                           .toString()
                                     }),
                                     style: const TextStyle(
@@ -64,8 +65,8 @@ class Classification extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   Text(
                                     'languageCode'.tr == 'en'
-                                        ? rank.name.enUs
-                                        : rank.name.ptBr,
+                                        ? rankModel.name.enUs
+                                        : rankModel.name.ptBr,
                                     style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.deepPurpleAccent,
@@ -75,9 +76,9 @@ class Classification extends StatelessWidget {
                                     physics: const BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
-                                      children: landingController.miniModel.maps
+                                      children: landingController.appModel.maps
                                           .map((map) {
-                                        if (rank.trophies >=
+                                        if (rankModel.trophies >=
                                             map.trophiesRequired) {
                                           return Tooltip(
                                             triggerMode: TooltipTriggerMode.tap,

@@ -5,7 +5,7 @@ import 'package:mini_app/src/components/custom_circle_avatar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/collection_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/models/mini_model.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class TabHeroes extends StatelessWidget {
@@ -38,12 +38,12 @@ class TabHeroes extends StatelessWidget {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      if (landingController.filterHeroesList.length !=
-                          landingController.miniModel.heroes.length) {
+                      if (landingController.filterHeroList.length !=
+                          landingController.appModel.heroes.length) {
                         collectionController.heroTextEditingController.clear();
-                        landingController.filterHeroesList
+                        landingController.filterHeroList
                           ..clear()
-                          ..addAll(landingController.miniModel.heroes);
+                          ..addAll(landingController.appModel.heroes);
                       }
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
@@ -58,7 +58,7 @@ class TabHeroes extends StatelessWidget {
           Expanded(
             child: AnimationLimiter(
               child: Obx(() {
-                return landingController.filterHeroesList.isEmpty
+                return landingController.filterHeroList.isEmpty
                     ? Text('tabHeroesSearchNotFound'.tr)
                     : GridView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -68,10 +68,10 @@ class TabHeroes extends StatelessWidget {
                           crossAxisCount: columnCount,
                           childAspectRatio: Get.width / (Get.height / 1.5),
                         ),
-                        itemCount: landingController.filterHeroesList.length,
+                        itemCount: landingController.filterHeroList.length,
                         itemBuilder: (_, int index) {
-                          final Heroes hero =
-                              landingController.filterHeroesList[index];
+                          final HeroModel heroModel =
+                              landingController.filterHeroList[index];
 
                           return AnimationConfiguration.staggeredGrid(
                             position: index,
@@ -82,7 +82,7 @@ class TabHeroes extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () => {
                                     landingController
-                                      ..heroIndex.value = hero.id - 1,
+                                      ..heroIndex.value = heroModel.id - 1,
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus(),
                                     Get.toNamed<dynamic>(AppRoutes.heroDetails),
@@ -91,7 +91,7 @@ class TabHeroes extends StatelessWidget {
                                     children: [
                                       CustomCircleAvatar(
                                         image: ImageConstants()
-                                            .getHeroThumbnail(hero.image),
+                                            .getHeroThumbnail(heroModel.image),
                                         width: 60,
                                         height: 60,
                                       ),
@@ -104,8 +104,8 @@ class TabHeroes extends StatelessWidget {
                                                 horizontal: 5),
                                             child: Text(
                                               'languageCode'.tr == 'en'
-                                                  ? hero.name.enUs
-                                                  : hero.name.ptBr,
+                                                  ? heroModel.name.enUs
+                                                  : heroModel.name.ptBr,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,

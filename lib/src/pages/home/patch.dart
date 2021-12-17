@@ -29,6 +29,14 @@ class Patch extends StatelessWidget {
         children: [
           const CustomBar(),
           const SizedBox(height: 20),
+          Text(
+            'patchTitle'.tr,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
           AnimationLimiter(
             child: Expanded(
               child: ListView.builder(

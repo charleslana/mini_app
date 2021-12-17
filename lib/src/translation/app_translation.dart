@@ -60,8 +60,12 @@ final Map<String, String> enUS = {
   'miniDetailsAbilitiesSuper': 'Super',
   'miniDetailsAbilitiesBoast': 'Boast',
   'miniDetailsAbilitiesKO': 'KO',
+  'patchTitle': 'Patch',
+  'rankTitle': 'Rank and Maps',
   'rankTrophies': 'Trophies: @trophies',
   'rankMapTooltip': '@name\nTrophies required: @trophies\n@description',
+  'deckTitle': 'Decks',
+  'deckRank': 'Rank: @rank',
 };
 
 final Map<String, String> ptBR = {
@@ -120,6 +124,10 @@ final Map<String, String> ptBR = {
   'miniDetailsAbilitiesSuper': 'Super',
   'miniDetailsAbilitiesBoast': 'Ostentação',
   'miniDetailsAbilitiesKO': 'KO',
+  'patchTitle': 'Correção',
+  'rankTitle': 'Classificação e Mapas',
   'rankTrophies': 'Troféus: @trophies',
   'rankMapTooltip': '@name\nTroféus necessários: @trophies\n@description',
+  'deckTitle': 'Decks',
+  'deckRank': 'Classificação: @rank',
 };

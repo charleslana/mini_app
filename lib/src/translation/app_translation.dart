@@ -64,7 +64,7 @@ final Map<String, String> enUS = {
   'rankTitle': 'Rank and Maps',
   'rankTrophies': 'Trophies: @trophies',
   'rankMapTooltip': '@name\nTrophies required: @trophies\n@description',
-  'deckTitle': 'Decks',
+  'deckTitle': 'Community Decks',
   'deckRank': 'Rank: @rank',
 };
 
@@ -128,6 +128,6 @@ final Map<String, String> ptBR = {
   'rankTitle': 'Classificação e Mapas',
   'rankTrophies': 'Troféus: @trophies',
   'rankMapTooltip': '@name\nTroféus necessários: @trophies\n@description',
-  'deckTitle': 'Decks',
+  'deckTitle': 'Decks da Comunidade',
   'deckRank': 'Classificação: @rank',
 };

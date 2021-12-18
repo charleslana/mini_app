@@ -5,6 +5,7 @@ import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
+import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Decks extends StatelessWidget {
   const Decks({Key? key}) : super(key: key);
@@ -48,48 +49,54 @@ class Decks extends StatelessWidget {
                     child: SlideAnimation(
                       verticalOffset: 50,
                       child: FadeInAnimation(
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        'deckRank'.trParams({
-                                          'rank': deckModel.rank.toString()
-                                        }),
+                        child: GestureDetector(
+                          onTap: () => {
+                            landingController.deckModel = deckModel,
+                            Get.toNamed<dynamic>(AppRoutes.deckDetails),
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          'deckRank'.trParams({
+                                            'rank': deckModel.rank.toString()
+                                          }),
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.blueAccent,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Image.asset(
+                                          ImageConstants()
+                                              .getIcon(deckModel.image),
+                                          height: 80,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Flexible(
+                                      child: Text(
+                                        'languageCode'.tr == 'en'
+                                            ? deckModel.name.enUs
+                                            : deckModel.name.ptBr,
                                         style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blueAccent,
+                                          fontSize: 16,
+                                          color: Colors.deepPurpleAccent,
                                         ),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Image.asset(
-                                        ImageConstants()
-                                            .getIcon(deckModel.image),
-                                        height: 80,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Flexible(
-                                    child: Text(
-                                      'languageCode'.tr == 'en'
-                                          ? deckModel.name.enUs
-                                          : deckModel.name.ptBr,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.deepPurpleAccent,
-                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

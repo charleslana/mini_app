@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/pages/deck_details_page.dart';
 import 'package:mini_app/src/pages/hero_details_page.dart';
 import 'package:mini_app/src/pages/home_page.dart';
 import 'package:mini_app/src/pages/landing_page.dart';
@@ -36,6 +37,12 @@ class AppRouteGenerator {
       case AppRoutes.miniDetails:
         return GetPageRoute(
           page: () => const MiniDetailsPage(),
+          settings: settings,
+          transition: Transition.leftToRight,
+        );
+      case AppRoutes.deckDetails:
+        return GetPageRoute(
+          page: () => const DeckDetailsPage(),
           settings: settings,
           transition: Transition.leftToRight,
         );

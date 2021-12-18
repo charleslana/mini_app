@@ -41,6 +41,7 @@ class HeroDetailsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     const BackBar(),
+                    const SizedBox(height: 20),
                     Text(
                       'heroDetailsLevel'
                           .trParams({'level': level.toStringAsFixed(0)}),

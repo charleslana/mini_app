@@ -41,6 +41,7 @@ class MiniDetailsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     const BackBar(),
+                    const SizedBox(height: 20),
                     Text(
                       'miniDetailsStar'
                           .trParams({'star': star.toStringAsFixed(0)}),

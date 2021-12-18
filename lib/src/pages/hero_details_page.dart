@@ -31,7 +31,7 @@ class HeroDetailsPage extends StatelessWidget {
             Obx(() {
               final int index = landingController.heroIndex.value;
               final int level = heroDetailsController.currentLevel.value;
-              final Favorite favoriteModel = Favorite(
+              final FavoriteMiniModel favoriteMiniModel = FavoriteMiniModel(
                 index: index,
                 type: TypeFavorite.hero,
               );
@@ -90,7 +90,8 @@ class HeroDetailsPage extends StatelessWidget {
                                 onPressed: () {
                                   landingController.heroIndex.value--;
                                   heroDetailsController.currentLevel.value = 1;
-                                  favoritesController.existFavorite(Favorite(
+                                  favoritesController
+                                      .existFavorite(FavoriteMiniModel(
                                     index: index - 1,
                                     type: TypeFavorite.hero,
                                   ));
@@ -112,7 +113,8 @@ class HeroDetailsPage extends StatelessWidget {
                                 onPressed: () {
                                   landingController.heroIndex.value++;
                                   heroDetailsController.currentLevel.value = 1;
-                                  favoritesController.existFavorite(Favorite(
+                                  favoritesController
+                                      .existFavorite(FavoriteMiniModel(
                                     index: index + 1,
                                     type: TypeFavorite.hero,
                                   ));
@@ -126,9 +128,9 @@ class HeroDetailsPage extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () => favoritesController
-                                  .toggleFavorite(favoriteModel),
+                                  .toggleFavorite(favoriteMiniModel),
                               icon: Icon(
-                                favoritesController.isFavorite.value
+                                favoritesController.isMiniFavorite.value
                                     ? Icons.favorite
                                     : Icons.favorite_outline,
                                 color: Colors.white,

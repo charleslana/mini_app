@@ -34,7 +34,7 @@ class Collection extends StatelessWidget {
                   ImageConstants.iconCountess,
                   height: 38,
                 ),
-                text: 'tabCollectionHeroes'.trParams({
+                text: 'collectionTabHeroes'.trParams({
                   'value': landingController.appModel.heroes.length.toString()
                 }),
               ),
@@ -43,12 +43,13 @@ class Collection extends StatelessWidget {
                   ImageConstants.iconSpearGoblin,
                   height: 38,
                 ),
-                text: 'tabCollectionMinis'.trParams({
+                text: 'collectionTabMinis'.trParams({
                   'value': landingController.appModel.minis.length.toString()
                 }),
               ),
             ],
           ),
+          const SizedBox(height: 20),
           Expanded(
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),

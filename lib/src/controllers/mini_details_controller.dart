@@ -24,7 +24,7 @@ class MiniDetailsController extends GetxController {
   }
 
   void fecthFavorites() {
-    favoritesController.existFavorite(Favorite(
+    favoritesController.existFavorite(FavoriteMiniModel(
         index: landingController.miniIndex.value, type: TypeFavorite.mini));
   }
 

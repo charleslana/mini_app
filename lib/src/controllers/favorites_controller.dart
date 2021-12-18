@@ -1,49 +1,79 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/services/favorite_service.dart';
 
-class FavoritesController extends GetxController {
+class FavoritesController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
+  final ScrollController scrollControllerDecks = ScrollController();
+  final ScrollController scrollControllerMinis = ScrollController();
   FavoriteService favoriteService = FavoriteService();
-  List<Favorite> listFavorites = <Favorite>[].obs;
-  RxBool isFavorite = false.obs;
+  List<FavoriteMiniModel> listMinisFavorites = <FavoriteMiniModel>[].obs;
+  List<FavoriteDeckModel> listDecksFavorites = <FavoriteDeckModel>[].obs;
+  RxBool isMiniFavorite = false.obs;
   LandingController landingController = Get.find();
 
   @override
   void onInit() {
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    tabController.addListener(_handleTabSelection);
     fecthFavorites();
     super.onInit();
   }
 
-  bool existFavorite(Favorite favorite) {
-    final List<Favorite> existFavorite = listFavorites
+  bool existFavorite(FavoriteMiniModel favorite) {
+    final List<FavoriteMiniModel> existFavorite = listMinisFavorites
         .where((element) =>
             element.type == favorite.type && element.index == favorite.index)
         .toList();
     if (existFavorite.isNotEmpty) {
-      isFavorite.value = true;
+      isMiniFavorite.value = true;
       return true;
     }
-    isFavorite.value = false;
+    isMiniFavorite.value = false;
     return false;
   }
 
   void fecthFavorites() {
     final FavoriteModel loadFavorite = favoriteService.loadFromBox();
-    listFavorites.addAll(loadFavorite.favorites);
+    listMinisFavorites.addAll(loadFavorite.favorites);
   }
 
-  void toggleFavorite(Favorite favorite) {
+  void _handleTabSelection() {
+    if (tabController.indexIsChanging) {
+      switch (tabController.index) {
+        case 0:
+          scrollToUp(scrollControllerDecks);
+          break;
+        case 1:
+          scrollToUp(scrollControllerMinis);
+          break;
+      }
+    }
+  }
+
+  void scrollToUp(ScrollController scrollController) {
+    if (scrollController.hasClients) {
+      scrollController.jumpTo(0);
+    }
+  }
+
+  void toggleFavorite(FavoriteMiniModel favorite) {
     if (existFavorite(favorite)) {
-      final int index = listFavorites.indexWhere((element) =>
+      final int index = listMinisFavorites.indexWhere((element) =>
           element.type == favorite.type && element.index == favorite.index);
-      listFavorites.removeAt(index);
-      isFavorite.value = false;
-      favoriteService.saveToBox(FavoriteModel(favorites: listFavorites));
+      listMinisFavorites.removeAt(index);
+      isMiniFavorite.value = false;
+      favoriteService.saveToBox(FavoriteModel(favorites: listMinisFavorites));
       return;
     }
-    listFavorites.add(favorite);
-    favoriteService.saveToBox(FavoriteModel(favorites: listFavorites));
-    isFavorite.value = true;
+    listMinisFavorites.add(favorite);
+    favoriteService.saveToBox(FavoriteModel(favorites: listMinisFavorites));
+    isMiniFavorite.value = true;
   }
 }

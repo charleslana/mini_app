@@ -62,134 +62,122 @@ class TabMinis extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                  controller: collectionController.miniTextEditingController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'tabMinisSearch'.tr,
-                    hintMaxLines: 1,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 4,
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        if (landingController.filterMiniList.length !=
-                            landingController.appModel.minis.length) {
-                          collectionController
-                            ..miniTextEditingController.clear()
-                            ..filterIndex.value = 0;
-                          landingController.filterMiniList
-                            ..clear()
-                            ..addAll(landingController.appModel.minis);
-                        }
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      icon: const Icon(Icons.clear),
+    return Column(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+                controller: collectionController.miniTextEditingController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'tabMinisSearch'.tr,
+                  hintMaxLines: 1,
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 4,
                     ),
                   ),
-                  onChanged: (text) {
-                    if (collectionController.filterIndex.value > 0) {
-                      collectionController.filterIndex.value = 0;
-                      landingController.filterMini(1);
-                    }
-                    landingController.searchMini(text.trim());
-                  }),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      collectionController.clearTabMinis();
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
+                onChanged: (text) {
+                  if (collectionController.filterIndex.value > 0) {
+                    collectionController.filterIndex.value = 0;
+                    landingController.filterMini(1);
+                  }
+                  landingController.searchMini(text.trim());
+                }),
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: chips,
             ),
           ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: chips,
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: AnimationLimiter(
-              child: Obx(() {
-                return landingController.filterMiniList.isEmpty
-                    ? Text('tabMinisSearchNotFound'.tr)
-                    : GridView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        controller: collectionController.scrollControllerMinis,
-                        padding: const EdgeInsets.all(12),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: columnCount,
-                          childAspectRatio: Get.width / (Get.height / 1.5),
-                        ),
-                        itemCount: landingController.filterMiniList.length,
-                        itemBuilder: (_, int index) {
-                          final MiniModel miniModel =
-                              landingController.filterMiniList[index];
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: AnimationLimiter(
+            child: Obx(() {
+              return landingController.filterMiniList.isEmpty
+                  ? Text('tabMinisSearchNotFound'.tr)
+                  : GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: collectionController.scrollControllerMinis,
+                      padding: const EdgeInsets.all(12),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: columnCount,
+                        childAspectRatio: Get.width / (Get.height / 1.5),
+                      ),
+                      itemCount: landingController.filterMiniList.length,
+                      itemBuilder: (_, int index) {
+                        final MiniModel miniModel =
+                            landingController.filterMiniList[index];
 
-                          return AnimationConfiguration.staggeredGrid(
-                            position: index,
-                            duration: const Duration(milliseconds: 375),
-                            columnCount: columnCount,
-                            child: ScaleAnimation(
-                              child: FadeInAnimation(
-                                child: GestureDetector(
-                                  onTap: () => {
-                                    landingController
-                                      ..miniIndex.value = miniModel.id - 1,
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus(),
-                                    Get.toNamed<dynamic>(AppRoutes.miniDetails),
-                                  },
-                                  child: Column(
-                                    children: [
-                                      CustomCircleAvatar(
-                                        image: ImageConstants()
-                                            .getMiniThumbnail(miniModel.image),
-                                        width: 60,
-                                        height: 60,
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Flexible(
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            child: Text(
-                                              'languageCode'.tr == 'en'
-                                                  ? miniModel.name.enUs
-                                                  : miniModel.name.ptBr,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                              ),
+                        return AnimationConfiguration.staggeredGrid(
+                          position: index,
+                          duration: const Duration(milliseconds: 375),
+                          columnCount: columnCount,
+                          child: ScaleAnimation(
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () => {
+                                  landingController
+                                    ..miniIndex.value = miniModel.id - 1,
+                                  FocusManager.instance.primaryFocus?.unfocus(),
+                                  Get.toNamed<dynamic>(AppRoutes.miniDetails),
+                                },
+                                child: Column(
+                                  children: [
+                                    CustomCircleAvatar(
+                                      image: ImageConstants()
+                                          .getMiniThumbnail(miniModel.image),
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Flexible(
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          child: Text(
+                                            'languageCode'.tr == 'en'
+                                                ? miniModel.name.enUs
+                                                : miniModel.name.ptBr,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      );
-              }),
-            ),
+                          ),
+                        );
+                      },
+                    );
+            }),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

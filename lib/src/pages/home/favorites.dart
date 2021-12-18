@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
-import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/models/app_model.dart';
-import 'package:mini_app/src/models/favorite_model.dart';
-import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/pages/home/favorites/tab_favorites_decks.dart';
+import 'package:mini_app/src/pages/home/favorites/tab_favorites_minis.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Favorites extends StatelessWidget {
@@ -16,7 +13,6 @@ class Favorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LandingController landingController = Get.put(LandingController());
     final FavoritesController favoritesController =
         Get.put(FavoritesController());
 
@@ -32,173 +28,85 @@ class Favorites extends StatelessWidget {
         left: 10,
         right: 10,
       ),
-      child: Obx(() {
-        return Column(
-          children: [
-            const CustomBar(),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: Text(
-                      'favoritesDiscord'.tr,
-                      style: const TextStyle(color: Colors.white),
-                      textAlign: TextAlign.end,
-                    ),
+      child: Column(
+        children: [
+          const CustomBar(),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Text(
+                    'favoritesDiscord'.tr,
+                    style: const TextStyle(color: Colors.white),
+                    textAlign: TextAlign.end,
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: IconButton(
-                    onPressed: launchURL,
-                    icon: Image.asset(
-                      ImageConstants.iconDiscord,
-                      height: 38,
-                    ),
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                child: IconButton(
+                  onPressed: launchURL,
+                  icon: Image.asset(
+                    ImageConstants.iconDiscord,
+                    height: 38,
                   ),
                 ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'favorites'.tr,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
+          TabBar(
+            controller: favoritesController.tabController,
+            tabs: [
+              Tab(
+                icon: Image.asset(
+                  ImageConstants.iconArcherQueen,
+                  height: 38,
+                ),
+                text: 'favoritesTabDecks'.trParams({
+                  'value':
+                      favoritesController.listDecksFavorites.length.toString()
+                }),
+              ),
+              Tab(
+                icon: Image.asset(
+                  ImageConstants.iconMegaKnight,
+                  height: 38,
+                ),
+                text: 'favoritesTabMinis'.trParams({
+                  'value':
+                      favoritesController.listMinisFavorites.length.toString()
+                }),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: favoritesController.tabController,
+              children: const [
+                TabFavoritesDecks(),
+                TabFavoritesMinis(),
               ],
             ),
-            const SizedBox(height: 20),
-            Text(
-              'favorites'.tr,
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20),
-            if (favoritesController.listFavorites.isEmpty)
-              Center(
-                child: Text(
-                  'favoritesNotFound'.tr,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              )
-            else
-              Expanded(
-                child: AnimationLimiter(
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: favoritesController.listFavorites.length,
-                    itemBuilder: (context, index) {
-                      final Favorite favorite =
-                          favoritesController.listFavorites[index];
-
-                      if (favorite.type == TypeFavorite.hero) {
-                        final HeroModel heroModel =
-                            landingController.appModel.heroes[favorite.index!];
-
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 375),
-                          child: SlideAnimation(
-                            verticalOffset: 50,
-                            child: FadeInAnimation(
-                              child: GestureDetector(
-                                onTap: () => {
-                                  landingController
-                                    ..heroIndex.value = heroModel.id - 1,
-                                  Get.toNamed<dynamic>(AppRoutes.heroDetails),
-                                },
-                                child: Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Image.asset(
-                                            ImageConstants().getHeroThumbnail(
-                                                heroModel.image),
-                                            height: 80,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              'languageCode'.tr == 'en'
-                                                  ? heroModel.name.enUs
-                                                  : heroModel.name.ptBr,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.indigoAccent,
-                                              ),
-                                              textAlign: TextAlign.end,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      final MiniModel miniModel =
-                          landingController.appModel.minis[favorite.index!];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50,
-                          child: FadeInAnimation(
-                            child: GestureDetector(
-                              onTap: () => {
-                                landingController
-                                  ..miniIndex.value = miniModel.id - 1,
-                                Get.toNamed<dynamic>(AppRoutes.miniDetails),
-                              },
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(
-                                          ImageConstants().getMiniThumbnail(
-                                              miniModel.image),
-                                          height: 80,
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            'languageCode'.tr == 'en'
-                                                ? miniModel.name.enUs
-                                                : miniModel.name.ptBr,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.indigoAccent,
-                                            ),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-          ],
-        );
-      }),
+          ),
+        ],
+      ),
     );
   }
 }

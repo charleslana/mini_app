@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/controllers/landing_controller.dart';
 
 class CollectionController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -10,6 +11,7 @@ class CollectionController extends GetxController
       TextEditingController();
   final TextEditingController miniTextEditingController =
       TextEditingController();
+  LandingController landingController = Get.find();
   RxInt filterIndex = 0.obs;
 
   @override
@@ -29,14 +31,37 @@ class CollectionController extends GetxController
     super.onClose();
   }
 
+  void clearTabHero() {
+    if (landingController.filterHeroList.length !=
+        landingController.appModel.heroes.length) {
+      heroTextEditingController.clear();
+      landingController.filterHeroList
+        ..clear()
+        ..addAll(landingController.appModel.heroes);
+    }
+  }
+
+  void clearTabMinis() {
+    if (landingController.filterMiniList.length !=
+        landingController.appModel.minis.length) {
+      miniTextEditingController.clear();
+      filterIndex.value = 0;
+      landingController.filterMiniList
+        ..clear()
+        ..addAll(landingController.appModel.minis);
+    }
+  }
+
   void _handleTabSelection() {
     if (tabController.indexIsChanging) {
       switch (tabController.index) {
         case 0:
           scrollToUp(scrollControllerHeroes);
+          clearTabHero();
           break;
         case 1:
           scrollToUp(scrollControllerMinis);
+          clearTabMinis();
           break;
       }
     }

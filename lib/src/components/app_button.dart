@@ -6,11 +6,13 @@ class AppButton extends StatelessWidget {
   const AppButton({
     required this.text,
     required this.onPressed,
+    this.color = ColorConstants.background,
     Key? key,
   }) : super(key: key);
 
   final String text;
   final VoidCallback onPressed;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class AppButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: ColorConstants.background,
+            color: color,
           ),
           child: Center(
             child: Text(

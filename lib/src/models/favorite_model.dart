@@ -5,14 +5,14 @@ class FavoriteModel {
 
   FavoriteModel.fromJson(Map<String, dynamic> json) {
     if (json['favorites'] != null) {
-      favorites = <Favorite>[];
+      favorites = <FavoriteMiniModel>[];
       json['favorites'].forEach((dynamic v) {
-        favorites.add(Favorite.fromJson(v));
+        favorites.add(FavoriteMiniModel.fromJson(v));
       });
     }
   }
 
-  late List<Favorite> favorites = [];
+  late List<FavoriteMiniModel> favorites = [];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -21,26 +21,50 @@ class FavoriteModel {
   }
 }
 
-class Favorite {
-  Favorite({
+class FavoriteMiniModel {
+  FavoriteMiniModel({
     required this.index,
     required this.type,
   });
 
-  Favorite.fromJson(Map<String, dynamic> json) {
+  FavoriteMiniModel.fromJson(Map<String, dynamic> json) {
     index = json['index'];
-    type = json['type'] != null
-        ? TypeFavorite.values.elementAt(json['type'])
-        : null;
+    type = TypeFavorite.values.elementAt(json['type']);
   }
 
-  late final int? index;
-  late final TypeFavorite? type;
+  late int index;
+  late TypeFavorite type;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['index'] = index;
-    data['type'] = type!.index;
+    data['type'] = type.index;
+    return data;
+  }
+}
+
+class FavoriteDeckModel {
+  FavoriteDeckModel({
+    required this.index,
+    required this.heroId,
+    required this.minisId,
+  });
+
+  FavoriteDeckModel.fromJson(Map<String, dynamic> json) {
+    index = json['index'];
+    heroId = json['heroId'];
+    minisId = json['minisId'].cast<int>();
+  }
+
+  late int index;
+  late int heroId;
+  late List<int> minisId;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['index'] = index;
+    data['heroId'] = heroId;
+    data['minisId'] = minisId;
     return data;
   }
 }

@@ -13,6 +13,8 @@ class ImageConstants {
   static const String iconValkyrie = 'assets/images/icons/valkyrie.png';
   static const String iconCountess = 'assets/images/icons/countess.png';
   static const String iconSpearGoblin = 'assets/images/icons/spear_goblin.png';
+  static const String iconArcherQueen = 'assets/images/icons/archer_queen.png';
+  static const String iconMegaKnight = 'assets/images/icons/mega_knight.png';
   static const String iconElixir = 'assets/images/icons/elixir.png';
   static const String iconDiscord = 'assets/images/icons/discord.png';
   static const String background = 'assets/images/background.png';

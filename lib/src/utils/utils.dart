@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
+import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/language_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
@@ -12,7 +13,7 @@ import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
   void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
-    final UtilsController utilsController = Get.put(UtilsController());
+    final FormDeckController formDeckController = Get.put(FormDeckController());
     final FavoritesController favoritesController =
         Get.put(FavoritesController());
     bool value = false;
@@ -24,7 +25,7 @@ class Utils {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: utilsController.textEditingController
+            controller: formDeckController.textEditingController
               ..text = favoriteDeckModel.name,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
@@ -43,11 +44,13 @@ class Utils {
           AppButton(
             text: 'utilsDialogNameDeckButton'.tr,
             onPressed: () {
-              if (utilsController.textEditingController.text.trim().isEmpty) {
+              if (formDeckController.textEditingController.text
+                  .trim()
+                  .isEmpty) {
                 snackBar('utilsDialogNameDeckInputEmpty'.tr);
                 return;
               }
-              if (utilsController.textEditingController.text.trim().length >
+              if (formDeckController.textEditingController.text.trim().length >
                   30) {
                 snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
                 return;
@@ -56,7 +59,7 @@ class Utils {
                 favoritesController.updateFavoriteDeck(
                   index,
                   FavoriteDeckModel(
-                    name: utilsController.textEditingController.text
+                    name: formDeckController.textEditingController.text
                         .trim()
                         .capitalize!,
                     heroId: favoriteDeckModel.heroId,
@@ -72,6 +75,7 @@ class Utils {
       ),
     ).then((_) {
       if (value) {
+        formDeckController.textEditingController.clear();
         Get.back<dynamic>();
       }
       return false;
@@ -242,7 +246,7 @@ class Utils {
   }
 
   void dialogSaveDeck(int heroId, List<int> minisId) {
-    final UtilsController utilsController = Get.put(UtilsController());
+    final FormDeckController formDeckController = Get.put(FormDeckController());
     final FavoritesController favoritesController =
         Get.put(FavoritesController());
     bool value = false;
@@ -254,7 +258,7 @@ class Utils {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: utilsController.textEditingController,
+            controller: formDeckController.textEditingController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               labelText: 'utilsDialogNameDeckInput'.tr,
@@ -272,18 +276,20 @@ class Utils {
           AppButton(
             text: 'utilsDialogNameDeckButton'.tr,
             onPressed: () {
-              if (utilsController.textEditingController.text.trim().isEmpty) {
+              if (formDeckController.textEditingController.text
+                  .trim()
+                  .isEmpty) {
                 snackBar('utilsDialogNameDeckInputEmpty'.tr);
                 return;
               }
-              if (utilsController.textEditingController.text.trim().length >
+              if (formDeckController.textEditingController.text.trim().length >
                   30) {
                 snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
                 return;
               }
               if (!Get.isSnackbarOpen) {
                 favoritesController.saveFavoriteDeck(FavoriteDeckModel(
-                  name: utilsController.textEditingController.text
+                  name: formDeckController.textEditingController.text
                       .trim()
                       .capitalize!,
                   heroId: heroId,
@@ -298,6 +304,7 @@ class Utils {
       ),
     ).then((_) {
       if (value) {
+        formDeckController.textEditingController.clear();
         Get.back<dynamic>();
       }
       return false;

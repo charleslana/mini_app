@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
+import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/form_deck_controller.dart';
@@ -19,6 +20,23 @@ class TabFavoritesDecks extends StatelessWidget {
     final FavoritesController favoritesController =
         Get.put(FavoritesController());
     final FormDeckController formDeckController = Get.put(FormDeckController());
+
+    void confirmRemoveDeck(int index) {
+      Get.defaultDialog<dynamic>(
+        onConfirm: () {
+          favoritesController.removeFavoriteDeck(index);
+          Get.back<dynamic>();
+        },
+        onCancel: null,
+        confirmTextColor: Colors.white,
+        cancelTextColor: ColorConstants.background,
+        buttonColor: ColorConstants.background,
+        textCancel: 'favoritesDeckDialogTextCancel'.tr,
+        textConfirm: 'favoritesDeckDialogTextConfirm'.tr,
+        title: 'favoritesDeckDialogTitle'.tr,
+        middleText: 'favoritesDeckDialogMiddleText'.tr,
+      );
+    }
 
     return Obx(() {
       return Column(
@@ -105,7 +123,8 @@ class TabFavoritesDecks extends StatelessWidget {
                                               ),
                                             ),
                                             IconButton(
-                                              onPressed: () => {},
+                                              onPressed: () =>
+                                                  confirmRemoveDeck(i),
                                               icon: const Icon(
                                                 Icons.delete,
                                                 color: Colors.redAccent,

@@ -58,12 +58,29 @@ class FavoritesController extends GetxController
     }
   }
 
-  void saveFavoriteDeck(FavoriteDeckModel favoriteDeckModel) {
-    listDecksFavorites.add(favoriteDeckModel);
+  void removeFavorite(FavoriteMiniModel favorite) {
+    final int index = listMinisFavorites.indexWhere((element) =>
+        element.type == favorite.type && element.index == favorite.index);
+    listMinisFavorites.removeAt(index);
+    isMiniFavorite.value = false;
+    saveAllFavorite();
+  }
+
+  void removeFavoriteDeck(int index) {
+    listDecksFavorites.removeAt(index);
+    saveAllFavorite();
+  }
+
+  void saveAllFavorite() {
     favoriteService.saveToBox(FavoriteModel(
       favorites: listMinisFavorites,
       favoritesDeck: listDecksFavorites,
     ));
+  }
+
+  void saveFavoriteDeck(FavoriteDeckModel favoriteDeckModel) {
+    listDecksFavorites.add(favoriteDeckModel);
+    saveAllFavorite();
   }
 
   void scrollToUp(ScrollController scrollController) {
@@ -74,29 +91,16 @@ class FavoritesController extends GetxController
 
   void toggleFavorite(FavoriteMiniModel favorite) {
     if (existFavorite(favorite)) {
-      final int index = listMinisFavorites.indexWhere((element) =>
-          element.type == favorite.type && element.index == favorite.index);
-      listMinisFavorites.removeAt(index);
-      isMiniFavorite.value = false;
-      favoriteService.saveToBox(FavoriteModel(
-        favorites: listMinisFavorites,
-        favoritesDeck: listDecksFavorites,
-      ));
+      removeFavorite(favorite);
       return;
     }
     listMinisFavorites.add(favorite);
-    favoriteService.saveToBox(FavoriteModel(
-      favorites: listMinisFavorites,
-      favoritesDeck: listDecksFavorites,
-    ));
+    saveAllFavorite();
     isMiniFavorite.value = true;
   }
 
   void updateFavoriteDeck(int index, FavoriteDeckModel favoriteDeckModel) {
     listDecksFavorites[index] = favoriteDeckModel;
-    favoriteService.saveToBox(FavoriteModel(
-      favorites: listMinisFavorites,
-      favoritesDeck: listDecksFavorites,
-    ));
+    saveAllFavorite();
   }
 }

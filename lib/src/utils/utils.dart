@@ -52,18 +52,20 @@ class Utils {
                 snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
                 return;
               }
-              favoritesController.updateFavoriteDeck(
-                index,
-                FavoriteDeckModel(
-                  name: utilsController.textEditingController.text
-                      .trim()
-                      .capitalize!,
-                  heroId: favoriteDeckModel.heroId,
-                  minisId: favoriteDeckModel.minisId,
-                ),
-              );
-              Get.back<dynamic>();
-              value = true;
+              if (!Get.isSnackbarOpen) {
+                favoritesController.updateFavoriteDeck(
+                  index,
+                  FavoriteDeckModel(
+                    name: utilsController.textEditingController.text
+                        .trim()
+                        .capitalize!,
+                    heroId: favoriteDeckModel.heroId,
+                    minisId: favoriteDeckModel.minisId,
+                  ),
+                );
+                Get.back<dynamic>();
+                value = true;
+              }
             },
           ),
         ],
@@ -115,9 +117,13 @@ class Utils {
                 snackBar('utilsDialogNameInputMaxCharacters'.tr);
                 return;
               }
-              landingController.name =
-                  utilsController.textEditingController.text.trim().capitalize!;
-              Get.back<dynamic>();
+              if (!Get.isSnackbarOpen) {
+                landingController.name = utilsController
+                    .textEditingController.text
+                    .trim()
+                    .capitalize!;
+                Get.back<dynamic>();
+              }
             },
           ),
         ],
@@ -221,9 +227,13 @@ class Utils {
                 snackBar('utilsDialogNameInputMaxCharacters'.tr);
                 return;
               }
-              landingController.name =
-                  utilsController.textEditingController.text.trim().capitalize!;
-              Get.toNamed<dynamic>(AppRoutes.home);
+              if (!Get.isSnackbarOpen) {
+                landingController.name = utilsController
+                    .textEditingController.text
+                    .trim()
+                    .capitalize!;
+                Get.toNamed<dynamic>(AppRoutes.home);
+              }
             },
           ),
         ],
@@ -271,15 +281,17 @@ class Utils {
                 snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
                 return;
               }
-              favoritesController.saveFavoriteDeck(FavoriteDeckModel(
-                name: utilsController.textEditingController.text
-                    .trim()
-                    .capitalize!,
-                heroId: heroId,
-                minisId: minisId,
-              ));
-              Get.back<dynamic>();
-              value = true;
+              if (!Get.isSnackbarOpen) {
+                favoritesController.saveFavoriteDeck(FavoriteDeckModel(
+                  name: utilsController.textEditingController.text
+                      .trim()
+                      .capitalize!,
+                  heroId: heroId,
+                  minisId: minisId,
+                ));
+                Get.back<dynamic>();
+                value = true;
+              }
             },
           ),
         ],
@@ -306,6 +318,7 @@ class Utils {
   void snackBar(String message) {
     if (Get.isSnackbarOpen) {
       Get.back<dynamic>();
+      return;
     }
     Get.rawSnackbar(
       messageText: Text(

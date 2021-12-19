@@ -85,8 +85,12 @@ class FormDeckPage extends StatelessWidget {
           if (formDeckController.indexEditDeck == null) {
             if (contain.isNotEmpty || formDeckController.heroId.value > 0) {
               final bool? shouldPop = await Get.defaultDialog(
-                onConfirm: Get.back,
-                onCancel: Get.back,
+                onConfirm: () {
+                  Get
+                    ..back<dynamic>()
+                    ..back<dynamic>();
+                },
+                onCancel: null,
                 confirmTextColor: Colors.white,
                 cancelTextColor: ColorConstants.background,
                 buttonColor: ColorConstants.background,
@@ -106,11 +110,7 @@ class FormDeckPage extends StatelessWidget {
             children: [
               const BackgroundAnimation(),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 10,
-                  right: 10,
-                ),
+                padding: const EdgeInsets.all(10),
                 child: Obx(() {
                   return Column(
                     children: [
@@ -137,7 +137,7 @@ class FormDeckPage extends StatelessWidget {
                         visible: formDeckController.heroId.value > 0 &&
                             !formDeckController.listMinis.contains(0),
                         child: AppButton(
-                            text: 'favoritesDeckSaveDeck'.tr,
+                            text: 'formDeckPageSaveDeck'.tr,
                             color: Colors.black54,
                             margin: const EdgeInsets.only(bottom: 20),
                             onPressed: () {
@@ -163,7 +163,13 @@ class FormDeckPage extends StatelessWidget {
                               }
                               Utils().dialogSaveDeck(
                                 formDeckController.heroId.value,
-                                formDeckController.listMinis,
+                                [
+                                  formDeckController.listMinis[0],
+                                  formDeckController.listMinis[1],
+                                  formDeckController.listMinis[2],
+                                  formDeckController.listMinis[3],
+                                  formDeckController.listMinis[4],
+                                ],
                               );
                             }),
                       ),

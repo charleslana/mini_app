@@ -91,4 +91,12 @@ class FavoritesController extends GetxController
     ));
     isMiniFavorite.value = true;
   }
+
+  void updateFavoriteDeck(int index, FavoriteDeckModel favoriteDeckModel) {
+    //listDecksFavorites[index] = favoriteDeckModel;
+    // favoriteService.saveToBox(FavoriteModel(
+    //   favorites: listMinisFavorites,
+    //   favoritesDeck: listDecksFavorites,
+    // ));
+  }
 }

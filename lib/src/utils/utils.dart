@@ -16,6 +16,68 @@ class Utils {
   LanguageController languageController = Get.put(LanguageController());
   FavoritesController favoritesController = Get.put(FavoritesController());
 
+  void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
+    bool value = false;
+    Get.defaultDialog<dynamic>(
+      title: '',
+      titleStyle: const TextStyle(fontSize: 0),
+      radius: 10,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: utilsController.textEditingController
+              ..text = favoriteDeckModel.name,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: 'utilsDialogNameDeckInput'.tr,
+              hintMaxLines: 1,
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 4,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          AppButton(
+            text: 'utilsDialogNameDeckButton'.tr,
+            onPressed: () {
+              if (utilsController.textEditingController.text.trim().isEmpty) {
+                snackBar('utilsDialogNameDeckInputEmpty'.tr);
+                return;
+              }
+              if (utilsController.textEditingController.text.trim().length >
+                  30) {
+                snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
+                return;
+              }
+              favoritesController.updateFavoriteDeck(
+                index,
+                FavoriteDeckModel(
+                  name: utilsController.textEditingController.text
+                      .trim()
+                      .capitalize!,
+                  heroId: favoriteDeckModel.heroId,
+                  minisId: favoriteDeckModel.minisId,
+                ),
+              );
+              Get.back<dynamic>();
+              value = true;
+            },
+          ),
+        ],
+      ),
+    ).then((_) {
+      if (value) {
+        Get.back<dynamic>();
+      }
+      return false;
+    });
+  }
+
   void dialogEditName() {
     Get.defaultDialog<dynamic>(
       title: '',

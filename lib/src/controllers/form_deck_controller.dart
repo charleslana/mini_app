@@ -6,10 +6,11 @@ class FormDeckController extends GetxController {
   RxInt heroId = 0.obs;
   RxList<int> listMinis = <int>[].obs;
   int maxMinis = 5;
+  int? indexEditDeck;
 
   @override
   void onInit() {
-    listMinis.value = List.generate(maxMinis, (index) => 0);
+    initDeck();
     super.onInit();
   }
 
@@ -17,5 +18,12 @@ class FormDeckController extends GetxController {
   void onClose() {
     textEditingController.dispose();
     super.onClose();
+  }
+
+  void initDeck() {
+    listMinis
+      ..value = []
+      ..value = List.generate(maxMinis, (index) => 0);
+    indexEditDeck = null;
   }
 }

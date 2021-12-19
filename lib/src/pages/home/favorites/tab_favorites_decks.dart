@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
+import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
@@ -17,6 +18,7 @@ class TabFavoritesDecks extends StatelessWidget {
     final LandingController landingController = Get.put(LandingController());
     final FavoritesController favoritesController =
         Get.put(FavoritesController());
+    final FormDeckController formDeckController = Get.put(FormDeckController());
 
     return Obx(() {
       return Column(
@@ -24,7 +26,11 @@ class TabFavoritesDecks extends StatelessWidget {
           AppButton(
             text: 'favoritesDeckNewDeck'.tr,
             color: Colors.black54,
-            onPressed: () => Get.toNamed<dynamic>(AppRoutes.formDeck),
+            onPressed: () {
+              formDeckController.heroId.value = 0;
+              formDeckController.initDeck();
+              Get.toNamed<dynamic>(AppRoutes.formDeck);
+            },
           ),
           const SizedBox(height: 20),
           if (favoritesController.listDecksFavorites.isEmpty)
@@ -55,6 +61,19 @@ class TabFavoritesDecks extends StatelessWidget {
                         child: FadeInAnimation(
                           child: GestureDetector(
                             onTap: () => {
+                              formDeckController.heroId.value =
+                                  favoriteDeckModel.heroId,
+                              print(favoriteDeckModel.minisId),
+                              for (var index = 0;
+                                  index < favoriteDeckModel.minisId.length;
+                                  index++)
+                                {
+                                  formDeckController.listMinis[index] =
+                                      favoriteDeckModel.minisId
+                                          .elementAt(index),
+                                },
+                              print(formDeckController.listMinis),
+                              formDeckController.indexEditDeck = i,
                               Get.toNamed<dynamic>(AppRoutes.formDeck),
                             },
                             child: Card(

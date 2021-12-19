@@ -5,9 +5,11 @@ import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
+import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
+import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/utils/utils.dart';
 
 class FormDeckPage extends StatelessWidget {
@@ -17,6 +19,8 @@ class FormDeckPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final FormDeckController formDeckController = Get.put(FormDeckController());
     final LandingController landingController = Get.find();
+    final FavoritesController favoritesController =
+        Get.put(FavoritesController());
     const double columns = 3.2;
     const double runSpacing = 10;
     const double spacing = 10;
@@ -78,20 +82,21 @@ class FormDeckPage extends StatelessWidget {
         onWillPop: () async {
           final contain =
               formDeckController.listMinis.where((element) => element > 0);
-          if (contain.isNotEmpty || formDeckController.heroId.value > 0) {
-            final bool? shouldPop = await Get.defaultDialog(
-              onConfirm: Get.back,
-              onCancel: Get.back,
-              confirmTextColor: Colors.white,
-              cancelTextColor: ColorConstants.background,
-              buttonColor: ColorConstants.background,
-              textCancel: 'formDeckDialogTextCancel'.tr,
-              textConfirm: 'formDeckDialogTextConfirm'.tr,
-              title: 'formDeckDialogTitle'.tr,
-              middleText: 'formDeckDialogMiddleText'.tr,
-            );
-
-            return shouldPop ?? false;
+          if (formDeckController.indexEditDeck == null) {
+            if (contain.isNotEmpty || formDeckController.heroId.value > 0) {
+              final bool? shouldPop = await Get.defaultDialog(
+                onConfirm: Get.back,
+                onCancel: Get.back,
+                confirmTextColor: Colors.white,
+                cancelTextColor: ColorConstants.background,
+                buttonColor: ColorConstants.background,
+                textCancel: 'formDeckDialogTextCancel'.tr,
+                textConfirm: 'formDeckDialogTextConfirm'.tr,
+                title: 'formDeckDialogTitle'.tr,
+                middleText: 'formDeckDialogMiddleText'.tr,
+              );
+              return shouldPop ?? false;
+            }
           }
           return true;
         },
@@ -111,26 +116,50 @@ class FormDeckPage extends StatelessWidget {
                     children: [
                       const BackBar(),
                       const SizedBox(height: 20),
-                      Text(
-                        'formDeckPageTitle'.tr,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
+                      if (formDeckController.indexEditDeck != null)
+                        Text(
+                          'formDeckPageEditDeck'.tr,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        )
+                      else
+                        Text(
+                          'formDeckPageCreateDeck'.tr,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
                       const SizedBox(height: 20),
                       Visibility(
                         visible: formDeckController.heroId.value > 0 &&
                             !formDeckController.listMinis.contains(0),
                         child: AppButton(
-                          text: 'favoritesDeckSaveDeck'.tr,
-                          color: Colors.black54,
-                          margin: const EdgeInsets.only(bottom: 20),
-                          onPressed: () => Utils().dialogSaveDeck(
-                            formDeckController.heroId.value,
-                            formDeckController.listMinis,
-                          ),
-                        ),
+                            text: 'favoritesDeckSaveDeck'.tr,
+                            color: Colors.black54,
+                            margin: const EdgeInsets.only(bottom: 20),
+                            onPressed: () {
+                              if (formDeckController.indexEditDeck != null) {
+                                Utils().dialogEditDeck(
+                                  formDeckController.indexEditDeck!,
+                                  FavoriteDeckModel(
+                                    name: favoritesController
+                                        .listDecksFavorites[
+                                            formDeckController.indexEditDeck!]
+                                        .name,
+                                    heroId: formDeckController.heroId.value,
+                                    minisId: formDeckController.listMinis,
+                                  ),
+                                );
+                                return;
+                              }
+                              Utils().dialogSaveDeck(
+                                formDeckController.heroId.value,
+                                formDeckController.listMinis,
+                              );
+                            }),
                       ),
                       Expanded(
                         child: SingleChildScrollView(
@@ -281,7 +310,7 @@ class FormDeckPage extends StatelessWidget {
                                       ),
                                     );
                                   }
-                                  return InkWell(
+                                  return GestureDetector(
                                     onTap: () => openMinis(index),
                                     child: Row(
                                       mainAxisAlignment:

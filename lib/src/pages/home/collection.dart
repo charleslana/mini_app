@@ -26,6 +26,14 @@ class Collection extends StatelessWidget {
         children: [
           const CustomBar(),
           const SizedBox(height: 20),
+          Text(
+            'collection'.tr,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
           TabBar(
             controller: collectionController.tabController,
             tabs: [

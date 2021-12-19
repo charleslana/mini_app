@@ -63,7 +63,6 @@ class TabFavoritesDecks extends StatelessWidget {
                             onTap: () => {
                               formDeckController.heroId.value =
                                   favoriteDeckModel.heroId,
-                              print(favoriteDeckModel.minisId),
                               for (var index = 0;
                                   index < favoriteDeckModel.minisId.length;
                                   index++)
@@ -72,7 +71,6 @@ class TabFavoritesDecks extends StatelessWidget {
                                       favoriteDeckModel.minisId
                                           .elementAt(index),
                                 },
-                              print(formDeckController.listMinis),
                               formDeckController.indexEditDeck = i,
                               Get.toNamed<dynamic>(AppRoutes.formDeck),
                             },

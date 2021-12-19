@@ -150,7 +150,13 @@ class FormDeckPage extends StatelessWidget {
                                             formDeckController.indexEditDeck!]
                                         .name,
                                     heroId: formDeckController.heroId.value,
-                                    minisId: formDeckController.listMinis,
+                                    minisId: [
+                                      formDeckController.listMinis[0],
+                                      formDeckController.listMinis[1],
+                                      formDeckController.listMinis[2],
+                                      formDeckController.listMinis[3],
+                                      formDeckController.listMinis[4],
+                                    ],
                                   ),
                                 );
                                 return;

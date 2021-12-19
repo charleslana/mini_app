@@ -50,6 +50,7 @@ final Map<String, String> enUS = {
   'formDeckDialogTextConfirm': 'Continue',
   'formDeckDialogMiddleText':
       "You haven't finished the entire deck, do you really want to quit?",
+  'collection': 'Collection',
   'collectionTabHeroes': 'Heroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
   'tabHeroesSearch': 'Search Heroes',
@@ -133,6 +134,7 @@ final Map<String, String> ptBR = {
   'formDeckDialogTextConfirm': 'Continuar',
   'formDeckDialogMiddleText':
       'Você não finalizou todo o deck, deseja realmente sair?',
+  'collection': 'Coleção',
   'collectionTabHeroes': 'Heróis (@value)',
   'collectionTabMinis': 'Minis (@value)',
   'tabHeroesSearch': 'Pesquisar Heróis',

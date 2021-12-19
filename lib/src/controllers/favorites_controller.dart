@@ -93,10 +93,10 @@ class FavoritesController extends GetxController
   }
 
   void updateFavoriteDeck(int index, FavoriteDeckModel favoriteDeckModel) {
-    //listDecksFavorites[index] = favoriteDeckModel;
-    // favoriteService.saveToBox(FavoriteModel(
-    //   favorites: listMinisFavorites,
-    //   favoritesDeck: listDecksFavorites,
-    // ));
+    listDecksFavorites[index] = favoriteDeckModel;
+    favoriteService.saveToBox(FavoriteModel(
+      favorites: listMinisFavorites,
+      favoritesDeck: listDecksFavorites,
+    ));
   }
 }

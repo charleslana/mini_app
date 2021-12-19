@@ -11,12 +11,10 @@ import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
-  UtilsController utilsController = Get.put(UtilsController());
-  LandingController landingController = Get.put(LandingController());
-  LanguageController languageController = Get.put(LanguageController());
-  FavoritesController favoritesController = Get.put(FavoritesController());
-
   void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
+    final UtilsController utilsController = Get.put(UtilsController());
+    final FavoritesController favoritesController =
+        Get.put(FavoritesController());
     bool value = false;
     Get.defaultDialog<dynamic>(
       title: '',
@@ -79,6 +77,8 @@ class Utils {
   }
 
   void dialogEditName() {
+    final UtilsController utilsController = Get.put(UtilsController());
+    final LandingController landingController = Get.put(LandingController());
     Get.defaultDialog<dynamic>(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
@@ -126,6 +126,7 @@ class Utils {
   }
 
   void dialogLanguage() {
+    final LanguageController languageController = Get.put(LanguageController());
     final List<Widget> chips = [];
     Widget widget;
 
@@ -178,6 +179,8 @@ class Utils {
   }
 
   void dialogName() {
+    final UtilsController utilsController = Get.put(UtilsController());
+    final LandingController landingController = Get.put(LandingController());
     Get.defaultDialog<dynamic>(
       barrierDismissible: false,
       onWillPop: () async {
@@ -229,6 +232,9 @@ class Utils {
   }
 
   void dialogSaveDeck(int heroId, List<int> minisId) {
+    final UtilsController utilsController = Get.put(UtilsController());
+    final FavoritesController favoritesController =
+        Get.put(FavoritesController());
     bool value = false;
     Get.defaultDialog<dynamic>(
       title: '',

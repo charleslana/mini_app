@@ -3,15 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
+import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/language_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
+import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
   UtilsController utilsController = Get.put(UtilsController());
   LandingController landingController = Get.put(LandingController());
   LanguageController languageController = Get.put(LanguageController());
+  FavoritesController favoritesController = Get.put(FavoritesController());
 
   void dialogEditName() {
     Get.defaultDialog<dynamic>(
@@ -161,6 +164,64 @@ class Utils {
         ],
       ),
     );
+  }
+
+  void dialogSaveDeck(int heroId, List<int> minisId) {
+    bool value = false;
+    Get.defaultDialog<dynamic>(
+      title: '',
+      titleStyle: const TextStyle(fontSize: 0),
+      radius: 10,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: utilsController.textEditingController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              labelText: 'utilsDialogNameDeckInput'.tr,
+              hintMaxLines: 1,
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 4,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          AppButton(
+            text: 'utilsDialogNameDeckButton'.tr,
+            onPressed: () {
+              if (utilsController.textEditingController.text.trim().isEmpty) {
+                snackBar('utilsDialogNameDeckInputEmpty'.tr);
+                return;
+              }
+              if (utilsController.textEditingController.text.trim().length >
+                  30) {
+                snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
+                return;
+              }
+              favoritesController.saveFavoriteDeck(FavoriteDeckModel(
+                name: utilsController.textEditingController.text
+                    .trim()
+                    .capitalize!,
+                heroId: heroId,
+                minisId: minisId,
+              ));
+              Get.back<dynamic>();
+              value = true;
+            },
+          ),
+        ],
+      ),
+    ).then((_) {
+      if (value) {
+        Get.back<dynamic>();
+      }
+      return false;
+    });
   }
 
   static String removeDiacritics(String string) {

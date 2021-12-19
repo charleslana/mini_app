@@ -42,6 +42,7 @@ class FavoritesController extends GetxController
   void fecthFavorites() {
     final FavoriteModel loadFavorite = favoriteService.loadFromBox();
     listMinisFavorites.addAll(loadFavorite.favorites);
+    listDecksFavorites.addAll(loadFavorite.favoritesDeck);
   }
 
   void _handleTabSelection() {
@@ -57,6 +58,14 @@ class FavoritesController extends GetxController
     }
   }
 
+  void saveFavoriteDeck(FavoriteDeckModel favoriteDeckModel) {
+    listDecksFavorites.add(favoriteDeckModel);
+    favoriteService.saveToBox(FavoriteModel(
+      favorites: listMinisFavorites,
+      favoritesDeck: listDecksFavorites,
+    ));
+  }
+
   void scrollToUp(ScrollController scrollController) {
     if (scrollController.hasClients) {
       scrollController.jumpTo(0);
@@ -69,11 +78,17 @@ class FavoritesController extends GetxController
           element.type == favorite.type && element.index == favorite.index);
       listMinisFavorites.removeAt(index);
       isMiniFavorite.value = false;
-      favoriteService.saveToBox(FavoriteModel(favorites: listMinisFavorites));
+      favoriteService.saveToBox(FavoriteModel(
+        favorites: listMinisFavorites,
+        favoritesDeck: listDecksFavorites,
+      ));
       return;
     }
     listMinisFavorites.add(favorite);
-    favoriteService.saveToBox(FavoriteModel(favorites: listMinisFavorites));
+    favoriteService.saveToBox(FavoriteModel(
+      favorites: listMinisFavorites,
+      favoritesDeck: listDecksFavorites,
+    ));
     isMiniFavorite.value = true;
   }
 }

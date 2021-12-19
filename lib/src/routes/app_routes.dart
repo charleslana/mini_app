@@ -7,4 +7,5 @@ abstract class AppRoutes {
   static const String heroDetails = '/hero-details';
   static const String miniDetails = '/mini-details';
   static const String deckDetails = '/deck-details';
+  static const String formDeck = '/form-deck';
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mini_app/src/utils/utils.dart';
 
 class BackBar extends StatelessWidget {
@@ -16,7 +15,7 @@ class BackBar extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
           child: IconButton(
-            onPressed: Get.back,
+            onPressed: () => Navigator.of(context).maybePop(),
             icon: const Icon(
               Icons.arrow_back_ios_new,
               color: Colors.white,

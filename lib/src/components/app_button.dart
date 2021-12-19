@@ -7,12 +7,14 @@ class AppButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.color = ColorConstants.background,
+    this.margin = EdgeInsets.zero,
     Key? key,
   }) : super(key: key);
 
   final String text;
   final VoidCallback onPressed;
   final Color color;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class AppButton extends StatelessWidget {
       child: FractionallySizedBox(
         widthFactor: 0.5,
         child: Container(
+          margin: margin,
           padding: const EdgeInsets.symmetric(
             vertical: 10,
             horizontal: 15,

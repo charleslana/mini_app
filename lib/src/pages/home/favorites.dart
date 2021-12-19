@@ -69,31 +69,33 @@ class Favorites extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          TabBar(
-            controller: favoritesController.tabController,
-            tabs: [
-              Tab(
-                icon: Image.asset(
-                  ImageConstants.iconArcherQueen,
-                  height: 38,
+          Obx(() {
+            return TabBar(
+              controller: favoritesController.tabController,
+              tabs: [
+                Tab(
+                  icon: Image.asset(
+                    ImageConstants.iconArcherQueen,
+                    height: 38,
+                  ),
+                  text: 'favoritesTabDecks'.trParams({
+                    'value':
+                        favoritesController.listDecksFavorites.length.toString()
+                  }),
                 ),
-                text: 'favoritesTabDecks'.trParams({
-                  'value':
-                      favoritesController.listDecksFavorites.length.toString()
-                }),
-              ),
-              Tab(
-                icon: Image.asset(
-                  ImageConstants.iconMegaKnight,
-                  height: 38,
+                Tab(
+                  icon: Image.asset(
+                    ImageConstants.iconMegaKnight,
+                    height: 38,
+                  ),
+                  text: 'favoritesTabMinis'.trParams({
+                    'value':
+                        favoritesController.listMinisFavorites.length.toString()
+                  }),
                 ),
-                text: 'favoritesTabMinis'.trParams({
-                  'value':
-                      favoritesController.listMinisFavorites.length.toString()
-                }),
-              ),
-            ],
-          ),
+              ],
+            );
+          }),
           const SizedBox(height: 20),
           Expanded(
             child: TabBarView(

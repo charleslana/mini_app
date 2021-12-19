@@ -18,6 +18,8 @@ class ImageConstants {
   static const String iconElixir = 'assets/images/icons/elixir.png';
   static const String iconDiscord = 'assets/images/icons/discord.png';
   static const String background = 'assets/images/background.png';
+  static const String heroHidden = 'assets/images/hero_hidden.png';
+  static const String miniHidden = 'assets/images/mini_hidden.png';
 
   String getHeroThumbnail(String image) {
     return 'assets/images/heroes/thumbnail/$image.png';

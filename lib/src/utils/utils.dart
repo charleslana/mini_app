@@ -3,85 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
-import 'package:mini_app/src/controllers/favorites_controller.dart';
-import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/language_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
-import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
-  void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
-    final FormDeckController formDeckController = Get.put(FormDeckController());
-    final FavoritesController favoritesController =
-        Get.put(FavoritesController());
-    bool value = false;
-    Get.defaultDialog<dynamic>(
-      title: '',
-      titleStyle: const TextStyle(fontSize: 0),
-      radius: 10,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: formDeckController.textEditingController
-              ..text = favoriteDeckModel.name,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: 'utilsDialogNameDeckInput'.tr,
-              hintMaxLines: 1,
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 4,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          AppButton(
-            text: 'utilsDialogNameDeckButton'.tr,
-            onPressed: () {
-              if (formDeckController.textEditingController.text
-                  .trim()
-                  .isEmpty) {
-                snackBar('utilsDialogNameDeckInputEmpty'.tr);
-                return;
-              }
-              if (formDeckController.textEditingController.text.trim().length >
-                  30) {
-                snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
-                return;
-              }
-              if (!Get.isSnackbarOpen) {
-                favoritesController.updateFavoriteDeck(
-                  index,
-                  FavoriteDeckModel(
-                    name: formDeckController.textEditingController.text
-                        .trim()
-                        .capitalize!,
-                    heroId: favoriteDeckModel.heroId,
-                    minisId: favoriteDeckModel.minisId,
-                  ),
-                );
-                Get.back<dynamic>();
-                value = true;
-              }
-            },
-          ),
-        ],
-      ),
-    ).then((_) {
-      if (value) {
-        formDeckController.textEditingController.clear();
-        Get.back<dynamic>();
-      }
-      return false;
-    });
-  }
-
   void dialogEditName() {
     final UtilsController utilsController = Get.put(UtilsController());
     final LandingController landingController = Get.put(LandingController());
@@ -243,72 +170,6 @@ class Utils {
         ],
       ),
     );
-  }
-
-  void dialogSaveDeck(int heroId, List<int> minisId) {
-    final FormDeckController formDeckController = Get.put(FormDeckController());
-    final FavoritesController favoritesController =
-        Get.put(FavoritesController());
-    bool value = false;
-    Get.defaultDialog<dynamic>(
-      title: '',
-      titleStyle: const TextStyle(fontSize: 0),
-      radius: 10,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: formDeckController.textEditingController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: 'utilsDialogNameDeckInput'.tr,
-              hintMaxLines: 1,
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 4,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          AppButton(
-            text: 'utilsDialogNameDeckButton'.tr,
-            onPressed: () {
-              if (formDeckController.textEditingController.text
-                  .trim()
-                  .isEmpty) {
-                snackBar('utilsDialogNameDeckInputEmpty'.tr);
-                return;
-              }
-              if (formDeckController.textEditingController.text.trim().length >
-                  30) {
-                snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
-                return;
-              }
-              if (!Get.isSnackbarOpen) {
-                favoritesController.saveFavoriteDeck(FavoriteDeckModel(
-                  name: formDeckController.textEditingController.text
-                      .trim()
-                      .capitalize!,
-                  heroId: heroId,
-                  minisId: minisId,
-                ));
-                Get.back<dynamic>();
-                value = true;
-              }
-            },
-          ),
-        ],
-      ),
-    ).then((_) {
-      if (value) {
-        formDeckController.textEditingController.clear();
-        Get.back<dynamic>();
-      }
-      return false;
-    });
   }
 
   static String removeDiacritics(String string) {

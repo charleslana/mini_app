@@ -26,6 +26,140 @@ class FormDeckPage extends StatelessWidget {
     const double spacing = 10;
     final double width = (Get.width - runSpacing * (columns - 1)) / columns;
 
+    void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
+      bool value = false;
+      Get.defaultDialog<dynamic>(
+        title: '',
+        titleStyle: const TextStyle(fontSize: 0),
+        radius: 10,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: formDeckController.textEditingController
+                ..text = favoriteDeckModel.name,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: 'utilsDialogNameDeckInput'.tr,
+                hintMaxLines: 1,
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            AppButton(
+              text: 'utilsDialogNameDeckButton'.tr,
+              onPressed: () {
+                if (formDeckController.textEditingController.text
+                    .trim()
+                    .isEmpty) {
+                  Utils().snackBar('utilsDialogNameDeckInputEmpty'.tr);
+                  return;
+                }
+                if (formDeckController.textEditingController.text
+                        .trim()
+                        .length >
+                    30) {
+                  Utils().snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
+                  return;
+                }
+                if (!Get.isSnackbarOpen) {
+                  favoritesController.updateFavoriteDeck(
+                    index,
+                    FavoriteDeckModel(
+                      name: formDeckController.textEditingController.text
+                          .trim()
+                          .capitalize!,
+                      heroId: favoriteDeckModel.heroId,
+                      minisId: favoriteDeckModel.minisId,
+                    ),
+                  );
+                  Get.back<dynamic>();
+                  value = true;
+                }
+              },
+            ),
+          ],
+        ),
+      ).then((_) {
+        formDeckController.textEditingController.clear();
+        if (value) {
+          Get.back<dynamic>();
+        }
+        return false;
+      });
+    }
+
+    void dialogSaveDeck(int heroId, List<int> minisId) {
+      bool value = false;
+      Get.defaultDialog<dynamic>(
+        title: '',
+        titleStyle: const TextStyle(fontSize: 0),
+        radius: 10,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: formDeckController.textEditingController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: 'utilsDialogNameDeckInput'.tr,
+                hintMaxLines: 1,
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            AppButton(
+              text: 'utilsDialogNameDeckButton'.tr,
+              onPressed: () {
+                if (formDeckController.textEditingController.text
+                    .trim()
+                    .isEmpty) {
+                  Utils().snackBar('utilsDialogNameDeckInputEmpty'.tr);
+                  return;
+                }
+                if (formDeckController.textEditingController.text
+                        .trim()
+                        .length >
+                    30) {
+                  Utils().snackBar('utilsDialogNameDeckInputMaxCharacters'.tr);
+                  return;
+                }
+                if (!Get.isSnackbarOpen) {
+                  favoritesController.saveFavoriteDeck(FavoriteDeckModel(
+                    name: formDeckController.textEditingController.text
+                        .trim()
+                        .capitalize!,
+                    heroId: heroId,
+                    minisId: minisId,
+                  ));
+                  Get.back<dynamic>();
+                  value = true;
+                }
+              },
+            ),
+          ],
+        ),
+      ).then((_) {
+        formDeckController.textEditingController.clear();
+        if (value) {
+          Get.back<dynamic>();
+        }
+        return false;
+      });
+    }
+
     void openHeroes() {
       Get.bottomSheet<dynamic>(
         SizedBox(
@@ -137,41 +271,42 @@ class FormDeckPage extends StatelessWidget {
                         visible: formDeckController.heroId.value > 0 &&
                             !formDeckController.listMinis.contains(0),
                         child: AppButton(
-                            text: 'formDeckPageSaveDeck'.tr,
-                            color: Colors.black54,
-                            margin: const EdgeInsets.only(bottom: 20),
-                            onPressed: () {
-                              if (formDeckController.indexEditDeck != null) {
-                                Utils().dialogEditDeck(
-                                  formDeckController.indexEditDeck!,
-                                  FavoriteDeckModel(
-                                    name: favoritesController
-                                        .listDecksFavorites[
-                                            formDeckController.indexEditDeck!]
-                                        .name,
-                                    heroId: formDeckController.heroId.value,
-                                    minisId: [
-                                      formDeckController.listMinis[0],
-                                      formDeckController.listMinis[1],
-                                      formDeckController.listMinis[2],
-                                      formDeckController.listMinis[3],
-                                      formDeckController.listMinis[4],
-                                    ],
-                                  ),
-                                );
-                                return;
-                              }
-                              Utils().dialogSaveDeck(
-                                formDeckController.heroId.value,
-                                [
-                                  formDeckController.listMinis[0],
-                                  formDeckController.listMinis[1],
-                                  formDeckController.listMinis[2],
-                                  formDeckController.listMinis[3],
-                                  formDeckController.listMinis[4],
-                                ],
+                          text: 'formDeckPageSaveDeck'.tr,
+                          color: Colors.black54,
+                          margin: const EdgeInsets.only(bottom: 20),
+                          onPressed: () {
+                            if (formDeckController.indexEditDeck != null) {
+                              dialogEditDeck(
+                                formDeckController.indexEditDeck!,
+                                FavoriteDeckModel(
+                                  name: favoritesController
+                                      .listDecksFavorites[
+                                          formDeckController.indexEditDeck!]
+                                      .name,
+                                  heroId: formDeckController.heroId.value,
+                                  minisId: [
+                                    formDeckController.listMinis[0],
+                                    formDeckController.listMinis[1],
+                                    formDeckController.listMinis[2],
+                                    formDeckController.listMinis[3],
+                                    formDeckController.listMinis[4],
+                                  ],
+                                ),
                               );
-                            }),
+                              return;
+                            }
+                            dialogSaveDeck(
+                              formDeckController.heroId.value,
+                              [
+                                formDeckController.listMinis[0],
+                                formDeckController.listMinis[1],
+                                formDeckController.listMinis[2],
+                                formDeckController.listMinis[3],
+                                formDeckController.listMinis[4],
+                              ],
+                            );
+                          },
+                        ),
                       ),
                       Expanded(
                         child: SingleChildScrollView(

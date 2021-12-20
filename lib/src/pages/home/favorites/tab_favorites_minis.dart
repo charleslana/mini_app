@@ -32,6 +32,7 @@ class TabFavoritesMinis extends StatelessWidget {
               child: AnimationLimiter(
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
+                  controller: favoritesController.minisScrollController,
                   itemCount: favoritesController.listMinisFavorites.length,
                   itemBuilder: (context, index) {
                     final FavoriteMiniModel favoriteMiniModel =

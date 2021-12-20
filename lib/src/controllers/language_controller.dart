@@ -17,7 +17,6 @@ class LanguageController extends GetxController {
     selectedLanguage = languageService.locale == null
         ? selectedLanguage
         : languageService.locale!.languageCode;
-
     if (selectedLanguage == 'pt') {
       selectedIndex.value = 1;
     } else {

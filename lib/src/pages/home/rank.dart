@@ -13,7 +13,7 @@ class Rank extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LandingController landingController = Get.find();
-    final formatter = NumberFormat('###,###.###', 'pt_BR');
+    final NumberFormat formatter = NumberFormat('###,###.###', 'pt_BR');
 
     return Padding(
       padding: const EdgeInsets.only(

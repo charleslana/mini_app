@@ -115,7 +115,7 @@ class TabMinis extends StatelessWidget {
                   ? Text('tabMinisSearchNotFound'.tr)
                   : GridView.builder(
                       physics: const BouncingScrollPhysics(),
-                      controller: collectionController.scrollControllerMinis,
+                      controller: collectionController.minisScrollController,
                       padding: const EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: columnCount,

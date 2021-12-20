@@ -11,7 +11,8 @@ class AppService {
 
   Future<AppModel?> getApp() async {
     try {
-      final response = await client.get(Uri.parse(ConfigConstants.baseURL));
+      final Response response =
+          await client.get(Uri.parse(ConfigConstants.baseURL));
       if (response.statusCode == 200) {
         final dynamic decodeJson = jsonDecode(response.body);
         return AppModel.fromJson(decodeJson);

@@ -25,7 +25,7 @@ class LandingController extends GetxController {
 
   @override
   void onInit() {
-    fecthBoxName();
+    fetchBoxName();
     fetchApp();
     super.onInit();
   }
@@ -95,13 +95,6 @@ class LandingController extends GetxController {
     }
   }
 
-  void fecthBoxName() {
-    final String? boxName = nameService.loadFromBox();
-    if (boxName != null) {
-      name = boxName;
-    }
-  }
-
   Future<void> fetchApp() async {
     try {
       await AppService(client).getApp().then((appModel) {
@@ -115,6 +108,13 @@ class LandingController extends GetxController {
       checkError(error);
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  void fetchBoxName() {
+    final String? boxName = nameService.loadFromBox();
+    if (boxName != null) {
+      name = boxName;
     }
   }
 
@@ -151,8 +151,8 @@ class LandingController extends GetxController {
     addMiniList(text);
   }
 
-  void setMiniModel(AppModel setAppModel) {
-    appModel = setAppModel;
+  void setMiniModel(AppModel appModel) {
+    this.appModel = appModel;
     filterMiniList.addAll(appModel.minis);
     filterHeroList.addAll(appModel.heroes);
   }

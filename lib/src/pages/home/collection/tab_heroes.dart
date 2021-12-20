@@ -54,7 +54,7 @@ class TabHeroes extends StatelessWidget {
                   ? Text('tabHeroesSearchNotFound'.tr)
                   : GridView.builder(
                       physics: const BouncingScrollPhysics(),
-                      controller: collectionController.scrollControllerHeroes,
+                      controller: collectionController.heroesScrollController,
                       padding: const EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: columnCount,

@@ -5,8 +5,8 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 class CollectionController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final ScrollController scrollControllerHeroes = ScrollController();
-  final ScrollController scrollControllerMinis = ScrollController();
+  final ScrollController heroesScrollController = ScrollController();
+  final ScrollController minisScrollController = ScrollController();
   final TextEditingController heroTextEditingController =
       TextEditingController();
   final TextEditingController miniTextEditingController =
@@ -56,11 +56,11 @@ class CollectionController extends GetxController
     if (tabController.indexIsChanging) {
       switch (tabController.index) {
         case 0:
-          scrollToUp(scrollControllerHeroes);
+          scrollToUp(heroesScrollController);
           clearTabHero();
           break;
         case 1:
-          scrollToUp(scrollControllerMinis);
+          scrollToUp(minisScrollController);
           clearTabMinis();
           break;
       }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/services/favorite_service.dart';
 
 class FavoritesController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final ScrollController scrollControllerDecks = ScrollController();
-  final ScrollController scrollControllerMinis = ScrollController();
+  final ScrollController decksScrollController = ScrollController();
+  final ScrollController minisScrollController = ScrollController();
   FavoriteService favoriteService = FavoriteService();
   List<FavoriteMiniModel> listMinisFavorites = <FavoriteMiniModel>[].obs;
   List<FavoriteDeckModel> listDecksFavorites = <FavoriteDeckModel>[].obs;
   RxBool isMiniFavorite = false.obs;
-  LandingController landingController = Get.find();
 
   @override
   void onInit() {
@@ -24,6 +22,19 @@ class FavoritesController extends GetxController
     tabController.addListener(_handleTabSelection);
     fecthFavorites();
     super.onInit();
+  }
+
+  void _handleTabSelection() {
+    if (tabController.indexIsChanging) {
+      switch (tabController.index) {
+        case 0:
+          scrollToUp(decksScrollController);
+          break;
+        case 1:
+          scrollToUp(minisScrollController);
+          break;
+      }
+    }
   }
 
   bool existFavorite(FavoriteMiniModel favorite) {
@@ -43,19 +54,6 @@ class FavoritesController extends GetxController
     final FavoriteModel loadFavorite = favoriteService.loadFromBox();
     listMinisFavorites.addAll(loadFavorite.favorites);
     listDecksFavorites.addAll(loadFavorite.favoritesDeck);
-  }
-
-  void _handleTabSelection() {
-    if (tabController.indexIsChanging) {
-      switch (tabController.index) {
-        case 0:
-          scrollToUp(scrollControllerDecks);
-          break;
-        case 1:
-          scrollToUp(scrollControllerMinis);
-          break;
-      }
-    }
   }
 
   void removeFavorite(FavoriteMiniModel favorite) {

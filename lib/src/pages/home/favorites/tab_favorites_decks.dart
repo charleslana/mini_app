@@ -63,6 +63,7 @@ class TabFavoritesDecks extends StatelessWidget {
               child: Expanded(
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
+                  controller: favoritesController.decksScrollController,
                   itemCount: favoritesController.listDecksFavorites.length,
                   itemBuilder: (context, i) {
                     final FavoriteDeckModel favoriteDeckModel =

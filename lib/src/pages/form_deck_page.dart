@@ -28,6 +28,7 @@ class FormDeckPage extends StatelessWidget {
 
     void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
       bool value = false;
+
       Get.defaultDialog<dynamic>(
         title: '',
         titleStyle: const TextStyle(fontSize: 0),
@@ -97,6 +98,7 @@ class FormDeckPage extends StatelessWidget {
 
     void dialogSaveDeck(int heroId, List<int> minisId) {
       bool value = false;
+
       Get.defaultDialog<dynamic>(
         title: '',
         titleStyle: const TextStyle(fontSize: 0),
@@ -160,7 +162,7 @@ class FormDeckPage extends StatelessWidget {
       });
     }
 
-    void openHeroes() {
+    void showHeroes() {
       Get.bottomSheet<dynamic>(
         SizedBox(
           child: Wrap(
@@ -182,7 +184,7 @@ class FormDeckPage extends StatelessWidget {
       );
     }
 
-    void openMinis(int index) {
+    void showMinis(int index) {
       Get.bottomSheet<dynamic>(
         SizedBox(
           child: SingleChildScrollView(
@@ -214,7 +216,7 @@ class FormDeckPage extends StatelessWidget {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          final contain =
+          final Iterable<int> contain =
               formDeckController.listMinis.where((element) => element > 0);
           if (formDeckController.indexEditDeck == null) {
             if (contain.isNotEmpty || formDeckController.heroId.value > 0) {
@@ -315,7 +317,7 @@ class FormDeckPage extends StatelessWidget {
                             children: [
                               if (formDeckController.heroId.value > 0)
                                 GestureDetector(
-                                  onTap: openHeroes,
+                                  onTap: showHeroes,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -363,7 +365,7 @@ class FormDeckPage extends StatelessWidget {
                                 )
                               else
                                 GestureDetector(
-                                  onTap: openHeroes,
+                                  onTap: showHeroes,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -420,7 +422,7 @@ class FormDeckPage extends StatelessWidget {
                                             .appModel.minis[id - 1];
 
                                     return GestureDetector(
-                                      onTap: () => openMinis(index),
+                                      onTap: () => showMinis(index),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -458,7 +460,7 @@ class FormDeckPage extends StatelessWidget {
                                     );
                                   }
                                   return GestureDetector(
-                                    onTap: () => openMinis(index),
+                                    onTap: () => showMinis(index),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,

@@ -12,6 +12,7 @@ class Utils {
   void dialogEditName() {
     final UtilsController utilsController = Get.put(UtilsController());
     final LandingController landingController = Get.put(LandingController());
+
     Get.defaultDialog<dynamic>(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
@@ -118,6 +119,7 @@ class Utils {
   void dialogName() {
     final UtilsController utilsController = Get.put(UtilsController());
     final LandingController landingController = Get.put(LandingController());
+
     Get.defaultDialog<dynamic>(
       barrierDismissible: false,
       onWillPop: () async {
@@ -188,6 +190,7 @@ class Utils {
       Get.back<dynamic>();
       return;
     }
+
     Get.rawSnackbar(
       messageText: Text(
         message,

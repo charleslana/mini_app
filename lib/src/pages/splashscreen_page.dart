@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/constants/config_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/splashscreen_controller.dart';
 
@@ -38,7 +39,8 @@ class SplashscreenPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'splashscreenVersion'.trParams({'version': '1.0.0'}),
+                      'splashscreenVersion'
+                          .trParams({'version': ConfigConstants.version}),
                       style: const TextStyle(fontSize: 12),
                     ),
                     Text(

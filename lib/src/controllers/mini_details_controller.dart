@@ -13,7 +13,7 @@ class MiniDetailsController extends GetxController {
 
   @override
   void onInit() {
-    fecthFavorites();
+    fetchFavorites();
     super.onInit();
   }
 
@@ -23,7 +23,7 @@ class MiniDetailsController extends GetxController {
     }
   }
 
-  void fecthFavorites() {
+  void fetchFavorites() {
     favoritesController.existFavorite(FavoriteMiniModel(
         index: landingController.miniIndex.value, type: TypeFavorite.mini));
   }

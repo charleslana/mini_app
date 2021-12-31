@@ -18,6 +18,8 @@ class Patch extends StatelessWidget {
     if ('languageCode'.tr == 'en') {
       formatter = DateFormat('yyyy/MM/dd');
     }
+    landingController.appModel.patch
+        .sort((PatchModel a, PatchModel b) => b.id.compareTo(a.id));
 
     return Padding(
       padding: const EdgeInsets.only(

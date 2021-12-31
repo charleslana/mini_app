@@ -43,25 +43,39 @@ class MiniDetailsPage extends StatelessWidget {
                     const BackBar(),
                     const SizedBox(height: 20),
                     Text(
-                      'miniDetailsStar'
-                          .trParams({'star': star.toStringAsFixed(0)}),
+                      'miniDetailsStar'.tr,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
                     ),
-                    Card(
-                      child: SliderTheme(
-                        data: const SliderThemeData(
-                          trackHeight: 8,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: ElevatedButton(
+                            onPressed: () =>
+                                miniDetailsController.changeStar(0),
+                            child: Text(
+                              'miniDetailsButtonEmpty'.tr,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
-                        child: Slider(
-                          value: star.toDouble(),
-                          onChanged: (double value) =>
-                              miniDetailsController.changeStar(value.toInt()),
-                          max: miniDetailsController.maxStar.toDouble(),
-                        ),
-                      ),
+                        for (var i = 0; i < miniDetailsController.maxStar; i++)
+                          Flexible(
+                            child: IconButton(
+                              onPressed: () =>
+                                  miniDetailsController.changeStar(i + 1),
+                              icon: Icon(
+                                star >= (i + 1)
+                                    ? Icons.star
+                                    : Icons.star_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -204,6 +218,12 @@ class MiniDetailsPage extends StatelessWidget {
                                     .appModel.minis[index].energyCost
                                     .toString(),
                                 isOpacity: true,
+                              ),
+                              CardStats(
+                                title: 'miniDetailsStatsInitialEnergy'.tr,
+                                text: landingController
+                                    .appModel.minis[index].initialEnergy
+                                    .toString(),
                               ),
                             ],
                           ),

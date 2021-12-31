@@ -189,6 +189,12 @@ class HeroDetailsPage extends StatelessWidget {
                                     .toString(),
                                 isOpacity: true,
                               ),
+                              CardStats(
+                                title: 'heroDetailsStatsInitialEnergy'.tr,
+                                text: landingController.appModel.heroes[index]
+                                    .stats[level - 1].initialEnergy
+                                    .toString(),
+                              ),
                             ],
                           ),
                         ),

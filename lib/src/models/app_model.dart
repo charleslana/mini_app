@@ -79,6 +79,7 @@ class MiniModel {
     required this.elixirCost,
     required this.damagePerHit,
     required this.energyCost,
+    required this.initialEnergy,
     required this.stats,
   });
 
@@ -96,6 +97,7 @@ class MiniModel {
     elixirCost = json['elixirCost'];
     damagePerHit = json['damagePerHit'];
     energyCost = json['energyCost'];
+    initialEnergy = json['initialEnergy'];
     if (json['stats'] != null) {
       stats = <StatsMiniModel>[];
       json['stats'].forEach((dynamic v) {
@@ -112,6 +114,7 @@ class MiniModel {
   late int elixirCost;
   late int damagePerHit;
   late int energyCost;
+  late int initialEnergy;
   late List<StatsMiniModel> stats;
 
   Map<String, dynamic> toJson() {
@@ -124,6 +127,7 @@ class MiniModel {
     data['elixirCost'] = elixirCost;
     data['damagePerHit'] = damagePerHit;
     data['energyCost'] = energyCost;
+    data['initialEnergy'] = initialEnergy;
     data['stats'] = stats.map((v) => v.toJson()).toList();
     return data;
   }
@@ -346,6 +350,7 @@ class StatsHeroModel {
     required this.hitPerSecond,
     required this.damagePerHit,
     required this.energyCost,
+    required this.initialEnergy,
   });
 
   StatsHeroModel.fromJson(Map<String, dynamic> json) {
@@ -354,6 +359,7 @@ class StatsHeroModel {
     hitPerSecond = json['hitPerSecond'];
     damagePerHit = json['damagePerHit'];
     energyCost = json['energyCost'];
+    initialEnergy = json['initialEnergy'];
   }
 
   late int level;
@@ -361,6 +367,7 @@ class StatsHeroModel {
   late double hitPerSecond;
   late int damagePerHit;
   late int energyCost;
+  late int initialEnergy;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -369,6 +376,7 @@ class StatsHeroModel {
     data['hitPerSecond'] = hitPerSecond;
     data['damagePerHit'] = damagePerHit;
     data['energyCost'] = energyCost;
+    data['initialEnergy'] = initialEnergy;
     return data;
   }
 }

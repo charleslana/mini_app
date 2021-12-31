@@ -85,11 +85,10 @@ final Map<String, String> enUS = {
   'miniDetailsAbilitiesBoast': 'Boast',
   'miniDetailsAbilitiesKO': 'KO',
   'patchTitle': 'Patch',
-  'rankTitle': 'Rank and Maps',
+  'rankTitle': 'Rank and Boards',
   'rankTrophies': 'Trophies: @trophies',
-  'rankMapTooltip': '@name\nTrophies required: @trophies\n@description',
-  'deckTitle': 'Community Decks',
-  'deckRank': 'Rank: @rank',
+  'rankBoardTooltip': '@name\nTrophies required: @trophies\n@description',
+  'deckTitle': 'Coming soon',
 };
 
 final Map<String, String> ptBR = {
@@ -173,9 +172,8 @@ final Map<String, String> ptBR = {
   'miniDetailsAbilitiesBoast': 'Ostentação',
   'miniDetailsAbilitiesKO': 'KO',
   'patchTitle': 'Correção',
-  'rankTitle': 'Classificação e Mapas',
+  'rankTitle': 'Classificação e Pranchas',
   'rankTrophies': 'Troféus: @trophies',
-  'rankMapTooltip': '@name\nTroféus necessários: @trophies\n@description',
-  'deckTitle': 'Decks da Comunidade',
-  'deckRank': 'Classificação: @rank',
+  'rankBoardTooltip': '@name\nTroféus necessários: @trophies\n@description',
+  'deckTitle': 'Em breve',
 };

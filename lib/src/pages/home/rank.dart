@@ -84,10 +84,11 @@ class Rank extends StatelessWidget {
                                     physics: const BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
-                                      children: landingController.appModel.maps
-                                          .map((map) {
+                                      children: landingController
+                                          .appModel.boards
+                                          .map((board) {
                                         if (rankModel.trophies >=
-                                            map.trophiesRequired) {
+                                            board.trophiesRequired) {
                                           return Tooltip(
                                             triggerMode: TooltipTriggerMode.tap,
                                             padding: const EdgeInsets.all(10),
@@ -98,29 +99,31 @@ class Rank extends StatelessWidget {
                                             preferBelow: true,
                                             verticalOffset: 20,
                                             message: 'languageCode'.tr == 'en'
-                                                ? 'rankMapTooltip'.trParams({
-                                                    'name': map.name.enUs,
+                                                ? 'rankBoardTooltip'.trParams({
+                                                    'name': board.name.enUs,
                                                     'trophies': formatter
-                                                        .format(map
+                                                        .format(board
                                                             .trophiesRequired)
                                                         .toString(),
-                                                    'description':
-                                                        map.description?.enUs ??
-                                                            ''
+                                                    'description': board
+                                                            .description
+                                                            ?.enUs ??
+                                                        ''
                                                   })
-                                                : 'rankMapTooltip'.trParams({
-                                                    'name': map.name.ptBr,
+                                                : 'rankBoardTooltip'.trParams({
+                                                    'name': board.name.ptBr,
                                                     'trophies': formatter
-                                                        .format(map
+                                                        .format(board
                                                             .trophiesRequired)
                                                         .toString(),
-                                                    'description':
-                                                        map.description?.ptBr ??
-                                                            ''
+                                                    'description': board
+                                                            .description
+                                                            ?.ptBr ??
+                                                        ''
                                                   }),
                                             child: Image.asset(
                                               ImageConstants()
-                                                  .getMaps(map.image),
+                                                  .getBoards(board.image),
                                               height: 100,
                                             ),
                                           );

@@ -33,15 +33,15 @@ class HomePage extends StatelessWidget {
             ],
             bottomNavigationBarItem: [
               appBottomNavigationBarItem(
-                  ImageConstants.iconSkeletonGuard, 'homePageCollection'.tr),
+                  ImageConstants.iconCollection, 'homePageCollection'.tr),
               appBottomNavigationBarItem(
-                  ImageConstants.iconPekka, 'homePageDecks'.tr),
+                  ImageConstants.iconDecks, 'homePageDecks'.tr),
               appBottomNavigationBarItem(
-                  ImageConstants.iconLumberjack, 'homePageFavorites'.tr),
+                  ImageConstants.iconFavorites, 'homePageFavorites'.tr),
               appBottomNavigationBarItem(
-                  ImageConstants.iconValkyrie, 'homePageRank'.tr),
+                  ImageConstants.iconBoards, 'homePageRank'.tr),
               appBottomNavigationBarItem(
-                  ImageConstants.iconArcher, 'homePagePatch'.tr),
+                  ImageConstants.iconPatch, 'homePagePatch'.tr),
             ],
           ),
         ),

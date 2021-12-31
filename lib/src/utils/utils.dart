@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/language_controller.dart';
@@ -37,8 +36,7 @@ class Utils {
           const SizedBox(
             height: 30,
           ),
-          AppButton(
-            text: 'utilsDialogEditNameButton'.tr,
+          ElevatedButton(
             onPressed: () {
               if (utilsController.textEditingController.text.trim().isEmpty) {
                 snackBar('utilsDialogNameInputEmpty'.tr);
@@ -57,6 +55,10 @@ class Utils {
                 Get.back<dynamic>();
               }
             },
+            child: Text(
+              'utilsDialogEditNameButton'.tr,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -148,8 +150,7 @@ class Utils {
           const SizedBox(
             height: 30,
           ),
-          AppButton(
-            text: 'utilsDialogNameButton'.tr,
+          ElevatedButton(
             onPressed: () {
               if (utilsController.textEditingController.text.trim().isEmpty) {
                 snackBar('utilsDialogNameInputEmpty'.tr);
@@ -168,6 +169,10 @@ class Utils {
                 Get.toNamed<dynamic>(AppRoutes.home);
               }
             },
+            child: Text(
+              'utilsDialogNameButton'.tr,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),

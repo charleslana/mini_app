@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/components/custom_circle_avatar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/collection_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
@@ -80,9 +79,9 @@ class TabHeroes extends StatelessWidget {
                                 },
                                 child: Column(
                                   children: [
-                                    CustomCircleAvatar(
-                                      image: ImageConstants()
-                                          .getHeroThumbnail(heroModel.image),
+                                    Image.asset(
+                                      ImageConstants()
+                                          .getHeroIcon(heroModel.image),
                                       width: 60,
                                       height: 60,
                                     ),

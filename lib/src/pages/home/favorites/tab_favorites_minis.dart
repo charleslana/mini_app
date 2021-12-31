@@ -64,8 +64,8 @@ class TabFavoritesMinis extends StatelessWidget {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Image.asset(
-                                          ImageConstants().getHeroThumbnail(
-                                              heroModel.image),
+                                          ImageConstants()
+                                              .getHeroIcon(heroModel.image),
                                           height: 80,
                                         ),
                                         Flexible(
@@ -115,7 +115,7 @@ class TabFavoritesMinis extends StatelessWidget {
                                     children: [
                                       Image.asset(
                                         ImageConstants()
-                                            .getMiniThumbnail(miniModel.image),
+                                            .getMiniIcon(miniModel.image),
                                         height: 80,
                                       ),
                                       Flexible(

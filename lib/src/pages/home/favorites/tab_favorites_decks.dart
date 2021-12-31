@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/favorites_controller.dart';
@@ -10,6 +9,7 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class TabFavoritesDecks extends StatelessWidget {
   const TabFavoritesDecks({Key? key}) : super(key: key);
@@ -41,14 +41,16 @@ class TabFavoritesDecks extends StatelessWidget {
     return Obx(() {
       return Column(
         children: [
-          AppButton(
-            text: 'favoritesDeckNewDeck'.tr,
-            color: Colors.black54,
+          ElevatedButton(
             onPressed: () {
               formDeckController.heroId.value = 0;
               formDeckController.initDeck();
               Get.toNamed<dynamic>(AppRoutes.formDeck);
             },
+            child: Text(
+              'favoritesDeckNewDeck'.tr,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
           const SizedBox(height: 20),
           if (favoritesController.listDecksFavorites.isEmpty)
@@ -105,7 +107,7 @@ class TabFavoritesDecks extends StatelessWidget {
                                     children: [
                                       Image.asset(
                                         ImageConstants()
-                                            .getHeroThumbnail(heroModel.image),
+                                            .getHeroIcon(heroModel.image),
                                         height: 80,
                                       ),
                                       const SizedBox(width: 5),
@@ -123,13 +125,25 @@ class TabFavoritesDecks extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            IconButton(
-                                              onPressed: () =>
-                                                  confirmRemoveDeck(i),
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.redAccent,
-                                              ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () => Utils()
+                                                      .snackBar('deckTitle'.tr),
+                                                  icon: const Icon(
+                                                    Icons.share,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: () =>
+                                                      confirmRemoveDeck(i),
+                                                  icon: const Icon(
+                                                    Icons.delete,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),

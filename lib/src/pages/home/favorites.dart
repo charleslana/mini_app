@@ -75,7 +75,7 @@ class Favorites extends StatelessWidget {
               tabs: [
                 Tab(
                   icon: Image.asset(
-                    ImageConstants.iconArcherQueen,
+                    ImageConstants.iconFavoritesDeck,
                     height: 38,
                   ),
                   text: 'favoritesTabDecks'.trParams({
@@ -85,7 +85,7 @@ class Favorites extends StatelessWidget {
                 ),
                 Tab(
                   icon: Image.asset(
-                    ImageConstants.iconMegaKnight,
+                    ImageConstants.iconFavoritesMinis,
                     height: 38,
                   ),
                   text: 'favoritesTabMinis'.trParams({

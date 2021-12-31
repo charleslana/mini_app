@@ -39,7 +39,7 @@ class Collection extends StatelessWidget {
             tabs: [
               Tab(
                 icon: Image.asset(
-                  ImageConstants.iconCountess,
+                  ImageConstants.iconHeroes,
                   height: 38,
                 ),
                 text: 'collectionTabHeroes'.trParams({
@@ -48,7 +48,7 @@ class Collection extends StatelessWidget {
               ),
               Tab(
                 icon: Image.asset(
-                  ImageConstants.iconSpearGoblin,
+                  ImageConstants.iconMinis,
                   height: 38,
                 ),
                 text: 'collectionTabMinis'.trParams({

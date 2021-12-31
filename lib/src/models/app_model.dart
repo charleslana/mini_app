@@ -5,10 +5,9 @@ class AppModel {
     required this.author,
     required this.minis,
     required this.heroes,
-    required this.maps,
+    required this.boards,
     required this.patch,
     required this.rank,
-    required this.deck,
   });
 
   AppModel.fromJson(Map<String, dynamic> json) {
@@ -27,10 +26,10 @@ class AppModel {
         heroes.add(HeroModel.fromJson(v));
       });
     }
-    if (json['maps'] != null) {
-      maps = <MapModel>[];
-      json['maps'].forEach((dynamic v) {
-        maps.add(MapModel.fromJson(v));
+    if (json['boards'] != null) {
+      boards = <BoardsModel>[];
+      json['boards'].forEach((dynamic v) {
+        boards.add(BoardsModel.fromJson(v));
       });
     }
     if (json['patch'] != null) {
@@ -45,12 +44,6 @@ class AppModel {
         rank.add(RankModel.fromJson(v));
       });
     }
-    if (json['deck'] != null) {
-      deck = <DeckModel>[];
-      json['deck'].forEach((dynamic v) {
-        deck.add(DeckModel.fromJson(v));
-      });
-    }
   }
 
   late String version;
@@ -58,10 +51,9 @@ class AppModel {
   late String author;
   late List<MiniModel> minis;
   late List<HeroModel> heroes;
-  late List<MapModel> maps;
+  late List<BoardsModel> boards;
   late List<PatchModel> patch;
   late List<RankModel> rank;
-  late List<DeckModel> deck;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -70,10 +62,9 @@ class AppModel {
     data['author'] = author;
     data['minis'] = minis.map((v) => v.toJson()).toList();
     data['heroes'] = heroes.map((v) => v.toJson()).toList();
-    data['maps'] = maps.map((v) => v.toJson()).toList();
+    data['boards'] = boards.map((v) => v.toJson()).toList();
     data['patch'] = patch.map((v) => v.toJson()).toList();
     data['rank'] = rank.map((v) => v.toJson()).toList();
-    data['deck'] = deck.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -382,8 +373,8 @@ class StatsHeroModel {
   }
 }
 
-class MapModel {
-  MapModel({
+class BoardsModel {
+  BoardsModel({
     required this.id,
     required this.name,
     required this.description,
@@ -391,7 +382,7 @@ class MapModel {
     required this.trophiesRequired,
   });
 
-  MapModel.fromJson(Map<String, dynamic> json) {
+  BoardsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = NameModel.fromJson(json['name']);
     description = json['description'] != null
@@ -468,48 +459,6 @@ class RankModel {
     data['id'] = id;
     data['name'] = name.toJson();
     data['trophies'] = trophies;
-    return data;
-  }
-}
-
-class DeckModel {
-  DeckModel({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.image,
-    required this.heroId,
-    required this.minisId,
-    required this.rank,
-  });
-
-  DeckModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = NameModel.fromJson(json['name']);
-    description = NameModel.fromJson(json['description']);
-    image = json['image'];
-    heroId = json['heroId'];
-    minisId = json['minisId'].cast<int>();
-    rank = json['rank'];
-  }
-
-  late int id;
-  late NameModel name;
-  late NameModel description;
-  late String image;
-  late int heroId;
-  late List<int> minisId;
-  late int rank;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name.toJson();
-    data['description'] = description.toJson();
-    data['image'] = image;
-    data['heroId'] = heroId;
-    data['minisId'] = minisId;
-    data['rank'] = rank;
     return data;
   }
 }

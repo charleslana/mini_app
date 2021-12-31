@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/components/custom_circle_avatar.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/collection_controller.dart';
@@ -141,9 +140,9 @@ class TabMinis extends StatelessWidget {
                                 },
                                 child: Column(
                                   children: [
-                                    CustomCircleAvatar(
-                                      image: ImageConstants()
-                                          .getMiniThumbnail(miniModel.image),
+                                    Image.asset(
+                                      ImageConstants()
+                                          .getMiniIcon(miniModel.image),
                                       width: 60,
                                       height: 60,
                                     ),

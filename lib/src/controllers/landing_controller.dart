@@ -21,7 +21,6 @@ class LandingController extends GetxController {
   final RxString _name = ''.obs;
   NameService nameService = NameService();
   RxBool isOk = false.obs;
-  late DeckModel deckModel;
 
   @override
   void onInit() {

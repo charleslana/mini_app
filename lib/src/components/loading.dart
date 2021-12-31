@@ -31,7 +31,7 @@ class Loading extends StatelessWidget {
             );
           },
           child: Image.asset(
-            ImageConstants.iconBowler,
+            ImageConstants().randomHeroIcon(),
             height: 80,
           ),
         ),
@@ -48,7 +48,7 @@ class Loading extends StatelessWidget {
             );
           },
           child: Image.asset(
-            ImageConstants.iconMiner,
+            ImageConstants().randomMiniIcon(),
             height: 80,
           ),
         ),
@@ -65,7 +65,7 @@ class Loading extends StatelessWidget {
             );
           },
           child: Image.asset(
-            ImageConstants.iconElectroWizard,
+            ImageConstants().randomMiniIcon(),
             height: 80,
           ),
         ),

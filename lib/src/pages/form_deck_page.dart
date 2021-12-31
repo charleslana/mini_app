@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_app/src/components/app_button.dart';
 import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
@@ -53,8 +52,7 @@ class FormDeckPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            AppButton(
-              text: 'utilsDialogNameDeckButton'.tr,
+            ElevatedButton(
               onPressed: () {
                 if (formDeckController.textEditingController.text
                     .trim()
@@ -84,6 +82,10 @@ class FormDeckPage extends StatelessWidget {
                   value = true;
                 }
               },
+              child: Text(
+                'utilsDialogNameDeckButton'.tr,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -122,8 +124,7 @@ class FormDeckPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            AppButton(
-              text: 'utilsDialogNameDeckButton'.tr,
+            ElevatedButton(
               onPressed: () {
                 if (formDeckController.textEditingController.text
                     .trim()
@@ -150,6 +151,10 @@ class FormDeckPage extends StatelessWidget {
                   value = true;
                 }
               },
+              child: Text(
+                'utilsDialogNameDeckButton'.tr,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -272,10 +277,7 @@ class FormDeckPage extends StatelessWidget {
                       Visibility(
                         visible: formDeckController.heroId.value > 0 &&
                             !formDeckController.listMinis.contains(0),
-                        child: AppButton(
-                          text: 'formDeckPageSaveDeck'.tr,
-                          color: Colors.black54,
-                          margin: const EdgeInsets.only(bottom: 20),
+                        child: ElevatedButton(
                           onPressed: () {
                             if (formDeckController.indexEditDeck != null) {
                               dialogEditDeck(
@@ -308,6 +310,10 @@ class FormDeckPage extends StatelessWidget {
                               ],
                             );
                           },
+                          child: Text(
+                            'formDeckPageSaveDeck'.tr,
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       Expanded(

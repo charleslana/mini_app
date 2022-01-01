@@ -114,6 +114,7 @@ class Utils {
               child: Wrap(
                 runSpacing: 10,
                 spacing: 10,
+                alignment: WrapAlignment.center,
                 children: chips,
               ),
             ),

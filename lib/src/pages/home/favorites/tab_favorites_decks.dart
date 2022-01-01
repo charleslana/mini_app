@@ -9,7 +9,6 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
-import 'package:mini_app/src/utils/utils.dart';
 
 class TabFavoritesDecks extends StatelessWidget {
   const TabFavoritesDecks({Key? key}) : super(key: key);
@@ -125,25 +124,13 @@ class TabFavoritesDecks extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Row(
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () => Utils()
-                                                      .snackBar('deckTitle'.tr),
-                                                  icon: const Icon(
-                                                    Icons.share,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                IconButton(
-                                                  onPressed: () =>
-                                                      confirmRemoveDeck(i),
-                                                  icon: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.redAccent,
-                                                  ),
-                                                ),
-                                              ],
+                                            IconButton(
+                                              onPressed: () =>
+                                                  confirmRemoveDeck(i),
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: Colors.redAccent,
+                                              ),
                                             ),
                                           ],
                                         ),

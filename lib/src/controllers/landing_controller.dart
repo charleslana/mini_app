@@ -36,34 +36,54 @@ class LandingController extends GetxController {
     nameService.saveToBox(newName);
   }
 
+  void addHeroLanguageEnUs(String text) {
+    filterHeroList.addAll(appModel.heroes
+        .where((hero) => Utils.removeDiacritics(hero.name.enUs.toLowerCase())
+            .contains(Utils.removeDiacritics(text.toLowerCase())))
+        .toList());
+  }
+
   void addHeroList(String text) {
     filterHeroList.clear();
-    if ('languageCode'.tr == 'en') {
-      filterHeroList.addAll(appModel.heroes
-          .where((hero) => Utils.removeDiacritics(hero.name.enUs.toLowerCase())
-              .contains(Utils.removeDiacritics(text.toLowerCase())))
-          .toList());
-      return;
+    switch ('languageCode'.tr) {
+      case 'en':
+        addHeroLanguageEnUs(text);
+        break;
+      default:
+        addHeroLanguagePtBr(text);
     }
+  }
+
+  void addHeroLanguagePtBr(String text) {
     filterHeroList.addAll(appModel.heroes
         .where((hero) => Utils.removeDiacritics(hero.name.ptBr.toLowerCase())
             .contains(Utils.removeDiacritics(text.toLowerCase())))
         .toList());
   }
 
-  void addMiniList(String text) {
-    filterMiniList.clear();
-    if ('languageCode'.tr == 'en') {
-      filterMiniList.addAll(appModel.minis
-          .where((mini) => Utils.removeDiacritics(mini.name.enUs.toLowerCase())
-              .contains(Utils.removeDiacritics(text.toLowerCase())))
-          .toList());
-      return;
-    }
+  void addMiniLanguageEnUs(String text) {
+    filterMiniList.addAll(appModel.minis
+        .where((mini) => Utils.removeDiacritics(mini.name.enUs.toLowerCase())
+            .contains(Utils.removeDiacritics(text.toLowerCase())))
+        .toList());
+  }
+
+  void addMiniLanguagePtBr(String text) {
     filterMiniList.addAll(appModel.minis
         .where((mini) => Utils.removeDiacritics(mini.name.ptBr.toLowerCase())
             .contains(Utils.removeDiacritics(text.toLowerCase())))
         .toList());
+  }
+
+  void addMiniList(String text) {
+    filterMiniList.clear();
+    switch ('languageCode'.tr) {
+      case 'en':
+        addMiniLanguageEnUs(text);
+        break;
+      default:
+        addMiniLanguagePtBr(text);
+    }
   }
 
   void checkAppVersion(AppModel appModel) {

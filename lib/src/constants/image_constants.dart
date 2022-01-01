@@ -4,7 +4,7 @@ class ImageConstants {
   static const String logo = 'assets/images/db_mini_logo.png';
   static const String landing = 'assets/images/landing.jpg';
   static const String iconCollection = 'assets/images/icons/collection.png';
-  static const String iconDecks = 'assets/images/icons/decks.png';
+  static const String iconTierList = 'assets/images/icons/tier_list.png';
   static const String iconFavorites = 'assets/images/icons/favorites.png';
   static const String iconBoards = 'assets/images/icons/boards.png';
   static const String iconPatch = 'assets/images/icons/patch.png';

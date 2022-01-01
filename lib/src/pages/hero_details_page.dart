@@ -10,6 +10,7 @@ import 'package:mini_app/src/controllers/hero_details_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class HeroDetailsPage extends StatelessWidget {
   const HeroDetailsPage({Key? key}) : super(key: key);
@@ -69,11 +70,8 @@ class HeroDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'languageCode'.tr == 'en'
-                              ? landingController
-                                  .appModel.heroes[index].name.enUs
-                              : landingController
-                                  .appModel.heroes[index].name.ptBr,
+                          Utils().readLanguage(
+                              landingController.appModel.heroes[index].name),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -225,9 +223,8 @@ class HeroDetailsPage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'languageCode'.tr == 'en'
-                                                ? levelModel.name.enUs
-                                                : levelModel.name.ptBr,
+                                            Utils()
+                                                .readLanguage(levelModel.name),
                                             style: const TextStyle(
                                               fontSize: 15,
                                               color: ColorConstants.background,
@@ -276,11 +273,8 @@ class HeroDetailsPage extends StatelessWidget {
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  'languageCode'.tr == 'en'
-                                                      ? levelModel
-                                                          .description.enUs
-                                                      : levelModel
-                                                          .description.ptBr,
+                                                  Utils().readLanguage(
+                                                      levelModel.description),
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.indigoAccent,

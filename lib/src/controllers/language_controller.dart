@@ -17,10 +17,12 @@ class LanguageController extends GetxController {
     selectedLanguage = languageService.locale == null
         ? selectedLanguage
         : languageService.locale!.languageCode;
-    if (selectedLanguage == 'pt') {
-      selectedIndex.value = 1;
-    } else {
-      selectedIndex.value = 0;
+    switch (selectedLanguage) {
+      case 'en':
+        selectedIndex.value = 0;
+        break;
+      default:
+        selectedIndex.value = 1;
     }
     super.onInit();
   }

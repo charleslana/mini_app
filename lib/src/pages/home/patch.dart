@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class Patch extends StatelessWidget {
   const Patch({Key? key}) : super(key: key);
@@ -14,9 +15,13 @@ class Patch extends StatelessWidget {
   Widget build(BuildContext context) {
     final LandingController landingController = Get.find();
     initializeDateFormatting();
-    DateFormat formatter = DateFormat('dd/MM/yyyy');
-    if ('languageCode'.tr == 'en') {
-      formatter = DateFormat('yyyy/MM/dd');
+    DateFormat formatter;
+    switch ('languageCode'.tr) {
+      case 'en':
+        formatter = DateFormat('yyyy/MM/dd');
+        break;
+      default:
+        formatter = DateFormat('dd/MM/yyyy');
     }
     landingController.appModel.patch
         .sort((PatchModel a, PatchModel b) => b.id.compareTo(a.id));
@@ -73,9 +78,8 @@ class Patch extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    'languageCode'.tr == 'en'
-                                        ? patchModel.description.enUs
-                                        : patchModel.description.ptBr,
+                                    Utils()
+                                        .readLanguage(patchModel.description),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.indigoAccent,

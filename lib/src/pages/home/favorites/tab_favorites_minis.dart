@@ -7,6 +7,7 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class TabFavoritesMinis extends StatelessWidget {
   const TabFavoritesMinis({Key? key}) : super(key: key);
@@ -70,9 +71,8 @@ class TabFavoritesMinis extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: Text(
-                                            'languageCode'.tr == 'en'
-                                                ? heroModel.name.enUs
-                                                : heroModel.name.ptBr,
+                                            Utils()
+                                                .readLanguage(heroModel.name),
                                             style: const TextStyle(
                                               fontSize: 18,
                                               color: Colors.indigoAccent,
@@ -120,9 +120,7 @@ class TabFavoritesMinis extends StatelessWidget {
                                       ),
                                       Flexible(
                                         child: Text(
-                                          'languageCode'.tr == 'en'
-                                              ? miniModel.name.enUs
-                                              : miniModel.name.ptBr,
+                                          Utils().readLanguage(miniModel.name),
                                           style: const TextStyle(
                                             fontSize: 18,
                                             color: Colors.indigoAccent,

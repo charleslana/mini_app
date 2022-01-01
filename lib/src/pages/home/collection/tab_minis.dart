@@ -7,6 +7,7 @@ import 'package:mini_app/src/controllers/collection_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class TabMinis extends StatelessWidget {
   const TabMinis({Key? key}) : super(key: key);
@@ -154,9 +155,8 @@ class TabMinis extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           child: Text(
-                                            'languageCode'.tr == 'en'
-                                                ? miniModel.name.enUs
-                                                : miniModel.name.ptBr,
+                                            Utils()
+                                                .readLanguage(miniModel.name),
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,

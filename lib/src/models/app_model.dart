@@ -85,7 +85,7 @@ class MiniModel {
 
   MiniModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = NameModel.fromJson(json['name']);
+    name = TranslationModel.fromJson(json['name']);
     image = json['image'];
     skill = SkillModel.fromJson(json['skill']);
     if (json['abilities'] != null) {
@@ -107,7 +107,7 @@ class MiniModel {
   }
 
   late int id;
-  late NameModel name;
+  late TranslationModel name;
   late String image;
   late SkillModel skill;
   late List<AbilityModel> abilities;
@@ -133,13 +133,13 @@ class MiniModel {
   }
 }
 
-class NameModel {
-  NameModel({
+class TranslationModel {
+  TranslationModel({
     required this.enUs,
     required this.ptBr,
   });
 
-  NameModel.fromJson(Map<String, dynamic> json) {
+  TranslationModel.fromJson(Map<String, dynamic> json) {
     enUs = json['enUs'];
     ptBr = json['ptBr'];
   }
@@ -170,16 +170,16 @@ class SkillModel {
     spr = json['super'];
     boast = json['boast'];
     ko = json['ko'];
-    name = NameModel.fromJson(json['name']);
-    description = NameModel.fromJson(json['description']);
+    name = TranslationModel.fromJson(json['name']);
+    description = TranslationModel.fromJson(json['description']);
   }
 
   late bool clash;
   late bool spr;
   late bool boast;
   late bool ko;
-  late NameModel name;
-  late NameModel description;
+  late TranslationModel name;
+  late TranslationModel description;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -210,8 +210,8 @@ class AbilityModel {
     spr = json['super'];
     boast = json['boast'];
     ko = json['ko'];
-    name = NameModel.fromJson(json['name']);
-    description = NameModel.fromJson(json['description']);
+    name = TranslationModel.fromJson(json['name']);
+    description = TranslationModel.fromJson(json['description']);
   }
 
   late int star;
@@ -219,8 +219,8 @@ class AbilityModel {
   late bool spr;
   late bool boast;
   late bool ko;
-  late NameModel name;
-  late NameModel description;
+  late TranslationModel name;
+  late TranslationModel description;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -272,7 +272,7 @@ class HeroModel {
 
   HeroModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = NameModel.fromJson(json['name']);
+    name = TranslationModel.fromJson(json['name']);
     image = json['image'];
     if (json['levels'] != null) {
       levels = <LevelModel>[];
@@ -289,7 +289,7 @@ class HeroModel {
   }
 
   late int id;
-  late NameModel name;
+  late TranslationModel name;
   late String image;
   late List<LevelModel> levels;
   late List<StatsHeroModel> stats;
@@ -320,16 +320,16 @@ class LevelModel {
     clash = json['clash'];
     spr = json['super'];
     boast = json['boast'];
-    name = NameModel.fromJson(json['name']);
-    description = NameModel.fromJson(json['description']);
+    name = TranslationModel.fromJson(json['name']);
+    description = TranslationModel.fromJson(json['description']);
   }
 
   late int level;
   late bool clash;
   late bool spr;
   late bool boast;
-  late NameModel name;
-  late NameModel description;
+  late TranslationModel name;
+  late TranslationModel description;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -392,17 +392,15 @@ class BoardsModel {
 
   BoardsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = NameModel.fromJson(json['name']);
-    description = json['description'] != null
-        ? NameModel.fromJson(json['description'])
-        : null;
+    name = TranslationModel.fromJson(json['name']);
+    description = TranslationModel.fromJson(json['description']);
     image = json['image'];
     trophiesRequired = json['trophiesRequired'];
   }
 
   late int id;
-  late NameModel name;
-  late NameModel? description;
+  late TranslationModel name;
+  late TranslationModel description;
   late String image;
   late int trophiesRequired;
 
@@ -410,9 +408,7 @@ class BoardsModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name.toJson();
-    if (description != null) {
-      data['description'] = description!.toJson();
-    }
+    data['description'] = description.toJson();
     data['image'] = image;
     data['trophiesRequired'] = trophiesRequired;
     return data;
@@ -429,12 +425,12 @@ class PatchModel {
   PatchModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     date = json['date'];
-    description = NameModel.fromJson(json['description']);
+    description = TranslationModel.fromJson(json['description']);
   }
 
   late int id;
   late String date;
-  late NameModel description;
+  late TranslationModel description;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -454,12 +450,12 @@ class RankModel {
 
   RankModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = NameModel.fromJson(json['name']);
+    name = TranslationModel.fromJson(json['name']);
     trophies = json['trophies'];
   }
 
   late int id;
-  late NameModel name;
+  late TranslationModel name;
   late int trophies;
 
   Map<String, dynamic> toJson() {

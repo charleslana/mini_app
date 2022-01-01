@@ -10,6 +10,7 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/mini_details_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class MiniDetailsPage extends StatelessWidget {
   const MiniDetailsPage({Key? key}) : super(key: key);
@@ -82,11 +83,8 @@ class MiniDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'languageCode'.tr == 'en'
-                              ? landingController
-                                  .appModel.minis[index].name.enUs
-                              : landingController
-                                  .appModel.minis[index].name.ptBr,
+                          Utils().readLanguage(
+                              landingController.appModel.minis[index].name),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -247,11 +245,8 @@ class MiniDetailsPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'languageCode'.tr == 'en'
-                                            ? landingController.appModel
-                                                .minis[index].skill.name.enUs
-                                            : landingController.appModel
-                                                .minis[index].skill.name.ptBr,
+                                        Utils().readLanguage(landingController
+                                            .appModel.minis[index].skill.name),
                                         style: const TextStyle(
                                           fontSize: 15,
                                           color: ColorConstants.background,
@@ -304,19 +299,12 @@ class MiniDetailsPage extends StatelessWidget {
                                           ),
                                           Flexible(
                                             child: Text(
-                                              'languageCode'.tr == 'en'
-                                                  ? landingController
+                                              Utils().readLanguage(
+                                                  landingController
                                                       .appModel
                                                       .minis[index]
                                                       .skill
-                                                      .description
-                                                      .enUs
-                                                  : landingController
-                                                      .appModel
-                                                      .minis[index]
-                                                      .skill
-                                                      .description
-                                                      .ptBr,
+                                                      .description),
                                               style: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.indigoAccent,
@@ -352,9 +340,8 @@ class MiniDetailsPage extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'languageCode'.tr == 'en'
-                                                    ? abilityModel.name.enUs
-                                                    : abilityModel.name.ptBr,
+                                                Utils().readLanguage(
+                                                    abilityModel.name),
                                                 style: const TextStyle(
                                                   fontSize: 15,
                                                   color:
@@ -412,11 +399,9 @@ class MiniDetailsPage extends StatelessWidget {
                                                   ),
                                                   Flexible(
                                                     child: Text(
-                                                      'languageCode'.tr == 'en'
-                                                          ? abilityModel
-                                                              .description.enUs
-                                                          : abilityModel
-                                                              .description.ptBr,
+                                                      Utils().readLanguage(
+                                                          abilityModel
+                                                              .description),
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         color:

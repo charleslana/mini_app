@@ -5,6 +5,7 @@ import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/controllers/language_controller.dart';
 import 'package:mini_app/src/controllers/utils_controller.dart';
+import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class Utils {
@@ -177,6 +178,15 @@ class Utils {
         ],
       ),
     );
+  }
+
+  String readLanguage(TranslationModel translationModel) {
+    switch ('languageCode'.tr) {
+      case 'en':
+        return translationModel.enUs;
+      default:
+        return translationModel.ptBr;
+    }
   }
 
   static String removeDiacritics(String string) {

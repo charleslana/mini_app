@@ -341,21 +341,13 @@ class FormDeckPage extends StatelessWidget {
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
-                                            'languageCode'.tr == 'en'
-                                                ? landingController
+                                            Utils().readLanguage(
+                                                landingController
                                                     .appModel
                                                     .heroes[formDeckController
                                                             .heroId.value -
                                                         1]
-                                                    .name
-                                                    .enUs
-                                                : landingController
-                                                    .appModel
-                                                    .heroes[formDeckController
-                                                            .heroId.value -
-                                                        1]
-                                                    .name
-                                                    .ptBr,
+                                                    .name),
                                             style: const TextStyle(
                                               color: Colors.white,
                                             ),
@@ -448,9 +440,8 @@ class FormDeckPage extends StatelessWidget {
                                               ),
                                               const SizedBox(height: 10),
                                               Text(
-                                                'languageCode'.tr == 'en'
-                                                    ? miniModel.name.enUs
-                                                    : miniModel.name.ptBr,
+                                                Utils().readLanguage(
+                                                    miniModel.name),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                 ),

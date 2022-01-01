@@ -29,7 +29,7 @@ final Map<String, String> enUS = {
   'utilsDialogNameDeckInputMaxCharacters':
       'The deck name must contain a maximum of 30 characters.',
   'homePageCollection': 'Collection',
-  'homePageDecks': 'Decks',
+  'homePageTierList': 'Tier List',
   'homePageFavorites': 'Favorites',
   'homePageRank': 'Rank',
   'homePagePatch': 'Patch',
@@ -91,7 +91,7 @@ final Map<String, String> enUS = {
   'rankTitle': 'Rank and Boards',
   'rankTrophies': 'Trophies: @trophies',
   'rankBoardTooltip': '@name\nTrophies required: @trophies\n@description',
-  'deckTitle': 'Coming soon',
+  'tierListTitle': 'Coming soon',
 };
 
 final Map<String, String> ptBR = {
@@ -119,7 +119,7 @@ final Map<String, String> ptBR = {
   'utilsDialogNameDeckInputMaxCharacters':
       'O nome do deck deve conter no máximo 30 caracteres.',
   'homePageCollection': 'Coleção',
-  'homePageDecks': 'Decks',
+  'homePageTierList': 'Tier List',
   'homePageFavorites': 'Favoritos',
   'homePageRank': 'Classificação',
   'homePagePatch': 'Correção',
@@ -178,8 +178,8 @@ final Map<String, String> ptBR = {
   'miniDetailsAbilitiesBoast': 'Ostentação',
   'miniDetailsAbilitiesKO': 'KO',
   'patchTitle': 'Correção',
-  'rankTitle': 'Classificação e Pranchas',
+  'rankTitle': 'Classificação e Tabuleiros',
   'rankTrophies': 'Troféus: @trophies',
   'rankBoardTooltip': '@name\nTroféus necessários: @trophies\n@description',
-  'deckTitle': 'Em breve',
+  'tierListTitle': 'Em breve',
 };

@@ -6,6 +6,7 @@ import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class Rank extends StatelessWidget {
   const Rank({Key? key}) : super(key: key);
@@ -72,9 +73,7 @@ class Rank extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    'languageCode'.tr == 'en'
-                                        ? rankModel.name.enUs
-                                        : rankModel.name.ptBr,
+                                    Utils().readLanguage(rankModel.name),
                                     style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.deepPurpleAccent,
@@ -98,29 +97,18 @@ class Rank extends StatelessWidget {
                                             ),
                                             preferBelow: true,
                                             verticalOffset: 20,
-                                            message: 'languageCode'.tr == 'en'
-                                                ? 'rankBoardTooltip'.trParams({
-                                                    'name': board.name.enUs,
-                                                    'trophies': formatter
-                                                        .format(board
-                                                            .trophiesRequired)
-                                                        .toString(),
-                                                    'description': board
-                                                            .description
-                                                            ?.enUs ??
-                                                        ''
-                                                  })
-                                                : 'rankBoardTooltip'.trParams({
-                                                    'name': board.name.ptBr,
-                                                    'trophies': formatter
-                                                        .format(board
-                                                            .trophiesRequired)
-                                                        .toString(),
-                                                    'description': board
-                                                            .description
-                                                            ?.ptBr ??
-                                                        ''
-                                                  }),
+                                            message:
+                                                'rankBoardTooltip'.trParams({
+                                              'name': Utils()
+                                                  .readLanguage(board.name),
+                                              'trophies': formatter
+                                                  .format(
+                                                      board.trophiesRequired)
+                                                  .toString(),
+                                              'description': Utils()
+                                                  .readLanguage(
+                                                      board.description)
+                                            }),
                                             child: Image.asset(
                                               ImageConstants()
                                                   .getBoards(board.image),

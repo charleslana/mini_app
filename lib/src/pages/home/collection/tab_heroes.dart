@@ -6,6 +6,7 @@ import 'package:mini_app/src/controllers/collection_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class TabHeroes extends StatelessWidget {
   const TabHeroes({Key? key}) : super(key: key);
@@ -93,9 +94,8 @@ class TabHeroes extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 5),
                                           child: Text(
-                                            'languageCode'.tr == 'en'
-                                                ? heroModel.name.enUs
-                                                : heroModel.name.ptBr,
+                                            Utils()
+                                                .readLanguage(heroModel.name),
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,

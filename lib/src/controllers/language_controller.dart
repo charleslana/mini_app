@@ -7,6 +7,7 @@ class LanguageController extends GetxController {
   final List<LanguageModel> languages = [
     LanguageModel('English', const Locale('en', 'US')),
     LanguageModel('Portuguese', const Locale('pt', 'BR')),
+    LanguageModel('Spanish', const Locale('es', 'ES')),
   ];
   String selectedLanguage = Get.locale!.languageCode;
   RxInt selectedIndex = 0.obs;
@@ -21,8 +22,11 @@ class LanguageController extends GetxController {
       case 'en':
         selectedIndex.value = 0;
         break;
-      default:
+      case 'pt':
         selectedIndex.value = 1;
+        break;
+      default:
+        selectedIndex.value = 2;
     }
     super.onInit();
   }

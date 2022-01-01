@@ -76,7 +76,11 @@ class Utils {
         return ChoiceChip(
           selected: languageController.selectedIndex.value == index,
           label: Text(
-            index == 0 ? 'languageEnglish'.tr : 'languagePortuguese'.tr,
+            index == 0
+                ? 'languageEnglish'.tr
+                : index == 1
+                    ? 'languagePortuguese'.tr
+                    : 'languageSpanish'.tr,
             style: const TextStyle(color: Colors.white),
           ),
           elevation: 0,
@@ -184,8 +188,10 @@ class Utils {
     switch ('languageCode'.tr) {
       case 'en':
         return translationModel.enUs;
-      default:
+      case 'pt':
         return translationModel.ptBr;
+      default:
+        return translationModel.esEs;
     }
   }
 

@@ -20,6 +20,9 @@ class Patch extends StatelessWidget {
       case 'en':
         formatter = DateFormat('yyyy/MM/dd');
         break;
+      case 'pt':
+        formatter = DateFormat('dd/MM/yyyy');
+        break;
       default:
         formatter = DateFormat('dd/MM/yyyy');
     }

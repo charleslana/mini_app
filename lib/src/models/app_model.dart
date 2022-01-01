@@ -137,20 +137,24 @@ class TranslationModel {
   TranslationModel({
     required this.enUs,
     required this.ptBr,
+    required this.esEs,
   });
 
   TranslationModel.fromJson(Map<String, dynamic> json) {
     enUs = json['enUs'];
     ptBr = json['ptBr'];
+    esEs = json['esEs'];
   }
 
   late String enUs;
   late String ptBr;
+  late String esEs;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['enUs'] = enUs;
     data['ptBr'] = ptBr;
+    data['esEs'] = esEs;
     return data;
   }
 }

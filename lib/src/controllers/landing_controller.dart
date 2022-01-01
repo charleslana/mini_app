@@ -43,14 +43,24 @@ class LandingController extends GetxController {
         .toList());
   }
 
+  void addHeroLanguageEsEs(String text) {
+    filterHeroList.addAll(appModel.heroes
+        .where((hero) => Utils.removeDiacritics(hero.name.esEs.toLowerCase())
+            .contains(Utils.removeDiacritics(text.toLowerCase())))
+        .toList());
+  }
+
   void addHeroList(String text) {
     filterHeroList.clear();
     switch ('languageCode'.tr) {
       case 'en':
         addHeroLanguageEnUs(text);
         break;
-      default:
+      case 'pt':
         addHeroLanguagePtBr(text);
+        break;
+      default:
+        addHeroLanguageEsEs(text);
     }
   }
 
@@ -68,6 +78,13 @@ class LandingController extends GetxController {
         .toList());
   }
 
+  void addMiniLanguageEsEs(String text) {
+    filterMiniList.addAll(appModel.minis
+        .where((mini) => Utils.removeDiacritics(mini.name.esEs.toLowerCase())
+            .contains(Utils.removeDiacritics(text.toLowerCase())))
+        .toList());
+  }
+
   void addMiniLanguagePtBr(String text) {
     filterMiniList.addAll(appModel.minis
         .where((mini) => Utils.removeDiacritics(mini.name.ptBr.toLowerCase())
@@ -81,8 +98,11 @@ class LandingController extends GetxController {
       case 'en':
         addMiniLanguageEnUs(text);
         break;
-      default:
+      case 'pt':
         addMiniLanguagePtBr(text);
+        break;
+      default:
+        addMiniLanguageEsEs(text);
     }
   }
 

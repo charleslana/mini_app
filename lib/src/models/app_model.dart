@@ -1,7 +1,6 @@
 class AppModel {
   AppModel({
     required this.version,
-    required this.versionApp,
     required this.author,
     required this.minis,
     required this.heroes,
@@ -12,7 +11,6 @@ class AppModel {
 
   AppModel.fromJson(Map<String, dynamic> json) {
     version = json['version'];
-    versionApp = json['versionApp'];
     author = json['author'];
     if (json['minis'] != null) {
       minis = <MiniModel>[];
@@ -47,7 +45,6 @@ class AppModel {
   }
 
   late String version;
-  late String versionApp;
   late String author;
   late List<MiniModel> minis;
   late List<HeroModel> heroes;
@@ -58,7 +55,6 @@ class AppModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['version'] = version;
-    data['versionApp'] = versionApp;
     data['author'] = author;
     data['minis'] = minis.map((v) => v.toJson()).toList();
     data['heroes'] = heroes.map((v) => v.toJson()).toList();

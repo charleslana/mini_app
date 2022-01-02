@@ -3,7 +3,7 @@ import 'package:mini_app/src/models/favorite_model.dart';
 
 class FavoriteService {
   final GetStorage _box = GetStorage();
-  final String _key = 'favorite';
+  final String _key = 'favorites';
 
   FavoriteModel loadFromBox() {
     final json = _box.read<dynamic>(_key) ?? <String, dynamic>{};

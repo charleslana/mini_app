@@ -32,7 +32,7 @@ class MiniDetailsPage extends StatelessWidget {
             Obx(() {
               final int index = landingController.miniIndex.value;
               final int star = miniDetailsController.currentStar.value;
-              final FavoriteMiniModel favoriteMiniModel = FavoriteMiniModel(
+              final FavoriteMinisModel favoriteMinisModel = FavoriteMinisModel(
                 index: index,
                 type: TypeFavorite.mini,
               );
@@ -102,7 +102,7 @@ class MiniDetailsPage extends StatelessWidget {
                                   landingController.miniIndex.value--;
                                   miniDetailsController.currentStar.value = 0;
                                   favoritesController
-                                      .existFavorite(FavoriteMiniModel(
+                                      .existFavorite(FavoriteMinisModel(
                                     index: index - 1,
                                     type: TypeFavorite.mini,
                                   ));
@@ -125,7 +125,7 @@ class MiniDetailsPage extends StatelessWidget {
                                   landingController.miniIndex.value++;
                                   miniDetailsController.currentStar.value = 0;
                                   favoritesController
-                                      .existFavorite(FavoriteMiniModel(
+                                      .existFavorite(FavoriteMinisModel(
                                     index: index + 1,
                                     type: TypeFavorite.mini,
                                   ));
@@ -139,7 +139,7 @@ class MiniDetailsPage extends StatelessWidget {
                             ),
                             IconButton(
                               onPressed: () => favoritesController
-                                  .toggleFavorite(favoriteMiniModel),
+                                  .toggleFavorite(favoriteMinisModel),
                               icon: Icon(
                                 favoritesController.isMiniFavorite.value
                                     ? Icons.favorite

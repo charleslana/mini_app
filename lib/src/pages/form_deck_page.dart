@@ -8,7 +8,7 @@ import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
-import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/models/deck_model.dart';
 import 'package:mini_app/src/utils/utils.dart';
 
 class FormDeckPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class FormDeckPage extends StatelessWidget {
     const double spacing = 10;
     final double width = (Get.width - runSpacing * (columns - 1)) / columns;
 
-    void dialogEditDeck(int index, FavoriteDeckModel favoriteDeckModel) {
+    void dialogEditDeck(int index, DeckMinisModel deckMinisModel) {
       bool value = false;
 
       Get.defaultDialog<dynamic>(
@@ -37,7 +37,7 @@ class FormDeckPage extends StatelessWidget {
           children: [
             TextField(
               controller: formDeckController.textEditingController
-                ..text = favoriteDeckModel.name,
+                ..text = deckMinisModel.name,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: 'utilsDialogNameDeckInput'.tr,
@@ -68,14 +68,14 @@ class FormDeckPage extends StatelessWidget {
                   return;
                 }
                 if (!Get.isSnackbarOpen) {
-                  favoritesController.updateFavoriteDeck(
+                  favoritesController.updateDeck(
                     index,
-                    FavoriteDeckModel(
+                    DeckMinisModel(
                       name: formDeckController.textEditingController.text
                           .trim()
                           .capitalize!,
-                      heroId: favoriteDeckModel.heroId,
-                      minisId: favoriteDeckModel.minisId,
+                      heroId: deckMinisModel.heroId,
+                      minisId: deckMinisModel.minisId,
                     ),
                   );
                   Get.back<dynamic>();
@@ -140,7 +140,7 @@ class FormDeckPage extends StatelessWidget {
                   return;
                 }
                 if (!Get.isSnackbarOpen) {
-                  favoritesController.saveFavoriteDeck(FavoriteDeckModel(
+                  favoritesController.addDeck(DeckMinisModel(
                     name: formDeckController.textEditingController.text
                         .trim()
                         .capitalize!,
@@ -282,9 +282,9 @@ class FormDeckPage extends StatelessWidget {
                             if (formDeckController.indexEditDeck != null) {
                               dialogEditDeck(
                                 formDeckController.indexEditDeck!,
-                                FavoriteDeckModel(
+                                DeckMinisModel(
                                   name: favoritesController
-                                      .listDecksFavorites[
+                                      .listDecks[
                                           formDeckController.indexEditDeck!]
                                       .name,
                                   heroId: formDeckController.heroId.value,

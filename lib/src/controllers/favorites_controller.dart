@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mini_app/src/models/deck_model.dart';
 import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/services/deck_service.dart';
 import 'package:mini_app/src/services/favorite_service.dart';
 
 class FavoritesController extends GetxController
@@ -9,8 +11,9 @@ class FavoritesController extends GetxController
   final ScrollController decksScrollController = ScrollController();
   final ScrollController minisScrollController = ScrollController();
   FavoriteService favoriteService = FavoriteService();
-  List<FavoriteMiniModel> listMinisFavorites = <FavoriteMiniModel>[].obs;
-  List<FavoriteDeckModel> listDecksFavorites = <FavoriteDeckModel>[].obs;
+  DeckService deckService = DeckService();
+  List<FavoriteMinisModel> listFavorites = <FavoriteMinisModel>[].obs;
+  List<DeckMinisModel> listDecks = <DeckMinisModel>[].obs;
   RxBool isMiniFavorite = false.obs;
 
   @override
@@ -21,6 +24,7 @@ class FavoritesController extends GetxController
     );
     tabController.addListener(_handleTabSelection);
     fecthFavorites();
+    fecthDecks();
     super.onInit();
   }
 
@@ -37,8 +41,13 @@ class FavoritesController extends GetxController
     }
   }
 
-  bool existFavorite(FavoriteMiniModel favorite) {
-    final List<FavoriteMiniModel> existFavorite = listMinisFavorites
+  void addDeck(DeckMinisModel deckMinisModel) {
+    listDecks.add(deckMinisModel);
+    saveDeck();
+  }
+
+  bool existFavorite(FavoriteMinisModel favorite) {
+    final List<FavoriteMinisModel> existFavorite = listFavorites
         .where((element) =>
             element.type == favorite.type && element.index == favorite.index)
         .toList();
@@ -50,35 +59,39 @@ class FavoritesController extends GetxController
     return false;
   }
 
+  void fecthDecks() {
+    final DeckModel loadDeck = deckService.loadFromBox();
+    listDecks.addAll(loadDeck.decks);
+  }
+
   void fecthFavorites() {
     final FavoriteModel loadFavorite = favoriteService.loadFromBox();
-    listMinisFavorites.addAll(loadFavorite.favorites);
-    listDecksFavorites.addAll(loadFavorite.favoritesDeck);
+    listFavorites.addAll(loadFavorite.favorites);
   }
 
-  void removeFavorite(FavoriteMiniModel favorite) {
-    final int index = listMinisFavorites.indexWhere((element) =>
+  void removeDeck(int index) {
+    listDecks.removeAt(index);
+    saveDeck();
+  }
+
+  void removeFavorite(FavoriteMinisModel favorite) {
+    final int index = listFavorites.indexWhere((element) =>
         element.type == favorite.type && element.index == favorite.index);
-    listMinisFavorites.removeAt(index);
+    listFavorites.removeAt(index);
     isMiniFavorite.value = false;
-    saveAllFavorite();
+    saveFavorite();
   }
 
-  void removeFavoriteDeck(int index) {
-    listDecksFavorites.removeAt(index);
-    saveAllFavorite();
-  }
-
-  void saveAllFavorite() {
-    favoriteService.saveToBox(FavoriteModel(
-      favorites: listMinisFavorites,
-      favoritesDeck: listDecksFavorites,
+  void saveDeck() {
+    deckService.saveToBox(DeckModel(
+      decks: listDecks,
     ));
   }
 
-  void saveFavoriteDeck(FavoriteDeckModel favoriteDeckModel) {
-    listDecksFavorites.add(favoriteDeckModel);
-    saveAllFavorite();
+  void saveFavorite() {
+    favoriteService.saveToBox(FavoriteModel(
+      favorites: listFavorites,
+    ));
   }
 
   void scrollToUp(ScrollController scrollController) {
@@ -87,18 +100,18 @@ class FavoritesController extends GetxController
     }
   }
 
-  void toggleFavorite(FavoriteMiniModel favorite) {
+  void toggleFavorite(FavoriteMinisModel favorite) {
     if (existFavorite(favorite)) {
       removeFavorite(favorite);
       return;
     }
-    listMinisFavorites.add(favorite);
-    saveAllFavorite();
+    listFavorites.add(favorite);
+    saveFavorite();
     isMiniFavorite.value = true;
   }
 
-  void updateFavoriteDeck(int index, FavoriteDeckModel favoriteDeckModel) {
-    listDecksFavorites[index] = favoriteDeckModel;
-    saveAllFavorite();
+  void updateDeck(int index, DeckMinisModel deckMinisModel) {
+    listDecks[index] = deckMinisModel;
+    saveDeck();
   }
 }

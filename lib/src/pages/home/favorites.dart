@@ -79,8 +79,7 @@ class Favorites extends StatelessWidget {
                     height: 38,
                   ),
                   text: 'favoritesTabDecks'.trParams({
-                    'value':
-                        favoritesController.listDecksFavorites.length.toString()
+                    'value': favoritesController.listDecks.length.toString()
                   }),
                 ),
                 Tab(
@@ -89,8 +88,7 @@ class Favorites extends StatelessWidget {
                     height: 38,
                   ),
                   text: 'favoritesTabMinis'.trParams({
-                    'value':
-                        favoritesController.listMinisFavorites.length.toString()
+                    'value': favoritesController.listFavorites.length.toString()
                   }),
                 ),
               ],

@@ -21,7 +21,7 @@ class TabFavoritesMinis extends StatelessWidget {
     return Obx(() {
       return Column(
         children: [
-          if (favoritesController.listMinisFavorites.isEmpty)
+          if (favoritesController.listFavorites.isEmpty)
             Center(
               child: Text(
                 'favoritesMiniNotFound'.tr,
@@ -34,14 +34,14 @@ class TabFavoritesMinis extends StatelessWidget {
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   controller: favoritesController.minisScrollController,
-                  itemCount: favoritesController.listMinisFavorites.length,
+                  itemCount: favoritesController.listFavorites.length,
                   itemBuilder: (context, index) {
-                    final FavoriteMiniModel favoriteMiniModel =
-                        favoritesController.listMinisFavorites[index];
+                    final FavoriteMinisModel favoriteMinisModel =
+                        favoritesController.listFavorites[index];
 
-                    if (favoriteMiniModel.type == TypeFavorite.hero) {
+                    if (favoriteMinisModel.type == TypeFavorite.hero) {
                       final HeroModel heroModel = landingController
-                          .appModel.heroes[favoriteMiniModel.index];
+                          .appModel.heroes[favoriteMinisModel.index];
 
                       return AnimationConfiguration.staggeredList(
                         position: index,
@@ -91,7 +91,7 @@ class TabFavoritesMinis extends StatelessWidget {
                       );
                     }
                     final MiniModel miniModel = landingController
-                        .appModel.minis[favoriteMiniModel.index];
+                        .appModel.minis[favoriteMinisModel.index];
                     return AnimationConfiguration.staggeredList(
                       position: index,
                       duration: const Duration(milliseconds: 375),

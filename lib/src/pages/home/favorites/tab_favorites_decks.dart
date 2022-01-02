@@ -7,7 +7,7 @@ import 'package:mini_app/src/controllers/favorites_controller.dart';
 import 'package:mini_app/src/controllers/form_deck_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
-import 'package:mini_app/src/models/favorite_model.dart';
+import 'package:mini_app/src/models/deck_model.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 
 class TabFavoritesDecks extends StatelessWidget {
@@ -23,7 +23,7 @@ class TabFavoritesDecks extends StatelessWidget {
     void confirmRemoveDeck(int index) {
       Get.defaultDialog<dynamic>(
         onConfirm: () {
-          favoritesController.removeFavoriteDeck(index);
+          favoritesController.removeDeck(index);
           Get.back<dynamic>();
         },
         onCancel: null,
@@ -52,7 +52,7 @@ class TabFavoritesDecks extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          if (favoritesController.listDecksFavorites.isEmpty)
+          if (favoritesController.listDecks.isEmpty)
             Center(
               child: Text(
                 'favoritesDeckNotFound'.tr,
@@ -65,13 +65,13 @@ class TabFavoritesDecks extends StatelessWidget {
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   controller: favoritesController.decksScrollController,
-                  itemCount: favoritesController.listDecksFavorites.length,
+                  itemCount: favoritesController.listDecks.length,
                   itemBuilder: (context, i) {
-                    final FavoriteDeckModel favoriteDeckModel =
-                        favoritesController.listDecksFavorites[i];
+                    final DeckMinisModel deckMinisModel =
+                        favoritesController.listDecks[i];
 
                     final HeroModel heroModel = landingController
-                        .appModel.heroes[favoriteDeckModel.heroId - 1];
+                        .appModel.heroes[deckMinisModel.heroId - 1];
 
                     return AnimationConfiguration.staggeredList(
                       position: i,
@@ -82,14 +82,13 @@ class TabFavoritesDecks extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () => {
                               formDeckController.heroId.value =
-                                  favoriteDeckModel.heroId,
+                                  deckMinisModel.heroId,
                               for (var index = 0;
-                                  index < favoriteDeckModel.minisId.length;
+                                  index < deckMinisModel.minisId.length;
                                   index++)
                                 {
                                   formDeckController.listMinis[index] =
-                                      favoriteDeckModel.minisId
-                                          .elementAt(index),
+                                      deckMinisModel.minisId.elementAt(index),
                                 },
                               formDeckController.indexEditDeck = i,
                               Get.toNamed<dynamic>(AppRoutes.formDeck),
@@ -117,7 +116,7 @@ class TabFavoritesDecks extends StatelessWidget {
                                           children: [
                                             Flexible(
                                               child: Text(
-                                                favoriteDeckModel.name,
+                                                deckMinisModel.name,
                                                 style: const TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.blueAccent,

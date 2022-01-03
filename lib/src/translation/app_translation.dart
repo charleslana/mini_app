@@ -93,7 +93,11 @@ final Map<String, String> enUS = {
   'rankTitle': 'Rank and Boards',
   'rankTrophies': 'Trophies: @trophies',
   'rankBoardTooltip': '@name\nTrophies required: @trophies\n@description',
-  'tierListTitle': 'Coming soon',
+  'tierListTitle': 'Tier List',
+  'tierListButtonNew': 'New Tier List',
+  'formTierListPageTitle': 'Create a New Tier List',
+  'formTierListPageSubtitle': 'Move minis to Tier List',
+  'formTierListPageEmpty': 'Empty',
 };
 
 final Map<String, String> ptBR = {
@@ -184,7 +188,11 @@ final Map<String, String> ptBR = {
   'rankTitle': 'Classificação e Tabuleiros',
   'rankTrophies': 'Troféus: @trophies',
   'rankBoardTooltip': '@name\nTroféus necessários: @trophies\n@description',
-  'tierListTitle': 'Em breve',
+  'tierListTitle': 'Tier List',
+  'tierListButtonNew': 'Nova Tier List',
+  'formTierListPageTitle': 'Criar uma Nova Tier List',
+  'formTierListPageSubtitle': 'Mova os minis até a Tier List',
+  'formTierListPageEmpty': 'Vazio',
 };
 
 final Map<String, String> esES = {
@@ -276,5 +284,9 @@ final Map<String, String> esES = {
   'rankTitle': 'Rango y Tableros',
   'rankTrophies': 'Trofeos: @trophies',
   'rankBoardTooltip': '@name\nTrofeos requeridos: @trophies\n@description',
-  'tierListTitle': 'Próximamente',
+  'tierListTitle': 'Tier List',
+  'tierListButtonNew': 'Nueva Tier List',
+  'formTierListPageTitle': 'Crear una nueva Tier List',
+  'formTierListPageSubtitle': 'Mover minis a la Tier List',
+  'formTierListPageEmpty': 'Vacío',
 };

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_app/src/pages/form_deck_page.dart';
+import 'package:mini_app/src/pages/form_tier_list_page.dart';
 import 'package:mini_app/src/pages/hero_details_page.dart';
 import 'package:mini_app/src/pages/home_page.dart';
 import 'package:mini_app/src/pages/landing_page.dart';
@@ -43,6 +44,12 @@ class AppRouteGenerator {
       case AppRoutes.formDeck:
         return GetPageRoute(
           page: () => const FormDeckPage(),
+          settings: settings,
+          transition: Transition.leftToRight,
+        );
+      case AppRoutes.formTierList:
+        return GetPageRoute(
+          page: () => const FormTierListPage(),
           settings: settings,
           transition: Transition.leftToRight,
         );

@@ -57,11 +57,11 @@ final Map<String, String> enUS = {
   'formDeckDialogMiddleText':
       "You haven't finished the entire deck, do you really want to quit?",
   'formDeckBottomSheetTooltipHero':
-      'Press to see a brief hero stat, or tap to select.',
+      'Press and hold to see a brief hero stat, or tap to select.',
   'formDeckBottomSheetTooltipMini':
-      'Press to see a brief mini stat, or tap to select.',
+      'Press and hold to see a brief mini stat, or tap to select.',
   'formDeckFloatingActionButtonTooltip':
-      'Press on hero/minis to see a brief stat, or tap to select.',
+      'Tap and hold on hero/minis to see a brief stat, or tap to select.',
   'collection': 'Collection',
   'collectionTabHeroes': 'Heroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -98,7 +98,7 @@ final Map<String, String> enUS = {
   'patchTitle': 'Patch',
   'rankTitle': 'Rank and Boards',
   'rankTrophies': 'Trophies: @trophies',
-  'rankBoardTooltip': '@name\nTrophies required: @trophies\n@description',
+  'rankBoardTrophiesRequired': 'Trophies required: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'New Tier List',
   'formTierListPageTitle': 'Create a New Tier List',
@@ -158,11 +158,11 @@ final Map<String, String> ptBR = {
   'formDeckDialogMiddleText':
       'Você não finalizou todo o deck, deseja realmente sair?',
   'formDeckBottomSheetTooltipHero':
-      'Pressione para ver uma breve estatística do herói, ou toque para selecionar.',
+      'Mantenha pressionado para ver uma breve estatística do herói, ou toque para selecionar.',
   'formDeckBottomSheetTooltipMini':
-      'Pressione para ver uma breve estatística do mini, ou toque para selecionar.',
+      'Mantenha pressionado para ver uma breve estatística do mini, ou toque para selecionar.',
   'formDeckFloatingActionButtonTooltip':
-      'Pressione no herói/minis para ver uma breve estatística, ou toque para selecionar.',
+      'Mantenha pressionado no herói/minis para ver uma breve estatística, ou toque para selecionar.',
   'collection': 'Coleção',
   'collectionTabHeroes': 'Heróis (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -199,7 +199,7 @@ final Map<String, String> ptBR = {
   'patchTitle': 'Correção',
   'rankTitle': 'Classificação e Tabuleiros',
   'rankTrophies': 'Troféus: @trophies',
-  'rankBoardTooltip': '@name\nTroféus necessários: @trophies\n@description',
+  'rankBoardTrophiesRequired': 'Troféus necessários: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'Nova Tier List',
   'formTierListPageTitle': 'Criar uma Nova Tier List',
@@ -260,11 +260,11 @@ final Map<String, String> esES = {
   'formDeckDialogMiddleText':
       'No has terminado todo el baraja, ¿de verdad quieres dejarlo?',
   'formDeckBottomSheetTooltipHero':
-      'Presiona para ver una breve estadística de héroe o toca para seleccionar.',
+      'Mantén pulsado para ver una breve estadística de héroe o toca para seleccionar.',
   'formDeckBottomSheetTooltipMini':
-      'Presiona para ver una breve estadística de mini o toca para seleccionar.',
+      'Mantén pulsado para ver una breve estadística de mini o toca para seleccionar.',
   'formDeckFloatingActionButtonTooltip':
-      'Presiona héroe/minis para ver una breve estadística o toca para seleccionar.',
+      'Toque y mantenga presionado héroe/minis para ver una breve estadística, o toque para seleccionar.',
   'collection': 'Colección',
   'collectionTabHeroes': 'Héroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -301,7 +301,7 @@ final Map<String, String> esES = {
   'patchTitle': 'Parche',
   'rankTitle': 'Rango y Tableros',
   'rankTrophies': 'Trofeos: @trophies',
-  'rankBoardTooltip': '@name\nTrofeos requeridos: @trophies\n@description',
+  'rankBoardTrophiesRequired': 'Trofeos requeridos: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'Nueva Tier List',
   'formTierListPageTitle': 'Crear una nueva Tier List',

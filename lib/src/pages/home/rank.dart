@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
@@ -15,6 +16,32 @@ class Rank extends StatelessWidget {
   Widget build(BuildContext context) {
     final LandingController landingController = Get.find();
     final NumberFormat formatter = NumberFormat('###,###.###', 'pt_BR');
+
+    Widget tooltipBoard(BoardsModel boardsModel) {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              Utils().readLanguage(boardsModel.name),
+              style: const TextStyle(color: Colors.black),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'rankBoardTrophiesRequired'.trParams(
+                  {'trophies': boardsModel.trophiesRequired.toString()}),
+              style: const TextStyle(color: Colors.black),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              Utils().readLanguage(boardsModel.description),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ],
+        ),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -88,27 +115,14 @@ class Rank extends StatelessWidget {
                                           .map((board) {
                                         if (rankModel.trophies >=
                                             board.trophiesRequired) {
-                                          return Tooltip(
-                                            triggerMode: TooltipTriggerMode.tap,
-                                            padding: const EdgeInsets.all(10),
+                                          return JustTheTooltip(
+                                            backgroundColor: Colors.white,
                                             margin: const EdgeInsets.only(
                                               left: 20,
                                               right: 20,
                                             ),
-                                            preferBelow: true,
-                                            verticalOffset: 20,
-                                            message:
-                                                'rankBoardTooltip'.trParams({
-                                              'name': Utils()
-                                                  .readLanguage(board.name),
-                                              'trophies': formatter
-                                                  .format(
-                                                      board.trophiesRequired)
-                                                  .toString(),
-                                              'description': Utils()
-                                                  .readLanguage(
-                                                      board.description)
-                                            }),
+                                            isModal: true,
+                                            content: tooltipBoard(board),
                                             child: Image.asset(
                                               ImageConstants()
                                                   .getBoards(board.image),

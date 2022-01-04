@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
@@ -167,54 +168,209 @@ class FormDeckPage extends StatelessWidget {
       });
     }
 
+    Widget rowTooltip(String text, String value) {
+      return Column(
+        children: [
+          const SizedBox(height: 5),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                text,
+                style: const TextStyle(color: Colors.black),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                value,
+                style: const TextStyle(color: ColorConstants.background),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+
+    Widget tooltipHero(HeroModel heroModel) {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              Utils().readLanguage(heroModel.name),
+              style: const TextStyle(color: Colors.black),
+            ),
+            rowTooltip(
+                'heroDetailsStatsHP'.tr, heroModel.stats[0].hp.toString()),
+            rowTooltip('heroDetailsStatsHitPerSecond'.tr,
+                heroModel.stats[0].hitPerSecond.toString()),
+            rowTooltip('heroDetailsStatsDamagePerHit'.tr,
+                heroModel.stats[0].damagePerHit.toString()),
+            rowTooltip('heroDetailsStatsEnergyCost'.tr,
+                heroModel.stats[0].energyCost.toString()),
+            rowTooltip('heroDetailsStatsInitialEnergy'.tr,
+                heroModel.stats[0].initialEnergy.toString()),
+          ],
+        ),
+      );
+    }
+
+    Widget tooltipMini(MiniModel miniModel) {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              Utils().readLanguage(miniModel.name),
+              style: const TextStyle(color: Colors.black),
+            ),
+            rowTooltip('miniDetailsStatsElixirCost'.tr,
+                miniModel.elixirCost.toString()),
+            rowTooltip(
+                'miniDetailsStatsHP'.tr, miniModel.stats[0].hp.toString()),
+            rowTooltip('miniDetailsStatsHitPerSecond'.tr,
+                miniModel.stats[0].hitPerSecond.toString()),
+            rowTooltip('miniDetailsStatsDamagePerHit'.tr,
+                miniModel.damagePerHit.toString()),
+            rowTooltip('miniDetailsStatsEnergyCost'.tr,
+                miniModel.energyCost.toString()),
+            rowTooltip('miniDetailsStatsInitialEnergy'.tr,
+                miniModel.initialEnergy.toString()),
+          ],
+        ),
+      );
+    }
+
+    Widget tooltipHelp() {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          'formDeckFloatingActionButtonTooltip'.tr,
+          style: const TextStyle(color: Colors.black),
+        ),
+      );
+    }
+
     void showHeroes() {
       Get.bottomSheet<dynamic>(
-        SizedBox(
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: landingController.appModel.heroes.map((hero) {
-              return GestureDetector(
-                onTap: () {
-                  formDeckController.heroId.value = hero.id;
-                  Get.back<dynamic>();
-                },
-                child: Image.asset(
-                  ImageConstants().getHeroPortrait(hero.image),
-                  height: 150,
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  'formDeckBottomSheetTooltipHero'.tr,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              );
-            }).toList(),
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: landingController.appModel.heroes.map((hero) {
+                      final tooltipController = JustTheController();
+
+                      return JustTheTooltip(
+                        controller: tooltipController,
+                        backgroundColor: Colors.white,
+                        isModal: true,
+                        content: tooltipHero(hero),
+                        child: GestureDetector(
+                          onLongPress: () =>
+                              tooltipController.showTooltip(immediately: true),
+                          onTap: () {
+                            formDeckController.heroId.value = hero.id;
+                            Get.back<dynamic>();
+                          },
+                          child: Image.asset(
+                            ImageConstants().getHeroPortrait(hero.image),
+                            height: 150,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+        backgroundColor: ColorConstants.background,
       );
     }
 
     void showMinis(int index) {
       Get.bottomSheet<dynamic>(
-        SizedBox(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: landingController.appModel.minis.map((mini) {
-                if (!formDeckController.listMinis.contains(mini.id) ||
-                    formDeckController.listMinis[index] == mini.id) {
-                  return GestureDetector(
-                    onTap: () {
-                      formDeckController.listMinis[index] = mini.id;
-                      Get.back<dynamic>();
-                    },
-                    child: Image.asset(
-                      ImageConstants().getMiniPortrait(mini.image),
-                      height: 150,
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              }).toList(),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(
+                  'formDeckBottomSheetTooltipMini'.tr,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: landingController.appModel.minis.map((mini) {
+                      if (!formDeckController.listMinis.contains(mini.id) ||
+                          formDeckController.listMinis[index] == mini.id) {
+                        final tooltipController = JustTheController();
+
+                        return JustTheTooltip(
+                          controller: tooltipController,
+                          backgroundColor: Colors.white,
+                          isModal: true,
+                          content: tooltipMini(mini),
+                          child: GestureDetector(
+                            onLongPress: () => tooltipController.showTooltip(
+                                immediately: true),
+                            onTap: () {
+                              formDeckController.listMinis[index] = mini.id;
+                              Get.back<dynamic>();
+                            },
+                            child: Image.asset(
+                              ImageConstants().getMiniPortrait(mini.image),
+                              height: 150,
+                            ),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+        backgroundColor: ColorConstants.background,
       );
     }
 
@@ -322,83 +478,76 @@ class FormDeckPage extends StatelessWidget {
                           child: Column(
                             children: [
                               if (formDeckController.heroId.value > 0)
-                                GestureDetector(
-                                  onTap: showHeroes,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Image.asset(
-                                            ImageConstants().getHeroPortrait(
-                                                landingController
-                                                    .appModel
-                                                    .heroes[formDeckController
-                                                            .heroId.value -
-                                                        1]
-                                                    .image),
-                                            height: 120,
+                                JustTheTooltip(
+                                  controller:
+                                      formDeckController.heroTooltipController,
+                                  backgroundColor: Colors.white,
+                                  isModal: true,
+                                  content: tooltipHero(
+                                      landingController.appModel.heroes[
+                                          formDeckController.heroId.value - 1]),
+                                  child: GestureDetector(
+                                    onLongPress: () => formDeckController
+                                        .heroTooltipController
+                                        .showTooltip(immediately: true),
+                                    onTap: showHeroes,
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          ImageConstants().getHeroPortrait(
+                                              landingController
+                                                  .appModel
+                                                  .heroes[formDeckController
+                                                          .heroId.value -
+                                                      1]
+                                                  .image),
+                                          height: 120,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          Utils().readLanguage(landingController
+                                              .appModel
+                                              .heroes[formDeckController
+                                                      .heroId.value -
+                                                  1]
+                                              .name),
+                                          style: const TextStyle(
+                                            color: Colors.white,
                                           ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            Utils().readLanguage(
-                                                landingController
-                                                    .appModel
-                                                    .heroes[formDeckController
-                                                            .heroId.value -
-                                                        1]
-                                                    .name),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                      ),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 )
                               else
                                 GestureDetector(
                                   onTap: showHeroes,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  child: Column(
                                     children: [
-                                      Column(
-                                        children: [
-                                          SizedBox(
-                                            width: 120,
-                                            height: 120,
-                                            child: Stack(
-                                              children: [
-                                                Image.asset(
-                                                    ImageConstants.heroHidden),
-                                                const Positioned.fill(
-                                                  child: Align(
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                      SizedBox(
+                                        width: 120,
+                                        height: 120,
+                                        child: Stack(
+                                          children: [
+                                            Image.asset(
+                                                ImageConstants.heroHidden),
+                                            const Positioned.fill(
+                                              child: Align(
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            'formDeckPageHeroTitle'.tr,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      const Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        'formDeckPageHeroTitle'.tr,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -419,82 +568,70 @@ class FormDeckPage extends StatelessWidget {
                                         landingController
                                             .appModel.minis[id - 1];
 
-                                    return GestureDetector(
-                                      onTap: () => showMinis(index),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              SizedBox(
-                                                width: width,
-                                                height: width,
-                                                child: Image.asset(
-                                                  ImageConstants()
-                                                      .getMiniPortrait(
-                                                          miniModel.image),
-                                                  height: 150,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                Utils().readLanguage(
-                                                    miniModel.name),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const Icon(
-                                            Icons.edit,
-                                            color: Colors.white,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                  return GestureDetector(
-                                    onTap: () => showMinis(index),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Column(
+                                    return JustTheTooltip(
+                                      controller: formDeckController
+                                          .miniTooltipController[index],
+                                      backgroundColor: Colors.white,
+                                      isModal: true,
+                                      content: tooltipMini(miniModel),
+                                      child: GestureDetector(
+                                        onLongPress: () => formDeckController
+                                            .miniTooltipController[index]
+                                            .showTooltip(immediately: true),
+                                        onTap: () => showMinis(index),
+                                        child: Column(
                                           children: [
                                             SizedBox(
                                               width: width,
                                               height: width,
-                                              child: Stack(
-                                                children: [
-                                                  Image.asset(ImageConstants
-                                                      .miniHidden),
-                                                  const Positioned.fill(
-                                                    child: Align(
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                              child: Image.asset(
+                                                ImageConstants()
+                                                    .getMiniPortrait(
+                                                        miniModel.image),
+                                                height: 150,
                                               ),
                                             ),
                                             const SizedBox(height: 10),
                                             Text(
-                                              'formDeckPageMiniTitle'.tr,
+                                              Utils()
+                                                  .readLanguage(miniModel.name),
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               ),
                                             ),
                                           ],
                                         ),
-                                        const Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
+                                      ),
+                                    );
+                                  }
+                                  return GestureDetector(
+                                    onTap: () => showMinis(index),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: width,
+                                          height: width,
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(
+                                                  ImageConstants.miniHidden),
+                                              const Positioned.fill(
+                                                child: Align(
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          'formDeckPageMiniTitle'.tr,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -510,6 +647,31 @@ class FormDeckPage extends StatelessWidget {
                 }),
               ),
             ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            onPressed: null,
+            child: JustTheTooltip(
+              controller: formDeckController.helpTooltipController,
+              backgroundColor: Colors.white,
+              isModal: true,
+              content: tooltipHelp(),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                child: IconButton(
+                  onPressed: () => formDeckController.helpTooltipController
+                      .showTooltip(immediately: true),
+                  icon: const Icon(
+                    Icons.help,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

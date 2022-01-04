@@ -56,6 +56,12 @@ final Map<String, String> enUS = {
   'formDeckDialogTextConfirm': 'Ok',
   'formDeckDialogMiddleText':
       "You haven't finished the entire deck, do you really want to quit?",
+  'formDeckBottomSheetTooltipHero':
+      'Press to see a brief hero stat, or tap to select.',
+  'formDeckBottomSheetTooltipMini':
+      'Press to see a brief mini stat, or tap to select.',
+  'formDeckFloatingActionButtonTooltip':
+      'Press on hero/minis to see a brief stat, or tap to select.',
   'collection': 'Collection',
   'collectionTabHeroes': 'Heroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -151,6 +157,12 @@ final Map<String, String> ptBR = {
   'formDeckDialogTextConfirm': 'Ok',
   'formDeckDialogMiddleText':
       'Você não finalizou todo o deck, deseja realmente sair?',
+  'formDeckBottomSheetTooltipHero':
+      'Pressione para ver uma breve estatística do herói, ou toque para selecionar.',
+  'formDeckBottomSheetTooltipMini':
+      'Pressione para ver uma breve estatística do mini, ou toque para selecionar.',
+  'formDeckFloatingActionButtonTooltip':
+      'Pressione no herói/minis para ver uma breve estatística, ou toque para selecionar.',
   'collection': 'Coleção',
   'collectionTabHeroes': 'Heróis (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -247,6 +259,12 @@ final Map<String, String> esES = {
   'formDeckDialogTextConfirm': 'Ok',
   'formDeckDialogMiddleText':
       'No has terminado todo el baraja, ¿de verdad quieres dejarlo?',
+  'formDeckBottomSheetTooltipHero':
+      'Presiona para ver una breve estadística de héroe o toca para seleccionar.',
+  'formDeckBottomSheetTooltipMini':
+      'Presiona para ver una breve estadística de mini o toca para seleccionar.',
+  'formDeckFloatingActionButtonTooltip':
+      'Presiona héroe/minis para ver una breve estadística o toca para seleccionar.',
   'collection': 'Colección',
   'collectionTabHeroes': 'Héroes (@value)',
   'collectionTabMinis': 'Minis (@value)',

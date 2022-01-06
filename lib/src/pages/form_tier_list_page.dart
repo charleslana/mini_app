@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:mini_app/src/components/back_bar.dart';
 import 'package:mini_app/src/components/background_animation.dart';
 import 'package:mini_app/src/constants/color_constants.dart';
 import 'package:mini_app/src/constants/image_constants.dart';
+import 'package:mini_app/src/controllers/form_tier_list_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
-import 'package:mini_app/src/controllers/tier_list_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
+import 'package:mini_app/src/models/tier_list_model.dart';
 
 class FormTierListPage extends StatelessWidget {
   const FormTierListPage({Key? key}) : super(key: key);
@@ -14,10 +16,21 @@ class FormTierListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LandingController landingController = Get.put(LandingController());
-    final TierListController tierListController = Get.put(TierListController());
-    final List<HeroModel> empty = [];
+    final FormTierListController formTierListController =
+        Get.put(FormTierListController());
 
-    Widget showTierList(String text, Color color, List<HeroModel> heroModel) {
+    Widget tooltipRemoveMinis() {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          'formTierListPageTooltip'.tr,
+          style: const TextStyle(color: Colors.black),
+        ),
+      );
+    }
+
+    Widget showTierList(
+        String text, Color color, List<TierListMinisModel> tierList) {
       return Row(
         children: [
           Expanded(
@@ -30,7 +43,7 @@ class FormTierListPage extends StatelessWidget {
               child: Text(text),
             ),
           ),
-          if (heroModel.isEmpty)
+          if (tierList.isEmpty)
             Expanded(
               flex: 7,
               child: Container(
@@ -56,15 +69,39 @@ class FormTierListPage extends StatelessWidget {
                 child: ListView(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  children: List.generate(heroModel.length, (i) {
-                    final HeroModel heroModel =
-                        landingController.appModel.heroes[i];
-
+                  children: List.generate(tierList.length, (i) {
+                    final TierListMinisModel tierListMinisModel = tierList[i];
+                    if (tierListMinisModel.type == TypeTierList.hero) {
+                      final HeroModel heroModel = landingController
+                          .appModel.heroes[tierListMinisModel.index - 1];
+                      return JustTheTooltip(
+                        backgroundColor: Colors.white,
+                        isModal: true,
+                        content: tooltipRemoveMinis(),
+                        child: GestureDetector(
+                          onLongPress: () =>
+                              formTierListController.removeTierListHero(
+                            i,
+                            heroModel,
+                            TypeList.S,
+                          ),
+                          child: SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: Image.asset(
+                              ImageConstants().getHeroIcon(heroModel.image),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    final MiniModel miniModel = landingController
+                        .appModel.minis[tierListMinisModel.index - 1];
                     return SizedBox(
                       width: 80,
                       height: 80,
                       child: Image.asset(
-                        ImageConstants().getHeroIcon(heroModel.image),
+                        ImageConstants().getMiniIcon(miniModel.image),
                       ),
                     );
                   }),
@@ -83,236 +120,254 @@ class FormTierListPage extends StatelessWidget {
             const BackgroundAnimation(),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  const BackBar(),
-                  const SizedBox(height: 20),
-                  Text(
-                    'formTierListPageTitle'.tr,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+              child: Obx(() {
+                return Column(
+                  children: [
+                    const BackBar(),
+                    const SizedBox(height: 20),
+                    Text(
+                      'formTierListPageTitle'.tr,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'formTierListPageSubtitle'.tr,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                    const SizedBox(height: 10),
+                    Text(
+                      'formTierListPageSubtitle'.tr,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    flex: 2,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 25,
-                            right: 25,
-                          ),
-                          child: ListView.builder(
-                            controller:
-                                tierListController.heroesScrollController,
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: landingController.appModel.heroes.length,
-                            itemBuilder: (context, i) {
-                              final HeroModel heroModel =
-                                  landingController.appModel.heroes[i];
+                    const SizedBox(height: 20),
+                    Expanded(
+                      flex: 2,
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                            ),
+                            child: ListView.builder(
+                              controller:
+                                  formTierListController.heroesScrollController,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount:
+                                  formTierListController.listHeroes.length,
+                              itemBuilder: (context, i) {
+                                final HeroModel heroModel =
+                                    formTierListController.listHeroes[i];
 
-                              return Obx(() {
-                                return Draggable(
-                                  data: tierListController.selectedHero,
-                                  onDragStarted: () => tierListController
-                                      .selectedHero.value = i + 1,
-                                  onDraggableCanceled: (_, __) =>
-                                      tierListController.selectedHero.value = 0,
-                                  maxSimultaneousDrags: 1,
-                                  feedback: Opacity(
-                                    opacity: 0.5,
-                                    child: SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Image.asset(
-                                        ImageConstants()
-                                            .getHeroIcon(heroModel.image),
+                                return Obx(() {
+                                  return Draggable(
+                                    data: TierListMinisModel(
+                                      index: heroModel.id,
+                                      type: TypeTierList.hero,
+                                    ),
+                                    onDragStarted: () => formTierListController
+                                        .selectedHero.value = i + 1,
+                                    onDraggableCanceled: (_, __) =>
+                                        formTierListController
+                                            .selectedHero.value = 0,
+                                    maxSimultaneousDrags: 1,
+                                    feedback: Opacity(
+                                      opacity: 0.5,
+                                      child: SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                        child: Image.asset(
+                                          ImageConstants()
+                                              .getHeroIcon(heroModel.image),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: Visibility(
-                                    visible:
-                                        tierListController.selectedHero.value !=
-                                            (i + 1),
-                                    child: SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: Image.asset(
-                                        ImageConstants()
-                                            .getHeroIcon(heroModel.image),
+                                    child: Visibility(
+                                      visible: formTierListController
+                                              .selectedHero.value !=
+                                          (i + 1),
+                                      child: SizedBox(
+                                        width: 80,
+                                        height: 80,
+                                        child: Image.asset(
+                                          ImageConstants()
+                                              .getHeroIcon(heroModel.image),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              });
-                            },
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  );
+                                });
+                              },
                             ),
-                            child: IconButton(
-                              onPressed: tierListController.prevHeroes,
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: IconButton(
+                                onPressed: formTierListController.prevHeroes,
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: IconButton(
-                              onPressed: tierListController.nextHeroes,
-                              icon: const Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: IconButton(
+                                onPressed: formTierListController.nextHeroes,
+                                icon: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    flex: 2,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 25,
-                            right: 25,
-                          ),
-                          child: ListView.builder(
-                            controller:
-                                tierListController.minisScrollController,
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: landingController.appModel.minis.length,
-                            itemBuilder: (context, i) {
-                              final MiniModel miniModel =
-                                  landingController.appModel.minis[i];
+                    const SizedBox(height: 20),
+                    Expanded(
+                      flex: 2,
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                            ),
+                            child: ListView.builder(
+                              controller:
+                                  formTierListController.minisScrollController,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount:
+                                  formTierListController.listMinis.length,
+                              itemBuilder: (context, i) {
+                                final MiniModel miniModel =
+                                    formTierListController.listMinis[i];
 
-                              return Obx(() {
-                                return Draggable(
-                                  data: tierListController.selectedMini,
-                                  onDragStarted: () => tierListController
-                                      .selectedMini.value = i + 1,
-                                  onDraggableCanceled: (_, __) =>
-                                      tierListController.selectedMini.value = 0,
-                                  maxSimultaneousDrags: 1,
-                                  feedback: Opacity(
-                                    opacity: 0.5,
-                                    child: SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Image.asset(
-                                        ImageConstants()
-                                            .getMiniIcon(miniModel.image),
+                                return Obx(() {
+                                  return Draggable(
+                                    data: TierListMinisModel(
+                                      index: miniModel.id,
+                                      type: TypeTierList.mini,
+                                    ),
+                                    onDragStarted: () => formTierListController
+                                        .selectedMini.value = i + 1,
+                                    onDraggableCanceled: (_, __) =>
+                                        formTierListController
+                                            .selectedMini.value = 0,
+                                    maxSimultaneousDrags: 1,
+                                    feedback: Opacity(
+                                      opacity: 0.5,
+                                      child: SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                        child: Image.asset(
+                                          ImageConstants()
+                                              .getMiniIcon(miniModel.image),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: Visibility(
-                                    visible:
-                                        tierListController.selectedMini.value !=
-                                            (i + 1),
-                                    child: SizedBox(
-                                      width: 80,
-                                      height: 80,
-                                      child: Image.asset(
-                                        ImageConstants()
-                                            .getMiniIcon(miniModel.image),
+                                    child: Visibility(
+                                      visible: formTierListController
+                                              .selectedMini.value !=
+                                          (i + 1),
+                                      child: SizedBox(
+                                        width: 80,
+                                        height: 80,
+                                        child: Image.asset(
+                                          ImageConstants()
+                                              .getMiniIcon(miniModel.image),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              });
+                                  );
+                                });
+                              },
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: IconButton(
+                                onPressed: formTierListController.prevMinis,
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: IconButton(
+                                onPressed: formTierListController.nextMinis,
+                                icon: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      flex: 7,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          DragTarget(
+                            builder: (_, __, ___) {
+                              return showTierList('S', Colors.redAccent,
+                                  formTierListController.listS);
                             },
+                            onAccept: (TierListMinisModel data) =>
+                                formTierListController.addTierList(
+                                    data, TypeList.S),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: IconButton(
-                              onPressed: tierListController.prevMinis,
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: IconButton(
-                              onPressed: tierListController.nextMinis,
-                              icon: const Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                          showTierList(
+                              'A', Colors.purple, formTierListController.listA),
+                          showTierList(
+                              'B', Colors.blue, formTierListController.listB),
+                          showTierList(
+                              'C', Colors.green, formTierListController.listC),
+                          showTierList(
+                              'D', Colors.grey, formTierListController.listD),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    flex: 7,
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        DragTarget(
-                          builder: (context, candidateData, rejectedData) {
-                            return showTierList('S', Colors.redAccent, empty);
-                          },
-                          onAccept: (data) => print('aceito'),
-                        ),
-                        showTierList('A', Colors.purple,
-                            landingController.appModel.heroes),
-                        showTierList('B', Colors.blue, empty),
-                        showTierList('C', Colors.green, empty),
-                        showTierList('D', Colors.grey, empty),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ),
           ],
         ),

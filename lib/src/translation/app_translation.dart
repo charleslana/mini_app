@@ -104,6 +104,7 @@ final Map<String, String> enUS = {
   'formTierListPageTitle': 'Create a New Tier List',
   'formTierListPageSubtitle': 'Move minis to Tier List',
   'formTierListPageEmpty': 'Empty',
+  'formTierListPageTooltip': 'Hold on hero/minis to remove from tier list.',
 };
 
 final Map<String, String> ptBR = {
@@ -205,6 +206,8 @@ final Map<String, String> ptBR = {
   'formTierListPageTitle': 'Criar uma Nova Tier List',
   'formTierListPageSubtitle': 'Mova os minis até a Tier List',
   'formTierListPageEmpty': 'Vazio',
+  'formTierListPageTooltip':
+      'Mantenha pressionado no herói/minis para remover da tier list.',
 };
 
 final Map<String, String> esES = {
@@ -307,4 +310,6 @@ final Map<String, String> esES = {
   'formTierListPageTitle': 'Crear una nueva Tier List',
   'formTierListPageSubtitle': 'Mover minis a la Tier List',
   'formTierListPageEmpty': 'Vacío',
+  'formTierListPageTooltip':
+      'Mantenga pulsado héroe / minis para eliminar de la tier list.',
 };

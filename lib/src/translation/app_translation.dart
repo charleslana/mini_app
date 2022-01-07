@@ -61,7 +61,7 @@ final Map<String, String> enUS = {
   'formDeckBottomSheetTooltipMini':
       'Press and hold to see a brief mini stat, or tap to select.',
   'formDeckFloatingActionButtonTooltip':
-      'Tap and hold on hero/minis to see a brief stat, or tap to select.',
+      'Tap and hold on hero/mini to see a brief stat, or tap to select.',
   'collection': 'Collection',
   'collectionTabHeroes': 'Heroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -104,7 +104,7 @@ final Map<String, String> enUS = {
   'formTierListPageTitle': 'Create a New Tier List',
   'formTierListPageSubtitle': 'Move minis to Tier List',
   'formTierListPageEmpty': 'Empty',
-  'formTierListPageTooltip': 'Hold on hero/minis to remove from tier list.',
+  'formTierListPageTooltip': 'Hold on hero/mini to remove from tier list.',
 };
 
 final Map<String, String> ptBR = {
@@ -163,7 +163,7 @@ final Map<String, String> ptBR = {
   'formDeckBottomSheetTooltipMini':
       'Mantenha pressionado para ver uma breve estatística do mini, ou toque para selecionar.',
   'formDeckFloatingActionButtonTooltip':
-      'Mantenha pressionado no herói/minis para ver uma breve estatística, ou toque para selecionar.',
+      'Mantenha pressionado no herói/mini para ver uma breve estatística, ou toque para selecionar.',
   'collection': 'Coleção',
   'collectionTabHeroes': 'Heróis (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -207,7 +207,7 @@ final Map<String, String> ptBR = {
   'formTierListPageSubtitle': 'Mova os minis até a Tier List',
   'formTierListPageEmpty': 'Vazio',
   'formTierListPageTooltip':
-      'Mantenha pressionado no herói/minis para remover da tier list.',
+      'Mantenha pressionado no herói/mini para remover da tier list.',
 };
 
 final Map<String, String> esES = {
@@ -267,7 +267,7 @@ final Map<String, String> esES = {
   'formDeckBottomSheetTooltipMini':
       'Mantén pulsado para ver una breve estadística de mini o toca para seleccionar.',
   'formDeckFloatingActionButtonTooltip':
-      'Toque y mantenga presionado héroe/minis para ver una breve estadística, o toque para seleccionar.',
+      'Toque y mantenga presionado héroe/mini para ver una breve estadística, o toque para seleccionar.',
   'collection': 'Colección',
   'collectionTabHeroes': 'Héroes (@value)',
   'collectionTabMinis': 'Minis (@value)',
@@ -311,5 +311,5 @@ final Map<String, String> esES = {
   'formTierListPageSubtitle': 'Mover minis a la Tier List',
   'formTierListPageEmpty': 'Vacío',
   'formTierListPageTooltip':
-      'Mantenga pulsado héroe / minis para eliminar de la tier list.',
+      'Mantenga pulsado héroe/mini para eliminar de la tier list.',
 };

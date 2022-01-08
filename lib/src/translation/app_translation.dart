@@ -117,6 +117,11 @@ final Map<String, String> enUS = {
   'formTierListDialogMiddleText':
       "You haven't finished the entire tier list, do you really want to quit?",
   'formTierListPageSave': 'Save tier list',
+  'formTierListDialogInput': 'Enter the name of the tier list',
+  'formTierListDialogButton': 'Save',
+  'formTierListDialogInputEmpty': 'Please enter the name of the tier list',
+  'formTierListDialogInputMaxCharacters':
+      'The tier list name must contain a maximum of 30 characters.',
 };
 
 final Map<String, String> ptBR = {
@@ -132,14 +137,14 @@ final Map<String, String> ptBR = {
   'landingError': 'Ocorreu um erro, por favor tente novamente.',
   'landingUpdate':
       'Há uma nova atualização disponível, por favor atualize seu aplicativo.',
-  'utilsDialogNameInput': 'Digite seu Nome',
+  'utilsDialogNameInput': 'Insira seu Nome',
   'utilsDialogNameInputEmpty': 'Por favor insira seu nome.',
   'utilsDialogNameInputMaxCharacters':
       'O seu nome deve conter no máximo 20 caracteres.',
   'utilsDialogNameButton': 'Continuar',
   'utilsDialogEditNameButton': 'Editar',
   'utilsDialogLanguage': 'Alterar idioma',
-  'utilsDialogNameDeckInput': 'Digite o nome do seu deck',
+  'utilsDialogNameDeckInput': 'Insira o nome do seu deck',
   'utilsDialogNameDeckButton': 'Salvar',
   'utilsDialogNameDeckInputEmpty': 'Por favor insira o nome do seu deck',
   'utilsDialogNameDeckInputMaxCharacters':
@@ -232,6 +237,11 @@ final Map<String, String> ptBR = {
   'formTierListDialogMiddleText':
       'Você não finalizou toda a tier list, deseja realmente sair?',
   'formTierListPageSave': 'Salvar tier list',
+  'formTierListDialogInput': 'Insira o nome da tier list',
+  'formTierListDialogButton': 'Salvar',
+  'formTierListDialogInputEmpty': 'Por favor, insira o nome da tier list',
+  'formTierListDialogInputMaxCharacters':
+      'O nome da tier list deve conter no máximo 30 caracteres.',
 };
 
 final Map<String, String> esES = {
@@ -254,7 +264,7 @@ final Map<String, String> esES = {
   'utilsDialogNameButton': 'Continuar',
   'utilsDialogEditNameButton': 'Editar',
   'utilsDialogLanguage': 'Cambiar idioma',
-  'utilsDialogNameDeckInput': 'Ingresa el nombre de tu mazo',
+  'utilsDialogNameDeckInput': 'Ingresa el nombre de tu baraja',
   'utilsDialogNameDeckButton': 'Guardar',
   'utilsDialogNameDeckInputEmpty': 'Por favor ingrese el nombre de su baraja',
   'utilsDialogNameDeckInputMaxCharacters':
@@ -346,6 +356,11 @@ final Map<String, String> esES = {
   'formTierListDialogTextCancel': 'Cancelar',
   'formTierListDialogTextConfirm': 'Ok',
   'formTierListDialogMiddleText':
-      'No ha terminado toda la tier list, ¿realmente quiere dejar de fumar?',
+      'No has terminado toda la tier list, ¿de verdad quieres dejarlo?',
   'formTierListPageSave': 'Guardar tier list',
+  'formTierListDialogInput': 'Ingresa el nombre de tu tier list',
+  'formTierListDialogButton': 'Guardar',
+  'formTierListDialogInputEmpty': 'Por favor ingrese el nombre de su tier list',
+  'formTierListDialogInputMaxCharacters':
+      'El nombre de la tier list debe contener un máximo de 30 caracteres.',
 };

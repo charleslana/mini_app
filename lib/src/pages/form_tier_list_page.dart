@@ -9,6 +9,7 @@ import 'package:mini_app/src/controllers/form_tier_list_controller.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/tier_list_model.dart';
+import 'package:mini_app/src/utils/utils.dart';
 
 class FormTierListPage extends StatelessWidget {
   const FormTierListPage({Key? key}) : super(key: key);
@@ -18,6 +19,70 @@ class FormTierListPage extends StatelessWidget {
     final LandingController landingController = Get.put(LandingController());
     final FormTierListController formTierListController =
         Get.put(FormTierListController());
+
+    void dialogSaveTierList() {
+      bool value = false;
+
+      Get.defaultDialog<dynamic>(
+        title: '',
+        titleStyle: const TextStyle(fontSize: 0),
+        radius: 10,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: formTierListController.textEditingController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: 'formTierListDialogInput'.tr,
+                hintMaxLines: 1,
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formTierListController.textEditingController.text
+                    .trim()
+                    .isEmpty) {
+                  Utils().snackBar('formTierListDialogInputEmpty'.tr);
+                  return;
+                }
+                if (formTierListController.textEditingController.text
+                        .trim()
+                        .length >
+                    30) {
+                  Utils().snackBar('formTierListDialogInputMaxCharacters'.tr);
+                  return;
+                }
+                if (!Get.isSnackbarOpen) {
+                  formTierListController.saveTierList(
+                      formTierListController.textEditingController.text);
+                  Get.back<dynamic>();
+                  value = true;
+                }
+              },
+              child: Text(
+                'formTierListDialogButton'.tr,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ).then((_) {
+        formTierListController.textEditingController.clear();
+        if (value) {
+          Get.back<dynamic>();
+        }
+        return false;
+      });
+    }
 
     Widget tooltipRemoveMinis() {
       return Padding(
@@ -222,7 +287,13 @@ class FormTierListPage extends StatelessWidget {
                             formTierListController.listMinis.length !=
                                 landingController.appModel.minis.length,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (formTierListController.indexEditTierList !=
+                                null) {
+                              return;
+                            }
+                            dialogSaveTierList();
+                          },
                           child: Text(
                             'formTierListPageSave'.tr,
                             style: const TextStyle(color: Colors.white),

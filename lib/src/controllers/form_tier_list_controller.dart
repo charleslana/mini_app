@@ -5,6 +5,7 @@ import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/tier_list_model.dart';
 
 class FormTierListController extends GetxController {
+  final TextEditingController textEditingController = TextEditingController();
   final ScrollController minisScrollController = ScrollController();
   final ScrollController heroesScrollController = ScrollController();
   final LandingController landingController = Get.find();
@@ -177,4 +178,6 @@ class FormTierListController extends GetxController {
     _removeTierList(index, type);
     listMinis.add(miniModel);
   }
+
+  void saveTierList(String name) {}
 }

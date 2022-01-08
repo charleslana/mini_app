@@ -32,6 +32,7 @@ class TierListRankModel {
     required this.listB,
     required this.listC,
     required this.listD,
+    required this.name,
   });
 
   TierListRankModel.fromJson(Map<String, dynamic> json) {
@@ -65,6 +66,7 @@ class TierListRankModel {
         listD.add(TierListMinisModel.fromJson(v));
       });
     }
+    name = json['name'];
   }
 
   late List<TierListMinisModel> listS = [];
@@ -72,6 +74,7 @@ class TierListRankModel {
   late List<TierListMinisModel> listB = [];
   late List<TierListMinisModel> listC = [];
   late List<TierListMinisModel> listD = [];
+  late String name;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -80,6 +83,7 @@ class TierListRankModel {
     data['listB'] = listB.map((v) => v.toJson()).toList();
     data['listC'] = listC.map((v) => v.toJson()).toList();
     data['listD'] = listD.map((v) => v.toJson()).toList();
+    data['name'] = name;
     return data;
   }
 }

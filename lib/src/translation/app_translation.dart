@@ -106,10 +106,17 @@ final Map<String, String> enUS = {
   'rankBoardTrophiesRequired': 'Trophies required: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'New Tier List',
-  'formTierListPageTitle': 'Create a New Tier List',
+  'formTierListPageCreate': 'Create a New Tier List',
+  'formTierListPageEdit': 'Edit Tier List',
   'formTierListPageSubtitle': 'Move minis to Tier List',
   'formTierListPageEmpty': 'Empty',
   'formTierListPageTooltip': 'Hold on hero/mini to remove from tier list.',
+  'formTierListDialogTitle': 'Alert',
+  'formTierListDialogTextCancel': 'Cancel',
+  'formTierListDialogTextConfirm': 'Ok',
+  'formTierListDialogMiddleText':
+      "You haven't finished the entire tier list, do you really want to quit?",
+  'formTierListPageSave': 'Save tier list',
 };
 
 final Map<String, String> ptBR = {
@@ -213,11 +220,18 @@ final Map<String, String> ptBR = {
   'rankBoardTrophiesRequired': 'Troféus necessários: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'Nova Tier List',
-  'formTierListPageTitle': 'Criar uma Nova Tier List',
+  'formTierListPageCreate': 'Criar uma Nova Tier List',
+  'formTierListPageEdit': 'Editar Tier List',
   'formTierListPageSubtitle': 'Mova os minis até a Tier List',
   'formTierListPageEmpty': 'Vazio',
   'formTierListPageTooltip':
       'Mantenha pressionado no herói/mini para remover da tier list.',
+  'formTierListDialogTitle': 'Alerta',
+  'formTierListDialogTextCancel': 'Cancelar',
+  'formTierListDialogTextConfirm': 'Ok',
+  'formTierListDialogMiddleText':
+      'Você não finalizou toda a tier list, deseja realmente sair?',
+  'formTierListPageSave': 'Salvar tier list',
 };
 
 final Map<String, String> esES = {
@@ -322,9 +336,16 @@ final Map<String, String> esES = {
   'rankBoardTrophiesRequired': 'Trofeos requeridos: @trophies',
   'tierListTitle': 'Tier List',
   'tierListButtonNew': 'Nueva Tier List',
-  'formTierListPageTitle': 'Crear una nueva Tier List',
+  'formTierListPageCreate': 'Crear una nueva Tier List',
+  'formTierListPageEdit': 'Editar Tier List',
   'formTierListPageSubtitle': 'Mover minis a la Tier List',
   'formTierListPageEmpty': 'Vacío',
   'formTierListPageTooltip':
       'Mantenga pulsado héroe/mini para eliminar de la tier list.',
+  'formTierListDialogTitle': 'Alerta',
+  'formTierListDialogTextCancel': 'Cancelar',
+  'formTierListDialogTextConfirm': 'Ok',
+  'formTierListDialogMiddleText':
+      'No ha terminado toda la tier list, ¿realmente quiere dejar de fumar?',
+  'formTierListPageSave': 'Guardar tier list',
 };

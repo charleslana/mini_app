@@ -4,14 +4,6 @@ import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/tier_list_model.dart';
 
-enum TypeList {
-  S,
-  A,
-  B,
-  C,
-  D,
-}
-
 class FormTierListController extends GetxController {
   final ScrollController minisScrollController = ScrollController();
   final ScrollController heroesScrollController = ScrollController();
@@ -25,12 +17,57 @@ class FormTierListController extends GetxController {
   RxList<TierListMinisModel> listB = <TierListMinisModel>[].obs;
   RxList<TierListMinisModel> listC = <TierListMinisModel>[].obs;
   RxList<TierListMinisModel> listD = <TierListMinisModel>[].obs;
+  RxBool isMove = false.obs;
   int? indexEditTierList;
 
   @override
   void onInit() {
     initTierList();
     super.onInit();
+  }
+
+  void _addListA(TierListMinisModel data) {
+    listA.add(data);
+    switch (data.type) {
+      case TypeTierList.hero:
+        listHeroes.removeWhere((element) => element.id == data.index);
+        break;
+      default:
+        listMinis.removeWhere((element) => element.id == data.index);
+    }
+  }
+
+  void _addListB(TierListMinisModel data) {
+    listB.add(data);
+    switch (data.type) {
+      case TypeTierList.hero:
+        listHeroes.removeWhere((element) => element.id == data.index);
+        break;
+      default:
+        listMinis.removeWhere((element) => element.id == data.index);
+    }
+  }
+
+  void _addListC(TierListMinisModel data) {
+    listC.add(data);
+    switch (data.type) {
+      case TypeTierList.hero:
+        listHeroes.removeWhere((element) => element.id == data.index);
+        break;
+      default:
+        listMinis.removeWhere((element) => element.id == data.index);
+    }
+  }
+
+  void _addListD(TierListMinisModel data) {
+    listD.add(data);
+    switch (data.type) {
+      case TypeTierList.hero:
+        listHeroes.removeWhere((element) => element.id == data.index);
+        break;
+      default:
+        listMinis.removeWhere((element) => element.id == data.index);
+    }
   }
 
   void _addListS(TierListMinisModel data) {
@@ -40,8 +77,27 @@ class FormTierListController extends GetxController {
         listHeroes.removeWhere((element) => element.id == data.index);
         break;
       default:
+        listMinis.removeWhere((element) => element.id == data.index);
     }
-    selectedHero.value = 0;
+  }
+
+  void _removeTierList(int index, TypeList type) {
+    switch (type) {
+      case TypeList.S:
+        listS.removeAt(index);
+        break;
+      case TypeList.A:
+        listA.removeAt(index);
+        break;
+      case TypeList.B:
+        listB.removeAt(index);
+        break;
+      case TypeList.C:
+        listC.removeAt(index);
+        break;
+      default:
+        listD.removeAt(index);
+    }
   }
 
   void addTierList(TierListMinisModel data, TypeList type) {
@@ -49,7 +105,17 @@ class FormTierListController extends GetxController {
       case TypeList.S:
         _addListS(data);
         break;
+      case TypeList.A:
+        _addListA(data);
+        break;
+      case TypeList.B:
+        _addListB(data);
+        break;
+      case TypeList.C:
+        _addListC(data);
+        break;
       default:
+        _addListD(data);
     }
   }
 
@@ -103,12 +169,12 @@ class FormTierListController extends GetxController {
   }
 
   void removeTierListHero(int index, HeroModel heroModel, TypeList type) {
-    switch (type) {
-      case TypeList.S:
-        listS.removeAt(index);
-        break;
-      default:
-    }
+    _removeTierList(index, type);
     listHeroes.add(heroModel);
+  }
+
+  void removeTierListMini(int index, MiniModel miniModel, TypeList type) {
+    _removeTierList(index, type);
+    listMinis.add(miniModel);
   }
 }

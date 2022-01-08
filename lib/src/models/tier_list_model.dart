@@ -1,5 +1,7 @@
 enum TypeTierList { mini, hero }
 
+enum TypeList { S, A, B, C, D }
+
 class TierListModel {
   TierListModel({
     required this.tierList,

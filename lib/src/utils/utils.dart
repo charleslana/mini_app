@@ -96,29 +96,18 @@ class Utils {
     }
 
     Get.defaultDialog<dynamic>(
-      title: '',
-      titleStyle: const TextStyle(fontSize: 0),
+      title: 'utilsDialogLanguage'.tr,
       radius: 10,
       content: Obx(() {
         languageController.selectedIndex.value;
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'utilsDialogLanguage'.tr,
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 5),
-            Center(
-              child: Wrap(
-                runSpacing: 10,
-                spacing: 10,
-                alignment: WrapAlignment.center,
-                children: chips,
-              ),
-            ),
-          ],
+        return Center(
+          child: Wrap(
+            runSpacing: 10,
+            spacing: 10,
+            alignment: WrapAlignment.center,
+            children: chips,
+          ),
         );
       }),
     );

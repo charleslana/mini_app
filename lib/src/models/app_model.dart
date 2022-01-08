@@ -7,6 +7,7 @@ class AppModel {
     required this.boards,
     required this.patch,
     required this.rank,
+    required this.news,
   });
 
   AppModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +43,12 @@ class AppModel {
         rank.add(RankModel.fromJson(v));
       });
     }
+    if (json['news'] != null) {
+      news = <NewsModel>[];
+      json['news'].forEach((dynamic v) {
+        news.add(NewsModel.fromJson(v));
+      });
+    }
   }
 
   late String version;
@@ -51,6 +58,7 @@ class AppModel {
   late List<BoardsModel> boards;
   late List<PatchModel> patch;
   late List<RankModel> rank;
+  late List<NewsModel> news;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -61,6 +69,7 @@ class AppModel {
     data['boards'] = boards.map((v) => v.toJson()).toList();
     data['patch'] = patch.map((v) => v.toJson()).toList();
     data['rank'] = rank.map((v) => v.toJson()).toList();
+    data['news'] = news.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -463,6 +472,32 @@ class RankModel {
     data['id'] = id;
     data['name'] = name.toJson();
     data['trophies'] = trophies;
+    return data;
+  }
+}
+
+class NewsModel {
+  NewsModel({
+    required this.id,
+    required this.date,
+    required this.description,
+  });
+
+  NewsModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    date = json['date'];
+    description = TranslationModel.fromJson(json['description']);
+  }
+
+  late int id;
+  late String date;
+  late TranslationModel description;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['date'] = date;
+    data['description'] = description.toJson();
     return data;
   }
 }

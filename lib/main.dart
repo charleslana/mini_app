@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mini_app/src/constants/theme_constants.dart';
 import 'package:mini_app/src/routes/app_route_generator.dart';
 import 'package:mini_app/src/services/language_service.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
     systemNavigationBarColor: Colors.black,
     statusBarColor: Colors.black,
   ));
+  await initializeDateFormatting();
   runApp(const MyApp());
 }
 

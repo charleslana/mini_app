@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:mini_app/src/components/custom_bar.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
@@ -14,7 +13,6 @@ class Patch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LandingController landingController = Get.find();
-    initializeDateFormatting();
     DateFormat formatter;
     switch ('languageCode'.tr) {
       case 'en':

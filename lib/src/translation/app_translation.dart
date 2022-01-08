@@ -122,6 +122,12 @@ final Map<String, String> enUS = {
   'formTierListDialogInputEmpty': 'Please enter the name of the tier list',
   'formTierListDialogInputMaxCharacters':
       'The tier list name must contain a maximum of 30 characters.',
+  'tierListPageNotFound': 'No tier list found.',
+  'tierListPageDialogTitle': 'Remove',
+  'tierListPageDialogMiddleText':
+      'Are you sure you want to remove the tier list?',
+  'tierListPageDialogTextConfirm': 'Ok',
+  'tierListPageDialogTextCancel': 'Cancel',
 };
 
 final Map<String, String> ptBR = {
@@ -242,6 +248,11 @@ final Map<String, String> ptBR = {
   'formTierListDialogInputEmpty': 'Por favor, insira o nome da tier list',
   'formTierListDialogInputMaxCharacters':
       'O nome da tier list deve conter no máximo 30 caracteres.',
+  'tierListPageNotFound': 'Nenhuma tier list encontrada.',
+  'tierListPageDialogTitle': 'Remover',
+  'tierListPageDialogMiddleText': 'Tem certeza que deseja remover a tier list?',
+  'tierListPageDialogTextConfirm': 'Ok',
+  'tierListPageDialogTextCancel': 'Cancelar',
 };
 
 final Map<String, String> esES = {
@@ -363,4 +374,10 @@ final Map<String, String> esES = {
   'formTierListDialogInputEmpty': 'Por favor ingrese el nombre de su tier list',
   'formTierListDialogInputMaxCharacters':
       'El nombre de la tier list debe contener un máximo de 30 caracteres.',
+  'tierListPageNotFound': 'No se encontró ningún tier list.',
+  'tierListPageDialogTitle': 'Eliminar',
+  'tierListPageDialogMiddleText':
+      '¿Está seguro de que quieres eliminar la tier list?',
+  'tierListPageDialogTextConfirm': 'Ok',
+  'tierListPageDialogTextCancel': 'Cancelar',
 };

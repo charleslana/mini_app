@@ -62,8 +62,7 @@ class FormTierListPage extends StatelessWidget {
                   return;
                 }
                 if (!Get.isSnackbarOpen) {
-                  formTierListController.saveTierList(
-                      formTierListController.textEditingController.text);
+                  formTierListController.saveTierList();
                   Get.back<dynamic>();
                   value = true;
                 }

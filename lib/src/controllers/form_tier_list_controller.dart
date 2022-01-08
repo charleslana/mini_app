@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mini_app/src/controllers/landing_controller.dart';
 import 'package:mini_app/src/models/app_model.dart';
 import 'package:mini_app/src/models/tier_list_model.dart';
+import 'package:mini_app/src/services/tier_list_service.dart';
 
 class FormTierListController extends GetxController {
   final TextEditingController textEditingController = TextEditingController();
@@ -18,11 +19,14 @@ class FormTierListController extends GetxController {
   RxList<TierListMinisModel> listB = <TierListMinisModel>[].obs;
   RxList<TierListMinisModel> listC = <TierListMinisModel>[].obs;
   RxList<TierListMinisModel> listD = <TierListMinisModel>[].obs;
+  RxList<TierListRankModel> tierListRankModel = <TierListRankModel>[].obs;
   RxBool isMove = false.obs;
   int? indexEditTierList;
+  TierListService tierListService = TierListService();
 
   @override
   void onInit() {
+    fecthTierList();
     initTierList();
     super.onInit();
   }
@@ -120,6 +124,11 @@ class FormTierListController extends GetxController {
     }
   }
 
+  void fecthTierList() {
+    final TierListModel loadTierList = tierListService.loadFromBox();
+    tierListRankModel.addAll(loadTierList.tierList);
+  }
+
   void initTierList() {
     if (indexEditTierList == null) {
       listHeroes.addAll(landingController.appModel.heroes);
@@ -169,6 +178,11 @@ class FormTierListController extends GetxController {
     }
   }
 
+  void removeTierList(int index) {
+    tierListRankModel.removeAt(index);
+    saveBox();
+  }
+
   void removeTierListHero(int index, HeroModel heroModel, TypeList type) {
     _removeTierList(index, type);
     listHeroes.add(heroModel);
@@ -179,5 +193,19 @@ class FormTierListController extends GetxController {
     listMinis.add(miniModel);
   }
 
-  void saveTierList(String name) {}
+  void saveTierList() {
+    tierListRankModel.add(TierListRankModel(
+      listS: listS,
+      listA: listA,
+      listB: listB,
+      listC: listC,
+      listD: listD,
+      name: textEditingController.text.trim(),
+    ));
+    saveBox();
+  }
+
+  void saveBox() {
+    tierListService.saveToBox(TierListModel(tierList: tierListRankModel));
+  }
 }

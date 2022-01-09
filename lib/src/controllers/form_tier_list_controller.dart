@@ -105,6 +105,51 @@ class FormTierListController extends GetxController {
     }
   }
 
+  void _removeTierListS() {
+    for (final element in tierListRankModel[indexEditTierList!].listS) {
+      listHeroes.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.hero);
+      listMinis.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.mini);
+    }
+  }
+
+  void _removeTierListA() {
+    for (final element in tierListRankModel[indexEditTierList!].listA) {
+      listHeroes.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.hero);
+      listMinis.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.mini);
+    }
+  }
+
+  void _removeTierListB() {
+    for (final element in tierListRankModel[indexEditTierList!].listB) {
+      listHeroes.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.hero);
+      listMinis.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.mini);
+    }
+  }
+
+  void _removeTierListC() {
+    for (final element in tierListRankModel[indexEditTierList!].listC) {
+      listHeroes.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.hero);
+      listMinis.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.mini);
+    }
+  }
+
+  void _removeTierListD() {
+    for (final element in tierListRankModel[indexEditTierList!].listD) {
+      listHeroes.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.hero);
+      listMinis.removeWhere((list) =>
+          list.id == element.index && element.type == TypeTierList.mini);
+    }
+  }
+
   void addTierList(TierListMinisModel data, TypeList type) {
     switch (type) {
       case TypeList.S:
@@ -124,15 +169,48 @@ class FormTierListController extends GetxController {
     }
   }
 
+  void clearAllList() {
+    listS.clear();
+    listA.clear();
+    listB.clear();
+    listC.clear();
+    listD.clear();
+  }
+
+  void clearTierList() {
+    listHeroes
+      ..clear()
+      ..addAll(landingController.appModel.heroes);
+    listMinis
+      ..clear()
+      ..addAll(landingController.appModel.minis);
+    clearAllList();
+  }
+
+  void editTierList() {
+    listS.addAll(tierListRankModel[indexEditTierList!].listS);
+    listA.addAll(tierListRankModel[indexEditTierList!].listA);
+    listB.addAll(tierListRankModel[indexEditTierList!].listB);
+    listC.addAll(tierListRankModel[indexEditTierList!].listC);
+    listD.addAll(tierListRankModel[indexEditTierList!].listD);
+    _removeTierListS();
+    _removeTierListA();
+    _removeTierListB();
+    _removeTierListC();
+    _removeTierListD();
+  }
+
   void fecthTierList() {
     final TierListModel loadTierList = tierListService.loadFromBox();
-    tierListRankModel.addAll(loadTierList.tierList);
+    tierListRankModel
+      ..clear()
+      ..addAll(loadTierList.tierList);
   }
 
   void initTierList() {
-    if (indexEditTierList == null) {
-      listHeroes.addAll(landingController.appModel.heroes);
-      listMinis.addAll(landingController.appModel.minis);
+    clearTierList();
+    if (indexEditTierList != null) {
+      editTierList();
     }
   }
 
@@ -200,12 +278,25 @@ class FormTierListController extends GetxController {
       listB: listB,
       listC: listC,
       listD: listD,
-      name: textEditingController.text.trim(),
+      name: textEditingController.text.trim().capitalize!,
     ));
     saveBox();
   }
 
   void saveBox() {
     tierListService.saveToBox(TierListModel(tierList: tierListRankModel));
+    fecthTierList();
+  }
+
+  void updateTierList() {
+    tierListRankModel[indexEditTierList!] = TierListRankModel(
+      listS: listS,
+      listA: listA,
+      listB: listB,
+      listC: listC,
+      listD: listD,
+      name: textEditingController.text.trim().capitalize!,
+    );
+    saveBox();
   }
 }

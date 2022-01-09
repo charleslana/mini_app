@@ -20,6 +20,73 @@ class FormTierListPage extends StatelessWidget {
     final FormTierListController formTierListController =
         Get.put(FormTierListController());
 
+    void dialogEditTierList() {
+      bool value = false;
+
+      Get.defaultDialog<dynamic>(
+        title: '',
+        titleStyle: const TextStyle(fontSize: 0),
+        radius: 10,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: formTierListController.textEditingController
+                ..text = formTierListController
+                    .tierListRankModel[
+                        formTierListController.indexEditTierList!]
+                    .name,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: 'formTierListDialogInput'.tr,
+                hintMaxLines: 1,
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formTierListController.textEditingController.text
+                    .trim()
+                    .isEmpty) {
+                  Utils().snackBar('formTierListDialogInputEmpty'.tr);
+                  return;
+                }
+                if (formTierListController.textEditingController.text
+                        .trim()
+                        .length >
+                    30) {
+                  Utils().snackBar('formTierListDialogInputMaxCharacters'.tr);
+                  return;
+                }
+                if (!Get.isSnackbarOpen) {
+                  formTierListController.updateTierList();
+                  Get.back<dynamic>();
+                  value = true;
+                }
+              },
+              child: Text(
+                'formTierListDialogButton'.tr,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ).then((_) {
+        formTierListController.textEditingController.clear();
+        if (value) {
+          Get.back<dynamic>();
+        }
+        return false;
+      });
+    }
+
     void dialogSaveTierList() {
       bool value = false;
 
@@ -289,6 +356,7 @@ class FormTierListPage extends StatelessWidget {
                           onPressed: () {
                             if (formTierListController.indexEditTierList !=
                                 null) {
+                              dialogEditTierList();
                               return;
                             }
                             dialogSaveTierList();

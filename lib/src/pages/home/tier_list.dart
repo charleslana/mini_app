@@ -68,7 +68,9 @@ class TierList extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                formTierListController.indexEditTierList = null;
+                formTierListController
+                  ..indexEditTierList = null
+                  ..initTierList();
                 Get.toNamed<dynamic>(AppRoutes.formTierList);
               },
               child: Text(
@@ -102,7 +104,9 @@ class TierList extends StatelessWidget {
                           child: FadeInAnimation(
                             child: GestureDetector(
                               onTap: () => {
-                                formTierListController.indexEditTierList = i,
+                                formTierListController
+                                  ..indexEditTierList = i
+                                  ..initTierList(),
                                 Get.toNamed<dynamic>(AppRoutes.formTierList),
                               },
                               child: Card(

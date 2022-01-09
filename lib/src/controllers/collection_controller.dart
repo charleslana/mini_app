@@ -31,6 +31,21 @@ class CollectionController extends GetxController
     super.onClose();
   }
 
+  void _handleTabSelection() {
+    if (tabController.indexIsChanging) {
+      switch (tabController.index) {
+        case 0:
+          scrollToUp(heroesScrollController);
+          clearTabHero();
+          break;
+        case 1:
+          scrollToUp(minisScrollController);
+          clearTabMinis();
+          break;
+      }
+    }
+  }
+
   void clearTabHero() {
     if (landingController.filterHeroList.length !=
         landingController.appModel.heroes.length) {
@@ -49,21 +64,6 @@ class CollectionController extends GetxController
       landingController.filterMiniList
         ..clear()
         ..addAll(landingController.appModel.minis);
-    }
-  }
-
-  void _handleTabSelection() {
-    if (tabController.indexIsChanging) {
-      switch (tabController.index) {
-        case 0:
-          scrollToUp(heroesScrollController);
-          clearTabHero();
-          break;
-        case 1:
-          scrollToUp(minisScrollController);
-          clearTabMinis();
-          break;
-      }
     }
   }
 

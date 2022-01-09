@@ -271,6 +271,11 @@ class FormTierListController extends GetxController {
     listMinis.add(miniModel);
   }
 
+  void saveBox() {
+    tierListService.saveToBox(TierListModel(tierList: tierListRankModel));
+    fecthTierList();
+  }
+
   void saveTierList() {
     tierListRankModel.add(TierListRankModel(
       listS: listS,
@@ -281,11 +286,6 @@ class FormTierListController extends GetxController {
       name: textEditingController.text.trim().capitalize!,
     ));
     saveBox();
-  }
-
-  void saveBox() {
-    tierListService.saveToBox(TierListModel(tierList: tierListRankModel));
-    fecthTierList();
   }
 
   void updateTierList() {
